@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="../vendor/kaoyan-408-networks/assets/katex/katex.min.css">
   <script defer src="../vendor/kaoyan-408-networks/assets/katex/katex.min.js"></script>
   <script defer src="../vendor/kaoyan-408-networks/assets/katex/contrib/auto-render.min.js"></script>
+  <script defer src="state.js"></script>
   <script defer src="app.js"></script>
 </head>
 <body>
@@ -16,11 +17,12 @@
     <a class="brand" href="./index.html"><span class="brand-mark">CN</span><span>计算机网络练习站<small>课程笔记 × 王道题库</small></span></a>
     <div class="top-actions"><button id="btn-export" type="button">导出记录</button><label class="import">导入记录<input id="file-import" type="file" accept="application/json,.json"></label></div>
   </header>
+  <div id="storage-warning" class="storage-warning" hidden></div>
   <div class="shell">
     <aside class="sidebar">
       <div class="side-label">课程目录</div>
       <nav id="chapters" aria-label="章节"></nav>
-      <div class="side-note">已学状态可自行调整。题目来自第三方个人整理，原答案尚未在本项目逐题复核。</div>
+      <div class="side-note">已学状态可自行调整。第 1 章已逐题审核并标注争议；其余章节暂按来源答案判分。</div>
     </aside>
     <main>
       <section class="hero">
@@ -28,7 +30,7 @@
         <div class="hero-stat"><strong id="stat-total">—</strong><span>来源题块</span><small id="stat-progress">读取中</small></div>
       </section>
       <section class="toolbar" aria-label="题目筛选">
-        <div class="filter-row"><label>范围<select id="filter-status"><option value="all">全部题目</option><option value="wrong">错题回顾</option><option value="unanswered">未作答</option><option value="starred">已收藏</option></select></label><label>题型<select id="filter-type"><option value="all">全部题型</option><option value="auto">单选自动判分</option><option value="self">综合／特殊题自评</option></select></label><label class="search">搜索题干或题号<input id="search" type="search" placeholder="例如 TCP、综合题 2"></label></div>
+        <div class="filter-row"><label>范围<select id="filter-status"><option value="all">全部题目</option><option value="wrong">错题回顾</option><option value="unanswered">未作答</option><option value="starred">已收藏</option><option value="disputed">待核对</option></select></label><label>题型<select id="filter-type"><option value="all">全部题型</option><option value="auto">单选自动判分</option><option value="self">综合／特殊题自评</option></select></label><label>来源小节<select id="filter-section"><option value="all">全部小节</option></select></label><label class="search">搜索题干或题号<input id="search" type="search" placeholder="例如 TCP、综合题 2"></label></div>
         <div class="toolbar-bottom"><div id="scope-info" class="scope-info"></div><div class="toolbar-buttons"><button id="btn-study" type="button">标为已学</button><a id="note-link" href="#" target="_blank" rel="noopener">打开 Obsidian 笔记 ↗</a></div></div>
       </section>
       <section class="practice-layout">

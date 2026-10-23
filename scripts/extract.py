@@ -10,6 +10,7 @@ from bs4 import BeautifulSoup
 ROOT = Path(__file__).resolve().parents[1]
 VENDOR = ROOT / "vendor" / "kaoyan-408-networks"
 OUT = ROOT / "data"
+REGISTRY = OUT / "source-registry.json"
 SOURCE_COMMIT = "4efa1e80be9d44b9485c6b2420fc26be01c0deca"
 NOTES = Path(r"D:\desk\Obsidian\1大三秋冬\CN")
 
@@ -25,6 +26,44 @@ def html_of(node, chapter):
         if tag.name == "img" and tag.get("src", "").startswith("../assets/"):
             tag["src"] = "../vendor/kaoyan-408-networks/" + tag["src"][3:]
     return "".join(str(x) for x in fragment.contents)
+
+
+def assign_ids(items, old_records):
+    """Match every old item by unique content first; reject unreviewed changes/removals."""
+    old_by_hash = {}
+    new_by_hash = {}
+    for r in old_records:
+        old_by_hash.setdefault(r["hash"], []).append(r)
+    for q in items:
+        new_by_hash.setdefault(q["hash"], []).append(q)
+    if len({r["id"] for r in old_records}) != len(old_records):
+        raise ValueError("duplicate registry IDs require manual repair")
+    if any(len(group) != 1 for group in old_by_hash.values()) or any(len(group) != 1 for group in new_by_hash.values()):
+        raise ValueError("duplicate content requires manual ID mapping")
+    old_ids = {r["id"] for r in old_records}
+    matched_ids = set()
+    for q in items:
+        previous = old_by_hash.get(q["hash"], [])
+        if previous:
+            if len(previous) != 1 or len(new_by_hash[q["hash"]]) != 1:
+                raise ValueError(f"duplicate content requires manual ID mapping: {q['sourcePath']} #{q['sourceOrdinal']}")
+            q["id"] = previous[0]["id"]
+            matched_ids.add(q["id"])
+    missing = old_ids - matched_ids
+    if missing:
+        raise ValueError(f"source changed or old questions disappeared; review IDs before rebuild: {sorted(missing)[:8]}")
+    next_number = {}
+    for r in old_records:
+        m = re.fullmatch(r"cn-(\d+)-(\d+)", r["id"])
+        if m:
+            next_number[int(m.group(1))] = max(next_number.get(int(m.group(1)), 0), int(m.group(2)))
+    for q in items:
+        if q.get("id"):
+            continue
+        ch = q["sourceChapter"]
+        next_number[ch] = next_number.get(ch, 0) + 1
+        q["id"] = f"cn-{ch}-{next_number[ch]:03d}"
+    return [{"id": q["id"], "hash": q["hash"], "sourcePath": q["sourcePath"], "sourceOrdinal": q["sourceOrdinal"]} for q in items]
 
 
 def main():
@@ -62,7 +101,6 @@ def main():
             section_match = re.search(rf"\b{chapter}\.(\d+)\b", source_type.get_text(" ", strip=True) if source_type else "") or re.search(rf"\b{chapter}\.(\d+)\b", heading)
             section = f"{chapter}.{section_match.group(1)}" if section_match else f"{chapter}.?"
             questions.append({
-                "id": f"cn-{chapter}-{ordinal:03d}",
                 "sourceChapter": chapter,
                 "sourceSection": section,
                 "sourceHeading": heading,
@@ -78,6 +116,9 @@ def main():
                 "grading": "auto" if auto else "self",
                 "noteChapter": chapter,
             })
+    old_registry = json.loads(REGISTRY.read_text(encoding="utf-8")) if REGISTRY.exists() else []
+    new_registry = assign_ids(questions, old_registry)
+    questions = [{"id": q["id"], **{key: value for key, value in q.items() if key != "id"}} for q in questions]
     note_index = []
     for chapter in range(1, 8):
         paths = list(NOTES.glob(f"{chapter}-*.md"))
@@ -89,6 +130,7 @@ def main():
         note_index.append({"chapter": chapter, "name": p.stem, "path": str(p), "sha256": hashlib.sha256(raw).hexdigest(), "headings": titles})
     OUT.mkdir(exist_ok=True)
     (OUT / "questions.json").write_text(json.dumps(questions, ensure_ascii=False, indent=2), encoding="utf-8")
+    REGISTRY.write_text(json.dumps(new_registry, ensure_ascii=False, indent=2), encoding="utf-8")
     (OUT / "notes.json").write_text(json.dumps(note_index, ensure_ascii=False, indent=2), encoding="utf-8")
     all_hashes = {p.relative_to(VENDOR).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
                   for p in sorted(VENDOR.rglob("*")) if p.is_file()}
