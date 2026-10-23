@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>CN 练习站</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../vendor/kaoyan-408-networks/assets/katex/katex.min.css">
+  <script defer src="../vendor/kaoyan-408-networks/assets/katex/katex.min.js"></script>
+  <script defer src="../vendor/kaoyan-408-networks/assets/katex/contrib/auto-render.min.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./index.html"><span class="brand-mark">CN</span><span>计算机网络练习站<small>课程笔记 × 王道题库</small></span></a>
+    <div class="top-actions"><button id="btn-export" type="button">导出记录</button><label class="import">导入记录<input id="file-import" type="file" accept="application/json,.json"></label></div>
+  </header>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="side-label">课程目录</div>
+      <nav id="chapters" aria-label="章节"></nav>
+      <div class="side-note">已学状态可自行调整。题目来自第三方个人整理，原答案尚未在本项目逐题复核。</div>
+    </aside>
+    <main>
+      <section class="hero">
+        <div><div class="eyebrow">本地学习工具 / 408 题库</div><h1 id="page-title">计算机网络，按章练习</h1><p id="page-description">选择章节开始。来源章节和 Obsidian 笔记分别标记，答题记录只保存在此浏览器。</p></div>
+        <div class="hero-stat"><strong id="stat-total">—</strong><span>来源题块</span><small id="stat-progress">读取中</small></div>
+      </section>
+      <section class="toolbar" aria-label="题目筛选">
+        <div class="filter-row"><label>范围<select id="filter-status"><option value="all">全部题目</option><option value="wrong">错题回顾</option><option value="unanswered">未作答</option><option value="starred">已收藏</option></select></label><label>题型<select id="filter-type"><option value="all">全部题型</option><option value="auto">单选自动判分</option><option value="self">综合／特殊题自评</option></select></label><label class="search">搜索题干或题号<input id="search" type="search" placeholder="例如 TCP、综合题 2"></label></div>
+        <div class="toolbar-bottom"><div id="scope-info" class="scope-info"></div><div class="toolbar-buttons"><button id="btn-study" type="button">标为已学</button><a id="note-link" href="#" target="_blank" rel="noopener">打开 Obsidian 笔记 ↗</a></div></div>
+      </section>
+      <section class="practice-layout">
+        <div class="question-list"><div class="list-heading"><strong>题目</strong><span id="list-count"></span></div><div id="question-list" role="list"></div></div>
+        <article class="question-card" id="question-card" aria-live="polite"><div class="empty">选择一道题开始练习。</div></article>
+      </section>
+      <footer>本地个人学习使用 · <a href="../docs/来源与边界.md">来源与边界</a> · 记录可导出备份</footer>
+    </main>
+  </div>
+</body>
+</html>
