@@ -10,7 +10,8 @@ data = json.loads((ROOT / "data/questions.json").read_text(encoding="utf-8"))
 manifest = json.loads((ROOT / "data/source-manifest.json").read_text(encoding="utf-8"))
 registry = json.loads((ROOT / "data/source-registry.json").read_text(encoding="utf-8"))
 mappings = json.loads((ROOT / "data/mappings.json").read_text(encoding="utf-8"))
-reviews = json.loads((ROOT / "data/reviews/ch1.json").read_text(encoding="utf-8"))
+reviews = json.loads((ROOT / "data/reviews/all.json").read_text(encoding="utf-8"))
+baseline = json.loads((ROOT / 'data/reviews/baseline.json').read_text(encoding='utf-8'))
 actual_files = {p.relative_to(VENDOR).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
                 for p in VENDOR.rglob("*") if p.is_file()}
 assert actual_files == manifest["files"], "source snapshot changed"
@@ -18,7 +19,11 @@ assert len(data) == manifest["count"] == 641
 assert len({q["id"] for q in data}) == len(data), "duplicate IDs"
 assert {r["id"]: r["hash"] for r in registry} == {q["id"]: q["hash"] for q in data}, "registry mismatch"
 assert {m["questionId"]: m["sourceContentHash"] for m in mappings} == {q["id"]: q["hash"] for q in data}, "mapping mismatch"
-assert {r["questionId"]: r["sourceContentHash"] for r in reviews} == {q["id"]: q["hash"] for q in data if q["sourceChapter"] == 1}, "review coverage or hash mismatch"
+assert len(reviews) == len({r['questionId'] for r in reviews}) == len(data), 'review duplicates or missing records'
+assert {r["questionId"]: r["sourceContentHash"] for r in reviews} == baseline == {q["id"]: q["hash"] for q in data}, "review coverage or hash mismatch"
+assert all(r['status'] in ('verified','qualified','disputed') and r['conclusion'] and r['noteHeading'] for r in reviews), 'incomplete review'
+for ch in range(1,7):
+    assert json.loads((ROOT / f'data/reviews/ch{ch}.json').read_text(encoding='utf-8')) == [r for r in reviews if r['noteChapter']==ch], 'chapter reviews differ from combined review'
 assert all(r["status"] != "disputed" or r["scoring"] == "self" for r in reviews), "disputed item auto-scored"
 offset = 0
 for chapter in range(1, 7):

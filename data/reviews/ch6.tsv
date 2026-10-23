@@ -1,0 +1,79 @@
+# id|status|noteHeading|scoring|independent conclusion or qualification
+cn-6-001|qualified|应用进程通信方式|auto|A按请求方角色定义成立；客户端通常是软件进程，来源“既不是软件”错误，应说角色不由硬件类别决定。
+cn-6-002|verified|应用进程通信方式|auto|题设请求方与专门响应服务器的模式是C/S，A成立。
+cn-6-003|qualified|应用进程通信方式|auto|IV否认建连后服务器主动推送错误，C是传统模型答案；II只是典型职责划分，浏览器内容也可本地生成，III不能作为通用断言。
+cn-6-004|verified|应用进程通信方式|auto|典型客户端面向用户、服务器处理服务任务，D颠倒职责。
+cn-6-005|verified|应用进程通信方式|auto|P2P通常是底层互联网之上的逻辑覆盖网，不另建并行物理网，C错误。
+cn-6-006|qualified|应用进程通信方式|auto|严格纯C/S业务交互经服务器，B错误；混合架构也可让客户端直连，不能理解为操作系统禁止客户彼此通信。题干“多用户”含来源编码坏字。
+cn-6-007|verified|域名系统|auto|域名与IP、MAC、主机都非一一映射，D成立。
+cn-6-008|verified|域名系统|auto|主机可按IP直接提供服务，不强制域名，A错误。
+cn-6-009|verified|域名系统|auto|解析器与域名服务器按请求响应的C/S工作，A成立。
+cn-6-010|verified|域名系统|auto|内外IP翻译是NAT职责，不是DNS组成，D成立。
+cn-6-011|qualified|域名解析过程|auto|普通stub使用已配置递归解析器，只需其地址，C成立；本地域名解析器不必是域名树中的“父子节点”。
+cn-6-012|verified|域名解析过程|auto|递归服务由最初被请求的服务器向客户端返回结果，A成立。
+cn-6-013|verified|域名解析过程|auto|根只给referral，由本地解析器继续查，即迭代，B成立。
+cn-6-014|qualified|域名解析过程|auto|常规stub首先查配置的本地DNS，A成立；若有缓存可不发查询，手工指定权威或自带递归器也可不同。
+cn-6-015|qualified|域名服务器|auto|权威服务器保存其区的RR并能回答相应映射，C成立；并非每台主机必须在DNS注册，也非每个域名必有A/AAAA记录。
+cn-6-016|qualified|域名解析过程|auto|无缓存且需逐级委派的教材场景，主机1条、递归器多条，B成立；查询数受实际委派层次影响。
+cn-6-017|qualified|域名解析过程|auto|若每一层都接受递归请求，各自只递归给下一层一次，A成立；真实根服务器通常不提供递归服务。
+cn-6-018|qualified|域名解析过程|auto|只计根/com/xyz.com/abc.xyz.com且无别名、额外委派和失败重试时为0至4，C成立；真实DNS查询数无此通用最多上限。
+cn-6-019|disputed|超文本传输协议|self|DNS可用UDP，B成立；现代HTTP/3经QUIC使用UDP，因此D也可使用传输层UDP。题面未限定HTTP/1.x或HTTP/2，单选不唯一。
+cn-6-020|qualified|域名解析过程|auto|已检查图中本地DNS与三层外部DNS；无既有TCP连接且只考虑教材DNS路径时，2RTT=20ms到5RTT=50ms成立。既有连接/缓存页面等会改变最短值。
+cn-6-021|verified|文件传输协议|auto|FTP表示参数支持类型与格式控制，C成立。
+cn-6-022|qualified|文件传输协议|auto|C错误地固定客户端控制端口20，控制服务端默认21；解析数据端20只适用于传统主动模式。
+cn-6-023|verified|文件传输协议|auto|FTP控制与文件数据分用不同TCP连接，带外是此逻辑连接意义，C成立。
+cn-6-024|qualified|文件传输协议|auto|普通FTP会话先控制连接、传输结束先关数据再关控制，C成立；异常退出或流模式以外的数据连接复用不在题设简化模型。
+cn-6-025|qualified|文件传输协议|auto|首先建立服务端21的控制连接，D成立；后续数据20仅限主动模式，控制本身也是TCP传输连接。
+cn-6-026|verified|文件传输协议|auto|FTP控制服务默认监听21，D成立。
+cn-6-027|verified|文件传输协议|auto|控制监听21而非20，C错误；文件传送时控制/数据两连接并存。
+cn-6-028|qualified|文件传输协议|auto|LIST结果走数据连接，主动模式服务端源端口20对应B；被动模式数据端口由协商决定，不能无模式限定固定20。
+cn-6-029|qualified|文件传输协议|auto|客户端数据端口并不固定20，D错误；解析仅描述PORT主动模式，PASV建立方向不同。
+cn-6-030|verified|文件传输协议|auto|发送封装顺序应用数据→TCP段→IP报文→链路帧→比特，B成立。
+cn-6-031|qualified|文件传输协议|auto|传统文本转换用ASCII、二进制文件用Image/Binary，A成立；UTF-8等文本为逐字节保真也常用二进制，不是所有文本都应ASCII转换。
+cn-6-032|qualified|域名系统|auto|传统FTP/TCP、普通DNS查询/UDP、DHCP/UDP对应A；DNS也必须支持TCP，不能解释为只能UDP。
+cn-6-033|verified|文件传输协议|auto|FTP命令经TCP控制连接，A成立。
+cn-6-034|qualified|文件传输协议|auto|C把客户端端口固定20错误；每次关闭数据连接适用于常见stream mode，FTP还存在其他传输模式与保持连接的情况。
+cn-6-035|qualified|电子邮件|auto|邮箱通常为local-part@domain，对应D；domain不必是实际收件主机名，MX可指向另一主机，也有地址字面量语法。
+cn-6-036|verified|电子邮件|auto|SMTP与POP3都使用TCP，A成立；来源C/D选项重复不影响唯一正确A。
+cn-6-037|qualified|电子邮件|auto|服务器间SMTP默认25，B成立；邮件提交也常用587或隐式TLS465，不应混为所有SMTP端口必须25。
+cn-6-038|qualified|电子邮件|auto|浏览器Web邮件接口使用HTTP语义，A成立；真实Gmail用HTTPS，不能将HTTP理解为明文链路。
+cn-6-039|qualified|常用的邮件读取协议|auto|按POP3收取、SMTP发送的配置模型，POP3服务器地址错可导致只能发不能收，A成立；IMAP/Webmail账户不一定使用POP3。
+cn-6-040|verified|常用的邮件读取协议|auto|SMTP是推送/转递而非用户邮箱拉取协议，C成立，用户读取可用POP3/IMAP或Web接口。
+cn-6-041|verified|电子邮件|auto|To和Subject可由用户填写，不是都由系统自动生成，B错误。
+cn-6-042|verified|电子邮件|auto|已检查UA→发信服务器→收信服务器→UA，SMTP/SMTP/POP3是可用组合D。
+cn-6-043|qualified|电子邮件|auto|按未启用ESMTP扩展的7bit基础SMTP，I/II/III对应A；8BITMIME/SMTPUTF8扩展允许更广内容，I不适用于全部现代SMTP。
+cn-6-044|verified|常用的邮件读取协议|auto|POP3承载于可靠面向连接TCP，D成立。
+cn-6-045|qualified|多用途因特网邮件扩展|auto|基础7bit SMTP可直接传ASCII文本，D成立；协商8BITMIME/BINARYMIME后约束不同，MIME负责格式不等于总需Base64。
+cn-6-046|verified|常用的邮件读取协议|auto|POP3只拉取邮件且同一次TCP会话可RETR多封，I/IV对应A。
+cn-6-047|disputed|超文本传输协议|self|传统答案C指DNS/UDP；DNS也支持TCP，HTTP/3又经QUIC使用UDP，题目未限制版本时HTTP选项同样可能，单选失去唯一性。
+cn-6-048|qualified|域名解析过程|auto|以域名URL、无缓存且无既有连接为前提先DNS，C成立；IP字面量URL或已有缓存不必先请求域名解析。
+cn-6-049|qualified|超文本传输协议|auto|传统http URI经TCP默认80，对应A；HTTP/3的QUIC/UDP与https默认443不在此教材模型。
+cn-6-050|qualified|超文本传输协议|self|按传统DNS/UDP加HTTP/TCP，应用DNS/HTTP、传输UDP/TCP，两空C成立；DNS-over-TCP等使UDP不一定必须。
+cn-6-051|qualified|统一资源定位符|auto|页面资源定位使用URL，C成立；同一资源可有多个URL，并非资源与URL一一对应。
+cn-6-052|qualified|超文本传输协议|auto|无缓存、默认非持续HTTP/1.0下4对象需4连接，A成立；HTTP/1.0存在Keep-Alive扩展，不能说只支持非持续。
+cn-6-053|verified|超文本传输协议|auto|HEAD获取对应GET的头信息而不返回内容体，D成立，亦用于元数据检查而非仅调试。
+cn-6-054|verified|使用 Cookie 在服务器上记录信息|auto|Cookie可携状态标识让无状态HTTP之上识别会话，B成立。
+cn-6-055|disputed|使用 Cookie 在服务器上记录信息|self|A“仅在服务器”确实错误；B“由服务器产生”也非普遍成立，客户端脚本可设置非HttpOnly Cookie。原解析未限定Set-Cookie模型，单错题有歧义。
+cn-6-056|qualified|超文本传输协议|auto|无缓存且基本HTML加100图像需101对象连接，D的100错误；HTTP/1.0非持续是默认而非无例外唯一模式。
+cn-6-057|qualified|超文本传输协议|auto|允许至少7个并行新连接、无缓存且忽略发送时延时，HTML2RTT+并行图片2RTT=4RTT，B成立。
+cn-6-058|verified|超文本传输协议|auto|题设从已发请求计时，HTML一RTT加三图流水一RTT，A的2RTT成立。
+cn-6-059|qualified|域名解析过程|auto|教材三级DNS无别名/重试时最多4RTT含本地查询，再TCP1+HTML1+图流水1=7RTT；真实DNS查询次数不可普遍限为4。
+cn-6-060|qualified|超文本传输协议|auto|按初始1MSS模型，5KB用1/2/2KB三批，收到最后FIN在4RTT，随后2MSL得1800ms；原解答“FIN携最后2KB”不能是一个MSS1KB段，应拆为两段且末段带FIN。
+cn-6-061|disputed|超文本传输协议|self|已检查NAT表，仅缺192.168.32.56:80映射不能推出必须丢弃；未给目的地址、协议与过滤策略，可能建立出站映射或内网路由，源端口80也不能证明是Web响应。
+cn-6-062|qualified|超文本传输协议|auto|仅从浏览器取网页的客户端协议栈通常不用SMTP，D符合题意；网页触发后端邮件等业务不属于此主机取页过程。
+cn-6-063|qualified|超文本传输协议|auto|已检查Connection: Close明确不持续，C错误；Cookie只支持会话关联线索，不能严格证明浏览器曾访问过该精确主机，可能来自父域或脚本。
+cn-6-064|qualified|超文本传输协议|auto|按服务端初窗1MSS：握手1、HTML1、图2MSS一轮及剩1MSS一轮，共40ms；若现代更大初窗，最少可30ms，题面应补初窗条件。
+cn-6-065|verified|超文本传输协议|auto|题设8对象串行非持久，每个2RTT，共16RTT，D成立。
+cn-6-066|qualified|域名系统|self|UDP不自动重传，解析器应超时重试或换服务器；DNS本来同时支持TCP，非仅区域传输才可使用TCP，题干UDP而非TCP需读为本次查询。
+cn-6-067|verified|域名解析过程|self|层次化名字便于记忆和管理，stub递归/解析器迭代示例成立；有效TTL内缓存可减少延迟与上级查询。
+cn-6-068|qualified|文件传输协议|self|控制保持会话、数据连接传文件，监听者与会话处理分工成立；主/从进程是教材实现模型，不要求实际服务器一定多进程。
+cn-6-069|qualified|文件传输协议|self|独立控制通道可在文件传送时继续下命令/中止，是合理设计动机；双连接不意味着任何网络/NAT条件下都更简单高效。
+cn-6-070|qualified|文件传输协议|self|按主动模式流程，先解析域名、TCP21登录，PORT告知客户端数据端再RETR file，服务端20建数据连接；来源get是客户端命令而非FTP线上命令，PASV流程不同。
+cn-6-071|qualified|文件传输协议|self|已检查拓扑，常规stream模式控制持久/数据临时；seq101、FIN ACK18102；初窗1时ACK2101窗3MSS、ACK7101窗5MSS；批次1/2/4/5/6加建连=60ms，2.4Mb/s。需教材初窗/轮次模型。
+cn-6-072|qualified|电子邮件|self|网络、服务器、地址、配额、队列和过滤均可影响最终投递；TCP只保证一个连接内字节流或报告失败，不能直接保证收件服务器接受整封邮件，更不能保证用户阅读。
+cn-6-073|qualified|多用途因特网邮件扩展|self|MIME规定媒体类型、结构与传送编码，SMTP负责传输，关系成立；现代SMTP扩展可原生8bit，不应普遍断言SMTP永远只能7bit。
+cn-6-074|qualified|电子邮件|self|已检查十六进制图，源c0e6=49382、目的0019=25，From为cskaoyan2012@163.com，符合SMTP提交。From头并非经认证的真实发件身份。
+cn-6-075|qualified|超文本传输协议|self|传统栈可涉及DNS/HTTP、UDP/TCP、IP与本地ARP；ICMP是错误报告/控制不是差错检验且不一定发生，ARP按RFC分层属链路层，不应强称所有都必须使用。
+cn-6-076|qualified|超文本传输协议|self|按串行请求、忽略慢开始：非持续11×2×150+10×35=3650ms；持续(1+11)×150+350=2150ms。非流水线本身不排除多连接并行，题面需约定串行。
+cn-6-077|disputed|超文本传输协议|self|已检查帧图，目的64.170.98.32、网关MAC00-21-27-21-51-ee，ARP广播与6RTT成立；主机10.2.128.100属私网而R外口101.12.123.15，正常公网访问需NAT并修改源IP，原解答只列TTL/校验和不完整。分片本身也不应改变Identification。
+cn-6-078|qualified|域名解析过程|self|已检查拓扑，假设无DNS缓存，DNS/UDP/IP/以太网、交换表cc→4/bb→1/aa→2、H2至少收两次ARP广播成立；第一次ARP应查询同网DNS而非网关，原解答首段顺序有误。

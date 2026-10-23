@@ -1,0 +1,165 @@
+# id|status|noteHeading|scoring|independent conclusion or qualification
+cn-3-001|verified|三个问题|auto|组帧、差错和链路流控属于链路层，电路管理属物理层语境，B成立。
+cn-3-002|qualified|三个问题|auto|D是教材分层中的网络整体拥塞控制；可靠传输是部分链路协议的可选功能，并非所有链路都保证可靠。
+cn-3-003|qualified|三个问题|auto|按教材物理层屏蔽具体介质差异的职责划分选D；链路层可靠传输是可选功能，原解析不能理解为必备。
+cn-3-004|qualified|可靠传输|auto|超时重传用于恢复丢帧，D成立；它不阻止物理丢失，且依赖确认、序号与重传最终成功。
+cn-3-005|verified|可靠传输|auto|低误码和低等待需求下无确认无连接服务开销较小，A符合题意。
+cn-3-006|verified|可靠传输|auto|流控约束发送方注入量以匹配接收能力，A成立。
+cn-3-007|qualified|封装成帧和透明传输|auto|独立执行每五个连续1插0，载荷得到011111000011111010，A成立；若“组帧”含首尾FLAG，还需另加定界符。
+cn-3-008|verified|差错检测|auto|链路层可使用纠错编码，A的“只能检测”错误；CRC结论须采用有效非单项式生成多项式。
+cn-3-009|verified|差错检测|auto|单一奇偶位只保证检出奇数位翻转，A成立。
+cn-3-010|verified|差错检测|auto|逐个计数，只有D含奇数个1，因此奇校验未检出该错误。
+cn-3-011|verified|差错检测|auto|纠正2位需最小距离≥2×2+1=5，D成立。
+cn-3-012|verified|差错检测|auto|2^r≥10+r+1的最小r为4，B成立。
+cn-3-013|verified|差错检测|auto|CRC发送接收方必须使用相同生成多项式，B错误。
+cn-3-014|verified|差错检测|auto|独立模2除法得到余数1110，发送11010110111110，对应C。
+cn-3-015|disputed|差错检测|self|D的CRC余数为0，但这只能说明未检出差错，不能断定传输无错；错误模式若为生成多项式倍数也会通过。题面四项均不能证明绝对无错。
+cn-3-016|verified|差错检测|auto|两两异或的最小重量为4，可保证检3位、纠1位，C成立。
+cn-3-017|qualified|停止-等待协议|auto|标准正传播/确认开销下发送与接收窗口均为1，A成立；零开销理想极限可趋于100%，原解析“绝不可能”需该前提。
+cn-3-018|verified|停止-等待协议|auto|高码率缩短发送时间，长距离增加RTT，均使停止等待利用率下降，B成立。
+cn-3-019|verified|停止-等待协议|auto|丢帧后无确认，发送方超时机制解除无限等待，D成立。
+cn-3-020|verified|停止-等待协议|auto|交替序号区分新帧与重传帧，A成立。
+cn-3-021|verified|停止-等待协议|auto|L/(L+240)≥0.8，解得L≥960bit，D成立。
+cn-3-022|verified|停止-等待协议|auto|发送时间为0.4×0.2/0.6秒，乘6000得800bit，D成立。
+cn-3-023|verified|停止-等待协议|auto|数据帧丢失后由发送方计时器触发重传，B成立。
+cn-3-024|disputed|回退 N 帧协议 (Go-Back-N, GBN)|self|若连续ARQ专指GBN则D错误；来源却将连续ARQ定义为包含SR，SR允许失序接收，因此题面与解析口径冲突，需明确协议。
+cn-3-025|qualified|回退 N 帧协议 (Go-Back-N, GBN)|auto|ACK5累计确认后剩帧6未确认，窗口为7，最少3位；题面“应采用”需理解为最少位数，更长编号同样可行。
+cn-3-026|verified|回退 N 帧协议 (Go-Back-N, GBN)|auto|累计ACK4覆盖0至4，只需重传5、6共2帧，B成立。
+cn-3-027|verified|回退 N 帧协议 (Go-Back-N, GBN)|auto|32发送窗口需要至少33个序号，6位足够，C成立。
+cn-3-028|verified|回退 N 帧协议 (Go-Back-N, GBN)|auto|GBN发送窗≤2^7−1=127，C成立。
+cn-3-029|qualified|选择重传协议 (Selective Repeat, SR)|auto|按教材Wr≤Wt且两窗和≤32，最大Wr=16；这是窗口约束下的结论，不是所有任意接收缓冲模型的必然值。
+cn-3-030|disputed|可靠传输|self|“窗口总大小n”未定义；若n指发送窗，未确认可达n；若指序号空间且采用GBN才是n−1。来源把序号空间和窗口大小混用。
+cn-3-031|verified|选择重传协议 (Selective Repeat, SR)|auto|序号空间16，Wr=7时Wt≤9，C成立。
+cn-3-032|qualified|选择重传协议 (Selective Repeat, SR)|auto|按等窗或Wr≤Wt的SR教材约束，接收窗最大2^(n−1)，D成立；题干未显式写出该约束。
+cn-3-033|qualified|可靠传输|auto|每帧0.8s，确认周期3s；Wt≥4即可超过80%，GBN7和SR4均满足。须假设双向链路可并行且无差错，利用率上限应截为1。
+cn-3-034|verified|可靠传输|auto|接收方反馈可接收量以调节发送方，是该滑窗流控机制的依据，C成立。
+cn-3-035|verified|回退 N 帧协议 (Go-Back-N, GBN)|auto|帧64ms，周期628ms，需窗≥10，GBN至少4位，C成立。
+cn-3-036|qualified|可靠传输|auto|正RTT、无差错且窗口充足时GBN与SR可满载，D成立；停止等待不能在有限正开销下精确满载。
+cn-3-037|verified|选择重传协议 (Selective Repeat, SR)|auto|SR独立确认5，不推断4已丢失；未超时且窗内有未发送帧，可继续发送，C成立。
+cn-3-038|verified|回退 N 帧协议 (Go-Back-N, GBN)|auto|ACK3累计覆盖0至3，超时重传4至7共4帧，C成立。
+cn-3-039|verified|选择重传协议 (Selective Repeat, SR)|auto|SR分别重传超时0和2，ACK1不累计，B成立。
+cn-3-040|qualified|回退 N 帧协议 (Go-Back-N, GBN)|auto|要对所有给定帧长均满载，最短128B使周期668ms，需窗11、编号4位；若允许自行选最长帧，题意应另限定。
+cn-3-041|verified|回退 N 帧协议 (Go-Back-N, GBN)|auto|1000×8000/0.10008约79.94Mb/s，选C。
+cn-3-042|qualified|可靠传输|auto|需窗≥ceil(0.8×0.5625/0.0625)=8；GBN需4位，等窗SR也需4位，B成立，解析未写协议但结果一致。
+cn-3-043|verified|停止-等待协议|auto|L/(L+1200)=0.4，解得800bit，D成立。
+cn-3-044|verified|选择重传协议 (Selective Repeat, SR)|auto|8个序号减发送窗5，接收窗最多3，B成立。
+cn-3-045|verified|停止-等待协议|auto|数据与确认均0.8s，加传播0.4s，利用率0.8/2=40%，D成立。
+cn-3-046|verified|可靠传输|auto|同一无差错链路的最大窗为1、7、4，截顶利用率仍有U1≤U3≤U2，B成立。
+cn-3-047|verified|选择重传协议 (Selective Repeat, SR)|auto|已检查时序图：ACK0后可发F4，F1超时后重传F1，D成立。
+cn-3-048|qualified|封装成帧和透明传输|self|按计数包含自身字节、FLAG不加入计数帧的口径，三种序列成立；独立跨字节零填充校验与来源一致。题面括号首尾FLAG仅适用于后两法。
+cn-3-049|disputed|差错检测|self|模2余数确为0，数据前7位1011001、CRC后4位1010；但只能说未检出差错，不能推断未出现差错，原解答结论过强。
+cn-3-050|verified|选择重传协议 (Selective Repeat, SR)|self|6+3>8；全部ACK丢失后接收窗6、7、0，旧帧0落入新窗构成歧义，反例成立。
+cn-3-051|verified|停止-等待协议|self|L/(L+300)≥1/2得到L≥300bit，来源结果成立。
+cn-3-052|qualified|回退 N 帧协议 (Go-Back-N, GBN)|self|帧20ms、RTT500ms需窗26；GBN5位可达100%，等窗SR需6位。题面未明确协议，5位答案只适用于GBN等允许窗26的模型。
+cn-3-053|qualified|可靠传输|self|按每次立即用一整帧捎带确认、反向无额外等待，周期0.58s，对应1/29、7/29、4/29成立；持续双向发送的相位与等待规则会影响实际值。
+cn-3-054|qualified|回退 N 帧协议 (Go-Back-N, GBN)|self|已检查双图：确认3帧；可发5帧S5,2至S1,2；重传3帧从S2,3开始。50%按0.96ms为传播RTT并计双帧发送的模型成立。
+cn-3-055|qualified|共享式以太网|auto|信道划分按时频码分离用户，A成立；解析将令牌传递等同轮询、将集中控制作为排他类别不够严谨。
+cn-3-056|qualified|共享式以太网|auto|MAC主要协调介质访问，B成立；无线MAC也可承担确认重传，不能说可靠性与MAC无关。
+cn-3-057|verified|共享式以太网|auto|按频率分割子信道即FDM，B成立。
+cn-3-058|qualified|共享式以太网|auto|多路有效TDM的链路位率要容纳各输入之和，D符合题意；Hz和bit/s不能直接比较，复合带宽叙述需具体调制模型。
+cn-3-059|disputed|共享式以太网|self|FDM可通过调制承载数字数据，B“FDM不行”错误；现代OFDM也是频分思想。四项没有支撑题干普遍结论的严格正确答案。
+cn-3-060|verified|共享式以太网|auto|统计时分复用按需求分配时隙，B成立。
+cn-3-061|qualified|共享式以太网|auto|理想同步TDM的时隙互斥，A成立；ALOHA和一般CSMA并非都直接检测碰撞，来源这一解释应修正。
+cn-3-062|verified|共享式以太网|auto|纯ALOHA不监听、不等时隙，有数据即可发，C成立。
+cn-3-063|verified|共享式以太网|auto|p坚持在空闲时以1−p概率等待下个时隙，C成立。
+cn-3-064|verified|共享式以太网|auto|非坚持检测忙后随机等待再监听，C成立。
+cn-3-065|verified|共享式以太网|auto|非坚持检测空闲后立即发送，B成立。
+cn-3-066|verified|共享式以太网|auto|重负载下令牌避免争用碰撞，相对CSMA/CD更有优势，B成立。
+cn-3-067|qualified|共享式以太网|auto|经典延迟释放令牌模型选A；提前释放令牌的实现允许多帧同时在环上，B和解析的半双工概括不适用于全部令牌环。
+cn-3-068|verified|共享式以太网|auto|有数据时持令牌受限，无数据立即传递，III与IV错误，C成立。
+cn-3-069|verified|共享式以太网|auto|正常无业务时只需空闲令牌循环，A成立。
+cn-3-070|qualified|共享式以太网|auto|经典延迟释放令牌时发送站回收自己的帧并释放令牌，A成立；提前释放实现的时机不同。
+cn-3-071|qualified|共享式以太网|auto|按每站有限持令牌且计入本站发送，一轮令牌传递加各站发送时间对应B；纯等待不含本站发送，题干计时范围需区分。
+cn-3-072|verified|共享式以太网|auto|已复算三条码两两内积均0，仅C满足正交。
+cn-3-073|verified|共享式以太网|auto|对接收向量归一化内积为1、−1、1，解得101，A成立。
+cn-3-074|qualified|共享式以太网|auto|理想正交/同步的信道划分无碰撞，CSMA可能碰撞，B成立；实际CDMA可有多址干扰，不是绝对无干扰。
+cn-3-075|verified|共享式以太网|auto|与A码逐组归一化内积1、−1、1，对应101，B成立。
+cn-3-076|verified|共享式以太网|auto|10BASE-T中T表示双绞线，C成立。
+cn-3-077|verified|共享式以太网|auto|10BASE-T传输介质是双绞线，A成立。
+cn-3-078|qualified|交换式以太网|auto|按帧作为分组的广义交换分类选A；共享总线以太网本身不执行交换机的逐跳交换。
+cn-3-079|verified|网络适配器和 MAC 地址|auto|普通网卡实现PHY与MAC/链路功能，A成立。
+cn-3-080|qualified|共享式以太网|auto|10Mb/s传统以太网用曼彻斯特自同步，B成立；并非所有速率的以太网都使用曼彻斯特码。
+cn-3-081|verified|网络适配器和 MAC 地址|auto|DNS不解析MAC，C错误；ARP只解决本链路IPv4地址映射。
+cn-3-082|disputed|以太网的发展|self|光纤介质不必然全双工，10BASE-F等存在半双工CSMA/CD实现；D并非错误，且光纤不必总是两芯，也可直连终端，来源理由错误。
+cn-3-083|qualified|虚拟局域网|auto|按允许64B最小带标签MAC帧的口径，42B最小载荷需补2B，A成立；给已补到64B的旧帧再插标签会得到68B，需区分构帧流程。
+cn-3-084|qualified|网络适配器和 MAC 地址|auto|只适用于非混杂模式、非本机单播地址；广播、订阅组播或混杂模式仍可接收，C不能无条件覆盖所有帧。
+cn-3-085|verified|CSMA/CD 协议|auto|使用CSMA/CD的共享碰撞域按半双工运行，C成立。
+cn-3-086|qualified|CSMA/CD 协议|auto|争用期是最远站点往返传播时延，A成立；原解析“争用期（冲突域）”把时间与网络范围混用了。
+cn-3-087|verified|CSMA/CD 协议|auto|过短帧可能在远端碰撞反馈前已发完，B成立。
+cn-3-088|verified|CSMA/CD 协议|auto|需L/R≥2τ，可缩短跨距或增大最小帧，B成立。
+cn-3-089|qualified|CSMA/CD 协议|auto|按假想10km CSMA/CD物理模型算得1000bit；并非标准10Mb/s以太网可以保持原512bit时隙运行10km。
+cn-3-090|verified|CSMA/CD 协议|auto|重复碰撞扩大随机退避区间，以应对更强争用，C成立。
+cn-3-091|qualified|CSMA/CD 协议|auto|在相同竞争者等理想比较下，第四次重传随机窗口最大，D成立；真实再碰撞概率还取决于其他站状态。
+cn-3-092|verified|CSMA/CD 协议|auto|第二次冲突后最大退避3×512/100M=15.36μs，B成立。
+cn-3-093|verified|CSMA/CD 协议|auto|k=min(11,10)，最大随机数1023，C成立。
+cn-3-094|verified|CSMA/CD 协议|auto|跨距不变速率提高时需更长发送时长对应的位数，B成立。
+cn-3-095|qualified|CSMA/CD 协议|auto|忽略Hub内部延时，最长往返2×200m/(2×10^8)=2μs，A成立。
+cn-3-096|qualified|共享式以太网|auto|按所列经典同轴以太网的最大单段长度，10BASE5为500m，A成立；10BASE2单段实际185m，应注明子标准。
+cn-3-097|qualified|以太网的发展|auto|10GbE只用全双工，D成立；原解析“只使用光纤”错误，10GBASE-T支持铜双绞线。
+cn-3-098|verified|数据链路层|auto|IEEE 802主要覆盖物理层和链路层，B成立。
+cn-3-099|qualified|以太网的 MAC 帧格式|auto|常规高速以太网延续基本MAC帧格式，A成立；标签、扩展帧与物理层载波扩展不应混为基本格式改变。
+cn-3-100|qualified|以太网的发展|auto|吉比特以太网不用曼彻斯特码，B明确错误；C“主要受传播限制”仍依帧长及链路距离，不能普遍断言。
+cn-3-101|qualified|CSMA/CA 协议|auto|发送信号远强于接收信号且有隐藏站，B是核心原因；A也描述传统半双工无线收发约束，题目应按最完整理由理解。
+cn-3-102|qualified|CSMA/CA 协议|auto|按802.11普通单播确认策略选A；广播/组播及No-ACK策略不逐帧确认。
+cn-3-103|qualified|CSMA/CA 协议|auto|普通单播DCF依ACK与超时重传，D成立；RTS/CTS是可选机制，并非每次必须预约。
+cn-3-104|verified|CSMA/CA 协议|auto|PIFS=SIFS+1槽，DIFS=SIFS+2槽，因此A成立。
+cn-3-105|qualified|MAC 帧|auto|802.11数据帧的地址映射依ToDS/FromDS，C成立；并非所有类型帧都有四个地址，类型也影响地址字段存在性。
+cn-3-106|disputed|MAC 帧|self|已检查图中AP1和AP2之间是路由器且标有MAC1/MAC2；AP2发往B的地址3应为路由器出口MAC2，而不是端到端MAC_A。四项均未给MAC2，来源D不成立。
+cn-3-107|qualified|虚拟局域网|auto|单标签常规帧最大1522B，B错误；跨交换机不必然有标签，也可经同VLAN的access链路，原解析需限定trunk。
+cn-3-108|qualified|虚拟局域网|auto|不同VLAN不能直接二层通信，B错误；VLAN隔离的是广播域，冲突域隔离来自交换端口，原解析混淆二者。
+cn-3-109|disputed|虚拟局域网|self|VLAN配置常由软件管理，但转发与标签处理可由交换ASIC硬件实现；B的“硬件方式”本身不构成必错，来源软件/硬件二分失真。
+cn-3-110|disputed|虚拟局域网|self|802.1X/RADIUS可按用户身份动态分配VLAN，用户名/身份并非不正确方式；C只是传统教材未列方式，不能当普遍错误。
+cn-3-111|verified|虚拟局域网|auto|链路聚合是独立机制，不是VLAN自身带来的功能，C成立。
+cn-3-112|verified|CSMA/CD 协议|auto|减800bit使往返时延减0.8μs、单程减0.4μs，对应距离减80m，D成立。
+cn-3-113|qualified|CSMA/CA 协议|auto|普通802.11单播MAC带ACK，D成立；不应扩展到广播、组播和全部确认策略。
+cn-3-114|verified|以太网的 MAC 帧格式|auto|基本以太网MAC不建立连接、不提供端到端重传可靠性，A成立。
+cn-3-115|qualified|CSMA/CD 协议|auto|B把CSMA/CD用于典型无线局域网不成立；D是忽略其他开销的理想极限，来源给的利用率式不是通用精确公式。
+cn-3-116|verified|CSMA/CD 协议|auto|已检查Hub侧拓扑，(5.12−2×1.535)×200/2=205m，是题设理论值B。
+cn-3-117|verified|MAC 帧|auto|已检查拓扑，向AP的数据帧RA=AP(9b)、TA=H(9a)、DA=网关(9c)，B成立。
+cn-3-118|verified|CSMA/CA 协议|auto|RTS/CTS交换及Duration/NAV用于可选虚拟载波监听预约，D成立。
+cn-3-119|verified|CSMA/CD 协议|auto|单向最大传播时间=128×8/(2×100M)=5.12μs，B成立。
+cn-3-120|verified|以太网的发展|auto|100BASE-T的T表示双绞线，A成立。
+cn-3-121|qualified|CSMA/CA 协议|auto|已检查RTS/CTS/DATA/ACK图，IFS1为DIFS，其余响应为SIFS，A成立；管理/控制帧并非一律SIFS。
+cn-3-122|verified|CSMA/CD 协议|auto|4次碰撞最大退避15×51.2=768μs，C成立。
+cn-3-123|verified|CSMA/CA 协议|auto|数据296μs，CTS后NAV=28+296+28+2=354μs，B成立。
+cn-3-124|verified|CSMA/CD 协议|auto|11次碰撞上限固定1023槽，乘51.2μs得52.3776ms，C成立。
+cn-3-125|qualified|点对点协议|auto|按传统教材局域/广域技术分类选B；现代以太网也广用于城域广域，不能将协议或广播/点对点视为绝对界线。
+cn-3-126|qualified|点对点协议|auto|现代数据广域通信子网主要用分组交换，B成立；广域网也存在电路交换等系统。
+cn-3-127|qualified|点对点协议|auto|按教材分组广域网模型选逐跳存储转发B；不是所有广域网络和设备都严格存储整包后转发。
+cn-3-128|verified|点对点协议|auto|网状互连提供多路径与冗余，是常见广域网拓扑，C符合“通常”。
+cn-3-129|qualified|点对点协议|auto|常见IP局域网接广域网由路由器互连，A成立；二者差异主要不在网络层以上，通常都运行IP，原解析需纠正。
+cn-3-130|verified|点对点协议|auto|HDLC是ISO链路协议，不是TCP/IP族本身定义的协议，D成立；它可以承载IP。
+cn-3-131|qualified|透明传输|auto|异步PPP用字节转义，B成立；不仅插0x7D，转义后字节还要异或0x20，原解析遗漏该步骤。
+cn-3-132|qualified|点对点协议|auto|PPP通过各NCP支持多种网络层，B错误；A“差错控制”应限为FCS检测丢弃，不是可靠重传。
+cn-3-133|verified|点对点协议|auto|PPP三部分为封装、LCP与各NCP，D成立。
+cn-3-134|qualified|工作状态|auto|LCP用于链路参数协商，A成立；LCP也有Code-Reject/Protocol-Reject等控制消息，不能说完全不通知异常。
+cn-3-135|disputed|点对点协议|self|D的面向字节封装成立；C“两端必须运行相同网络层协议”在所传业务协议一致的意义下也成立。可多协议复用不等于两端用不兼容协议仍可通信，单选存在语义歧义。
+cn-3-136|qualified|点对点协议|auto|按LCP建立链路的教材口径属有连接、不保证可靠交付，C成立；FCS通过只代表未检出差错，并非保证无差错。
+cn-3-137|verified|交换式以太网|auto|普通网桥和二层交换机都按MAC帧工作，C成立。
+cn-3-138|qualified|交换式以太网|auto|D否认VLAN隔离广播域，明确错误；A故障隔离、C端口带宽独立需无广播风暴且交换容量充分等前提。
+cn-3-139|qualified|交换式以太网|auto|未配置VLAN的普通二层交换不分割广播域，D成立；分段本身并不保证安全隔离，原解析需避免绝对化。
+cn-3-140|verified|交换式以太网|auto|Hub共享信号不隔离冲突域，其余设备均能终止该物理碰撞传播，A成立。
+cn-3-141|verified|交换式以太网|auto|普通局域网二层交换机实现PHY与MAC转发，A成立。
+cn-3-142|verified|交换式以太网|auto|交换结构支持多对端口并行传输，是性能优势A。
+cn-3-143|qualified|交换式以太网|auto|同一默认VLAN下是一个广播域、按端口隔离冲突，B成立；划分VLAN时不能泛称一个广播域。
+cn-3-144|verified|使用集线器的共享式以太网|auto|单个Hub的全部端口同一碰撞与广播范围，均为1，C成立。
+cn-3-145|qualified|交换式以太网|auto|按教材每端口一个冲突域、全部同一VLAN计为16和1；全双工链路实际上不发生碰撞。
+cn-3-146|verified|使用集线器的共享式以太网|auto|Hub共享以太网按物理和链路两层定义，C成立；此题已限定共享式环境。
+cn-3-147|qualified|数据链路层|auto|按单个共享广播链路模型，不必有路由层但仍有层间SAP，D错误；不能推广到由多个广播网互连的大网络。
+cn-3-148|qualified|交换式以太网|auto|每接入端口的名义链路率10Mb/s，C成立；实际端到端吞吐还受出口竞争与交换容量约束。
+cn-3-149|qualified|交换式以太网|auto|已检查拓扑，允许本地配对并行且按端点发送量求理想上限，可达1100、500、100Mb/s；不含协议开销与帧间隙。
+cn-3-150|qualified|交换式以太网|auto|在教材相同主机/带宽且内部多对通信模型下，A更受益于并行交换；仅靠流量比例不足以优化任意实际网络。
+cn-3-151|qualified|交换式以太网|auto|B的多接口并行成立；C须在未配置VLAN的普通二层交换语境下排除。
+cn-3-152|verified|交换式以太网|auto|转发表从源MAC与入端口学习，A成立。
+cn-3-153|qualified|交换式以太网|auto|未知单播泛洪到同一VLAN内除入端口外的转发端口，C成立；不是所有配置状态的物理端口。
+cn-3-154|verified|交换式以太网|auto|已检查空表拓扑，E→X时Hub及未知目的泛洪使多站收到，C错误；X→E时同端口过滤不传到交换机2。
+cn-3-155|verified|交换式以太网|auto|普通二层转发查目的MAC，自学习查源MAC，A成立。
+cn-3-156|verified|交换式以太网|auto|理想直通至少读完6B目的地址，48/100M=0.48μs，B成立。
+cn-3-157|qualified|交换式以太网|auto|已检查初表，首帧向2、3泛洪并学习源a1在1，回帧仅到1，B成立；解析将学习对象误称目的地址，应为源地址。
+cn-3-158|qualified|交换式以太网|auto|A的多端口网桥定义成立；二层交换机能透明承载不同网络协议，但不能转换不兼容协议，D需按“协议转换互通”理解。VLAN也能分割广播域。
+cn-3-159|verified|交换式以太网|auto|已检查H2独立端口与H3/H4共享Hub，回帧定向到H2同时由Hub传到H3，D成立。
+cn-3-160|qualified|共享式以太网|self|突发低负载时CSMA/CD无需静态空时隙，重负载时碰撞降低效率；不能无条件说CSMA/CD利用率总高于TDM。
+cn-3-161|qualified|CSMA/CD 协议|self|理论碰撞检测下限R×2τ=100bit成立；标准10Mb/s以太网MAC仍要求64B，不能用100bit替代标准最小帧。
+cn-3-162|verified|CSMA/CD 协议|self|假想总线1km、1Gb/s，往返10μs，需至少10000bit发送时长，来源计算成立。
+cn-3-163|verified|CSMA/CD 协议|self|125B在100Mb/s发送10μs，单程最大5μs，距离1000m，来源成立。
+cn-3-164|qualified|CSMA/CD 协议|self|最早起发到双方均检测的时间为10至20μs；忽略前导码和帧间隙时周期1.2856ms，有效速率约9.334Mb/s。若计标准IFG结果会更低。

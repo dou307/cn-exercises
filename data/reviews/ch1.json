@@ -12,6 +12,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "自治主机互连形成网络，B 与定义相符。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -27,6 +28,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "网络连接不会使计算机彼此更加独立，D 不是网络带来的功能。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -42,6 +44,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "自治主机各有自己的操作系统，故 B 成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -57,6 +60,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "分组将报文切成有长度上限的传输单元，C 成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -72,6 +76,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "B 的每分组首部开销成立；原解析称分组必须等长不成立，分组可变长。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -87,6 +92,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "① 的时延结论依赖是否计入电路建立时间及业务长度；题面未给，不能唯一比较。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -102,6 +108,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "数据报逐分组独立路由，同一报文的分组可以走不同路径，A 成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -117,6 +124,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "局域网、城域网、广域网按覆盖范围划分，A 成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -132,6 +140,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "端到端最高速率受 10Mb/s 接收网卡限制，B 成立。",
     "checkId": "calc:cn-1-009",
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -147,6 +156,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "100km 以 10^8m/s 传播需 1ms，20Mb/s 乘 1ms 得 20Kb，A 成立。",
     "checkId": "calc:cn-1-010",
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -162,6 +172,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "两段链路各发送 8ms，路由器串行处理两包各 10ms；第二包于 36ms 到达。",
     "checkId": "calc:cn-1-011",
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -177,6 +188,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "发送 5kb 时三种方式均为 4s，A 若将并列最短也视为最节省则成立；B 同时成立，单选不唯一。",
     "checkId": "calc:cn-1-012",
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -192,6 +204,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "980000B 分成 1000 包，三段同速流水线耗时 1002×0.08ms=80.16ms。",
     "checkId": "calc:cn-1-013",
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -207,6 +220,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "整报文两跳各 800ms；800 个 10kb 分组两跳流水线需 801ms，D 成立。",
     "checkId": "calc:cn-1-014",
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -222,6 +236,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "1000 包两跳，发送间隔 0.08ms，传播每跳 0.01ms，总计 80.10ms。",
     "checkId": "calc:cn-1-015",
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -237,6 +252,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "两端共用接入链路各为 10Mb/s，任何路由方案总吞吐量都不超过 10Mb/s。",
     "checkId": "calc:cn-1-016",
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -252,6 +268,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "报文交换 1.776s，分组交换 1.6000352s，电路交换 1.600032s，B 成立。",
     "checkId": "calc:cn-1-017",
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -267,6 +284,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "分层规定功能与接口，不规定功能内部具体执行方法，B 不属于分层目标。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -282,6 +300,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "切块带来每块首部开销，不会提高净荷在 PDU 中的比例，D 成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -297,6 +316,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "协议约束不同节点上的对等实体交互，D 成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -312,6 +332,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "实体是实现层功能并参与通信的软件或硬件，C 成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -327,6 +348,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "低层向相邻高层提供服务，A 成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -342,6 +364,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "C 把 OSI 参考模型说成实际普遍执行的协议标准，错误；A 的世界第一个网络是教材简化历史表述。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -357,6 +380,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "服务、接口、协议分别对应层间功能、调用边界及对等实体规则，A 成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -372,6 +396,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "协议三要素是语法、语义与时序，C 成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -387,6 +412,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "四次挥手的报文先后顺序属于时序，B 成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -402,6 +428,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "图示规定 TCP 首部字段布局，描述语法而非交互次序，A 成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -417,6 +444,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "参考模型不规定接口具体实现，D 为错误选项。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -432,6 +460,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "比特的物理信号传输属于物理层，D 成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -447,6 +476,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "抑制发送方速率属于流量控制，不是物理层功能，D 为错误选项。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -462,6 +492,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "拥塞控制涉及网络资源负载，不是数据链路层的典型功能，D 成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -477,6 +508,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "在给出的四项中 D 最接近链路层可靠传输；不是所有链路层服务均保证有序与完整。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -492,6 +524,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "按题中教材封装模型，物理层发送比特而不添加本层协议首尾部，A 成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -507,6 +540,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "进程间端到端排序、应答和流量控制属于传输层，C 成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -522,6 +556,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "按题中 ISO/OSI 与 TCP/IP 教材对照，网络层可提供面向连接与无连接服务，C 成立；不能推广到所有具体协议栈。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -537,6 +572,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "会话层通过同步点支持会话恢复，B 成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -552,6 +588,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "格式转换与压缩属于表示层，B 成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -567,6 +604,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "检验点恢复是会话层的同步功能，D 成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -582,6 +620,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "网络层增加网络层地址和控制字段形成分组，B 为唯一合适描述。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -597,6 +636,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "① 把网络层流量控制与数据链路层、传输层并列依赖特定教材模型；题面未说明模型细节，保留来源答案供自评。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -612,6 +652,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "通信子网之上实现进程到进程逻辑通信的是传输层，B 成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -627,6 +668,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "互联网的核心协议族是 TCP/IP，A 成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -642,6 +684,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "TCP/IP 传输层承担端到端可靠性及流量控制机制，C 成立；具体 UDP 不提供全部能力。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -657,6 +700,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "A 是题中五层教材对用户接口的叫法；服务访问点术语在具体体系结构中未必这样命名。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -672,6 +716,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "① 比特错误发生在物理传输，② 帧序号属链路层，③ 打印指令属应用层；原解析把物理层说成负责纠错不准确。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -687,6 +732,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "自下而上首个进程间端到端层是传输层，B 成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -702,6 +748,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "体系结构规定层次、功能和协议，不规定协议内部实现细节，C 成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -717,6 +764,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "应用层直接下层是表示层，负责格式转换，B 成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -732,6 +780,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "会话层的直接下层是传输层，C 成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -747,6 +796,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "典型路由器、以太网交换机、集线器分别对应 3、2、1 层，C 成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -762,6 +812,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "五个中间层共加 100B，400B/500B=80%，A 成立。",
     "checkId": "calc:cn-1-051",
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -777,6 +828,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "OSI 自下而上第 5 层是会话层，负责会话管理，C 成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -792,6 +844,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "图中消息沿时间轴交互，体现时序，C 成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -807,6 +860,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "TCP/IP 传输层下方的网际层负责路由与转发，B 成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -822,6 +876,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "相邻节点间的链路级流量控制由数据链路层实现，B 成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -837,6 +892,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "开销模型为 10^8/D+D；两示例为 101000B、25000B，连续最优 D=10000B。",
     "checkId": "calc:cn-1-056",
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -852,6 +908,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "2km/2×10^8m/s=10μs；100B 和 512B 对应 80Mb/s 与 409.6Mb/s。",
     "checkId": "calc:cn-1-057",
+    "references": [],
     "reviewedAt": "2026-10-23"
   },
   {
@@ -867,6 +924,7 @@
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
     "conclusion": "逐包确认减少丢失重传范围但增加确认开销；整文件确认反之，结论成立。",
     "checkId": null,
+    "references": [],
     "reviewedAt": "2026-10-23"
   }
 ]

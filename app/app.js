@@ -42,7 +42,8 @@
   }
   function matches(q) {
     if (q.noteChapter !== chapter) return false;
-    const kind = $('#filter-type').value, st = $('#filter-status').value, section = $('#filter-section').value, term = $('#search').value.trim().toLowerCase();
+    const kind = $('#filter-type').value, st = $('#filter-status').value, section = $('#filter-section').value, audit = $('#filter-review').value, term = $('#search').value.trim().toLowerCase();
+    if (audit !== 'all' && review(q)?.status !== audit) return false;
     if (kind !== 'all' && scoring(q) !== kind) return false;
     if (section !== 'all' && q.sourceSection !== section) return false;
     if (st === 'wrong' && status(q) !== '错题') return false;
@@ -104,7 +105,7 @@
       ${mode === 'self' && !disputed ? `<label class="draft-label">我的思路或答案草稿<textarea id="draft" rows="5" placeholder="先写下解题过程，再查看参考解答">${esc(state.drafts[q.id] || '')}</textarea></label>` : ''}
       <div class="card-actions">${mode === 'auto' && !shown ? '<button id="submit" class="primary" type="button" disabled>提交答案</button>' : ''}${mode === 'self' && !shown ? `<button id="reveal" class="primary" type="button">${disputed ? '查看来源答案与争议' : '查看参考解答'}</button>` : ''}<button id="star" type="button">${state.stars[q.id] ? '★ 已收藏' : '☆ 收藏'}</button>${answered ? '<button id="redo" type="button">重做此题</button>' : ''}</div>
       ${answered && !revealed ? `<div class="feedback">上次作答：${status(q) === '正确' ? '正确' : '需复习'} · ${new Date(r.at).toLocaleString('zh-CN')}</div>` : ''}
-      ${shown ? `<div class="answer-panel"><h3>原来源答案与解析</h3>${q.answerHtml || '<p>来源没有可提取的答案，请自行核对原页面。</p>'}${rv ? `<div class="review-note"><strong>本项目审核：${reviewLabel}</strong><p>${esc(rv.conclusion)}</p></div>` : '<p class="unreviewed">本题尚未在本项目逐题审核；判分只按来源给出的答案。</p>'}${mode === 'self' && !disputed && !answered ? '<div class="self-actions"><button id="self-right" type="button">我做对了</button><button id="self-wrong" type="button">需要复习</button></div>' : ''}${mode === 'self' && answered ? '<button id="self-change" type="button">更正本轮自评</button>' : ''}</div>` : ''}
+      ${shown ? `<div class="answer-panel"><h3>原来源答案与解析</h3>${q.answerHtml || '<p>来源没有可提取的答案，请自行核对原页面。</p>'}${rv ? `<div class="review-note"><strong>本项目审核：${reviewLabel}</strong><p>${esc(rv.conclusion)}</p>${rv.references?.length ? `<div class="review-references">核查依据：${rv.references.map(ref => `<a href="${esc(ref.url)}" target="_blank" rel="noopener noreferrer">${esc(ref.title)} ↗</a>`).join('')}</div>` : ''}</div>` : '<p class="unreviewed">本题尚未在本项目逐题审核；判分只按来源给出的答案。</p>'}${mode === 'self' && !disputed && !answered ? '<div class="self-actions"><button id="self-right" type="button">我做对了</button><button id="self-wrong" type="button">需要复习</button></div>' : ''}${mode === 'self' && answered ? '<button id="self-change" type="button">更正本轮自评</button>' : ''}</div>` : ''}
       <div class="card-nav"><button id="prev" type="button" ${idx <= 0 ? 'disabled' : ''}>← 上一题</button><label>跳到题号 <input id="jump" type="number" min="1" max="${visible.length}" value="${idx+1}"></label><button id="next" type="button" ${idx >= visible.length-1 ? 'disabled' : ''}>下一题 →</button></div><div id="jump-error" class="jump-error" role="status"></div>`;
     card.querySelectorAll('[data-pick]').forEach(b => b.onclick = () => { picked = b.dataset.pick; card.querySelectorAll('[data-pick]').forEach(x => x.classList.toggle('selected', x === b)); $('#submit').disabled = false; });
     if ($('#submit')) $('#submit').onclick = () => { if (picked) record(q, picked, picked === q.answer); };
@@ -131,7 +132,8 @@
     const inChapter = questions.filter(q => q.noteChapter === chapter);
     const done = inChapter.filter(q => ['正确','错题'].includes(status(q))).length;
     $('#stat-total').textContent = questions.length;
-    $('#stat-progress').textContent = `本章已作答 ${done}/${inChapter.length}`;
+    const disputed = inChapter.filter(q => review(q)?.status === 'disputed').length;
+    $('#stat-progress').textContent = `本章已作答 ${done}/${inChapter.length-disputed}${disputed ? ` · ${disputed} 题待核对` : ''}`;
   }
   function render() {
     renderChapters();
@@ -143,7 +145,9 @@
     const link = $('#note-link');
     if (note) { link.hidden = false; link.href = `obsidian://open?path=${encodeURIComponent(note.path)}`; link.title = note.path; }
     else link.hidden = true;
-    $('#scope-info').textContent = note ? `笔记：${note.name} · 第 1 章逐题审核；其余章节显示来源小节候选考点` : '未找到对应笔记';
+    const inChapter = questions.filter(q => q.noteChapter === chapter);
+    const counts = inChapter.reduce((acc,q) => { const s=review(q)?.status; if(s) acc[s]=(acc[s]||0)+1; return acc; },{});
+    $('#scope-info').textContent = note ? `笔记：${note.name} · ${inChapter.length ? `本章审核 ${inChapter.length} 题：${counts.verified||0} 题结论成立 / ${counts.qualified||0} 题附前提 / ${counts.disputed||0} 题待核对` : '本章暂无来源习题'}` : '未找到对应笔记';
     updateProgress(); renderList(); renderQuestion();
   }
   function exportData() {
@@ -168,7 +172,7 @@
   async function init() {
     try {
       let reviews, mappings;
-      [questions, notes, reviews, mappings] = await Promise.all(['../data/questions.json','../data/notes.json','../data/reviews/ch1.json','../data/mappings.json'].map(p => fetch(p).then(r => { if (!r.ok) throw Error(p); return r.json(); })));
+      [questions, notes, reviews, mappings] = await Promise.all(['../data/questions.json','../data/notes.json','../data/reviews/all.json','../data/mappings.json'].map(p => fetch(p).then(r => { if (!r.ok) throw Error(p); return r.json(); })));
       byId = new Map(questions.map(q => [q.id,q]));
       byReview = new Map(reviews.map(r => [r.questionId,r]));
       byMapping = new Map(mappings.map(m => [m.questionId,m]));
@@ -176,7 +180,7 @@
     load();
     const route = new URL(location.href).searchParams.get('q');
     if (byId.has(route)) { current = route; chapter = byId.get(route).noteChapter; }
-    ['#filter-status','#filter-type','#filter-section','#search'].forEach(s => $(s).addEventListener(s === '#search' ? 'input' : 'change', () => { current = null; picked = null; revealed = false; redoId = null; renderList(); renderQuestion(); }));
+    ['#filter-status','#filter-type','#filter-section','#filter-review','#search'].forEach(s => $(s).addEventListener(s === '#search' ? 'input' : 'change', () => { current = null; picked = null; revealed = false; redoId = null; renderList(); renderQuestion(); }));
     $('#btn-study').onclick = () => { state.studied[chapter] = !state.studied[chapter]; save(); render(); };
     $('#btn-export').onclick = exportData;
     $('#file-import').onchange = e => importData(e.target.files[0]);
