@@ -42,10 +42,24 @@
     "noteChapter": 4,
     "noteHeading": "网际协议",
     "noteSha256": "be99a448a82d617b253d9e5bd684440991f9822349029fa4707af2ac25237b03",
-    "conclusion": "普通IP路由不转换任意网络层协议；IPv4/IPv6互通需双栈、隧道或翻译条件。不同LAN也不要求所有高层应用协议相同，来源C的普遍要求不成立。",
+    "conclusion": "普通IP路由器跨异构物理/链路层转发同一IP协议，不会自动转换任意网络层协议；专用翻译、隧道或双栈又有不同条件。各局域网更不必拥有完全相同的所有高层应用协议，只有一次端到端通信的协议需要兼容。A至D都把这些条件过度概括，来源C的理由不足。需明确普通路由还是协议转换网关、以及“必须相同”的对象。",
     "checkId": null,
-    "references": [],
-    "reviewedAt": "2026-10-23"
+    "references": [
+      {
+        "id": "x200",
+        "title": "ITU-T X.200：OSI基本模型，§7.5.4.9网络层流量控制",
+        "url": "https://www.itu.int/rec/T-REC-X.200-199407-I/en"
+      }
+    ],
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "普通IP路由不转换任意网络层协议；IPv4/IPv6互通需双栈、隧道或翻译条件。不同LAN也不要求所有高层应用协议相同，来源C的普遍要求不成立。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "普通同一IP层互连与跨协议翻译的答案口径不同",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-4-004",
@@ -138,10 +152,18 @@
     "noteChapter": 4,
     "noteHeading": "网际协议",
     "noteSha256": "be99a448a82d617b253d9e5bd684440991f9822349029fa4707af2ac25237b03",
-    "conclusion": "虚电路不必提供可靠交付，Frame Relay/ATM等服务性质不同，C不能无条件成立；“故障率”是误码还是节点故障也影响D，单错题缺少模型限定。",
+    "conclusion": "面向连接只规定先建立逻辑连接，不自动保证可靠交付；不同虚电路技术可把差错恢复留给上层。“故障率”若指节点/链路失效，固定VC受影响；若指比特误码，结论还依赖差错恢复机制。需明确可靠VC模型和故障类型，不能唯一按D判分。",
     "checkId": null,
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "虚电路不必提供可靠交付，Frame Relay/ATM等服务性质不同，C不能无条件成立；“故障率”是误码还是节点故障也影响D，单错题缺少模型限定。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "教材可靠VC模型预期D；一般VC模型下C也不成立",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-4-010",
@@ -218,10 +240,18 @@
     "noteChapter": 4,
     "noteHeading": "网际协议",
     "noteSha256": "be99a448a82d617b253d9e5bd684440991f9822349029fa4707af2ac25237b03",
-    "conclusion": "VC连接本身不保证差错控制，A在部分VC技术下也成立；C的实时性能依资源与排队保证，题面未限定可靠VC模型。",
+    "conclusion": "虚电路通常用短标识转发，故B不成立；共享链路可复用多个VC，故D不成立。A是否成立取决于该VC技术是否内置差错恢复；C所说实时优势还需资源预留或服务质量保证。单凭逻辑连接不能推出可靠性或时延保证，需明确所用VC模型。",
     "checkId": null,
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "VC连接本身不保证差错控制，A在部分VC技术下也成立；C的实时性能依资源与排队保证，题面未限定可靠VC模型。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "教材预期C；未限定VC技术时A也可能成立",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-4-015",
@@ -455,12 +485,12 @@
     "sourcePath": "ch4/quiz.html",
     "sourceOrdinal": 28,
     "sourceAnswer": "A",
-    "status": "disputed",
+    "status": "corrected",
     "scoring": "self",
     "noteChapter": 4,
     "noteHeading": "IPv4 数据报的首部格式",
     "noteSha256": "be99a448a82d617b253d9e5bd684440991f9822349029fa4707af2ac25237b03",
-    "conclusion": "总长度减IHL给出每片数据长度，是重组确定字节范围和末端位置的必要信息，不能称A与分片重组无关；题目无严格正确项。",
+    "conclusion": "RFC791重组算法需要总长度减首部长度来得到每片数据字节数，再与片偏移确定字节覆盖范围；最后一片的长度还参与确定原始数据总长度。标识用于归组，MF/DF表示分片状态/许可，偏移给出位置。因此A绝不能称为“无关”。原解析只是少列了总长度的作用，不足以证明它无关，按勘误自评。",
     "checkId": null,
     "references": [
       {
@@ -469,7 +499,15 @@
         "url": "https://www.rfc-editor.org/rfc/rfc791.html"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "总长度减IHL给出每片数据长度，是重组确定字节范围和末端位置的必要信息，不能称A与分片重组无关；题目无严格正确项。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "无正确选项：A、B、C、D都与分片或重组有关",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-4-029",
@@ -520,7 +558,7 @@
     "noteChapter": 4,
     "noteHeading": "IPv4 数据报的首部格式",
     "noteSha256": "be99a448a82d617b253d9e5bd684440991f9822349029fa4707af2ac25237b03",
-    "conclusion": "B错在DF=1丢包后一般应回ICMP需分片；A“超过MTU就必须分片”也忽略DF=1情形，两项均有问题。",
+    "conclusion": "A遗漏DF=1时不得分片而应丢弃；B又错误地声称无需报告，正常可报告情形应发ICMP目的不可达/需分片。C、D成立。应给A补上“允许分片且DF=0”等条件，才可把B作为唯一错误项；本轮不改题干，继续不计分。",
     "checkId": null,
     "references": [
       {
@@ -529,7 +567,15 @@
         "url": "https://www.rfc-editor.org/rfc/rfc791.html"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "B错在DF=1丢包后一般应回ICMP需分片；A“超过MTU就必须分片”也忽略DF=1情形，两项均有问题。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "A、B均不严谨；原题不能唯一选B",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-4-032",
@@ -718,10 +764,18 @@
     "noteChapter": 4,
     "noteHeading": "IPv4 地址及其编址方法",
     "noteSha256": "be99a448a82d617b253d9e5bd684440991f9822349029fa4707af2ac25237b03",
-    "conclusion": "题干称已给定网段为/27，却按其原始C类/24被划成8个/27解答；若继续细分/27，答案不同。需改清父网段与子网掩码。",
+    "conclusion": "198.90.10.0/27自身只有32个地址。若不继续细分，该子网普通主机地址为30个；若要继续细分，则子网数量和每网主机数随目标前缀变化，题面未给。来源8×32=256地址，实际使用的是父网198.90.10.0/24。应明确/24父网与/27目标掩码，不能把原/27悄悄解释成/24。",
     "checkId": null,
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "题干称已给定网段为/27，却按其原始C类/24被划成8个/27解答；若继续细分/27，答案不同。需改清父网段与子网掩码。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "父网/24划为/27时为8个、30地址；原题已给/27则不能这样推出",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-4-044",
@@ -734,10 +788,18 @@
     "noteChapter": 4,
     "noteHeading": "IPv4 地址及其编址方法",
     "noteSha256": "be99a448a82d617b253d9e5bd684440991f9822349029fa4707af2ac25237b03",
-    "conclusion": "同一主机/网卡可绑定同子网多个地址，B、D均可能，C不是唯一。题干还未给掩码，不能强制按分类地址断言。",
+    "conclusion": "主机可在同一接口或不同接口配置多个地址，同子网多个地址并不违法。例如掩码/24时，.11.25与.11.26或.11.24均可配置，另一个接口用.13.25也可。题目未给掩码与接口限制；其他掩码下A也可能是有效主机地址。原解“一台主机的两个IP必须来自不同网络”错误。",
     "checkId": null,
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "同一主机/网卡可绑定同子网多个地址，B、D均可能，C不是唯一。题干还未给掩码，不能强制按分类地址断言。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "至少B、C、D均可能；无唯一答案",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-4-045",
@@ -1182,7 +1244,7 @@
     "noteChapter": 4,
     "noteHeading": "网际控制报文协议（ICMP）",
     "noteSha256": "be99a448a82d617b253d9e5bd684440991f9822349029fa4707af2ac25237b03",
-    "conclusion": "C源点抑制仅历史ICMP定义；RFC6633规定不得再发送Source Quench。按现行标准四项无对应拥塞抑制通知，保留历史答案但停止计分。",
+    "conclusion": "RFC6633更新旧规范，禁止路由器发送Source Quench，并要求主机忽略此报文。题干的“可”若考旧ICMP类型，C是历史答案；若问现行路由器行为，四项没有相应拥塞通知。题面未给年代，继续标历史/现行口径争议，不能将历史C不加说明地恢复为现行判分。",
     "checkId": null,
     "references": [
       {
@@ -1191,7 +1253,15 @@
         "url": "https://www.rfc-editor.org/rfc/rfc6633.html"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "C源点抑制仅历史ICMP定义；RFC6633规定不得再发送Source Quench。按现行标准四项无对应拥塞抑制通知，保留历史答案但停止计分。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "历史ICMP模型选C；现行标准不得发送源点抑制",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-4-073",
@@ -1691,12 +1761,12 @@
     "sourcePath": "ch4/quiz.html",
     "sourceOrdinal": 103,
     "sourceAnswer": null,
-    "status": "disputed",
+    "status": "corrected",
     "scoring": "self",
     "noteChapter": 4,
     "noteHeading": "IPv4 数据报的首部格式",
     "noteSha256": "be99a448a82d617b253d9e5bd684440991f9822349029fa4707af2ac25237b03",
-    "conclusion": "源124.78.3.2、目的180.14.15.2、载荷64B可读出；片字段0x5850使DF1而偏移6224非0，头部自相矛盾。实际字节偏移49792，来源未清楚回答且不能当正常分片示例。",
+    "conclusion": "版本4、IHL5，所以首部20B；总长度0x54=84B，载荷64B。0x5850中DF=1、MF=0、13位偏移=0x1850=6224，即原数据起点的49792B偏移；按偏移它声称是末片，但DF又禁止分片，不能把它当作正常合法分片。该20B首部的校验和折叠和恰为0xffff，校验通过并不能消除字段语义矛盾。修正答案应同时报告解析值和异常，不猜哪一个字节印错。",
     "checkId": "calc:cn-4-103",
     "references": [
       {
@@ -1705,7 +1775,15 @@
         "url": "https://www.rfc-editor.org/rfc/rfc791.html"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "源124.78.3.2、目的180.14.15.2、载荷64B可读出；片字段0x5850使DF1而偏移6224非0，头部自相矛盾。实际字节偏移49792，来源未清楚回答且不能当正常分片示例。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "源124.78.3.2；目的180.14.15.2；载荷64B；片偏移6224单位=49792B，但首部语义矛盾",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-4-104",
@@ -2017,15 +2095,29 @@
     "sourcePath": "ch4/quiz.html",
     "sourceOrdinal": 123,
     "sourceAnswer": "B",
-    "status": "disputed",
+    "status": "corrected",
     "scoring": "self",
     "noteChapter": 4,
     "noteHeading": "分层次的路由选择协议",
     "noteSha256": "be99a448a82d617b253d9e5bd684440991f9822349029fa4707af2ac25237b03",
-    "conclusion": "B“知道如何路由到其他区域”并不要求知道其内部拓扑，分层路由当然需要区域间汇总/下一跳信息；来源将这两件事混同，B不应判错。",
+    "conclusion": "分层路由隐藏的是其他区域的内部拓扑，并非取消到其他区域的路由。RFC2328 §3.2说明通过区域边界路由器的汇总信息计算跨区路径，区域内路由器可据此选择出口，所以B中的“知道如何路由到其他区域”成立。A、C、D也未构成错误。原解把不知道内部结构误读为不知道跨区路由，按勘误自评。",
     "checkId": null,
-    "references": [],
-    "reviewedAt": "2026-10-23"
+    "references": [
+      {
+        "id": "rfc2328",
+        "title": "RFC2328：OSPF区域间路由与LSA",
+        "url": "https://www.rfc-editor.org/rfc/rfc2328.html"
+      }
+    ],
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "B“知道如何路由到其他区域”并不要求知道其内部拓扑，分层路由当然需要区域间汇总/下一跳信息；来源将这两件事混同，B不应判错。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "按通常分层路由定义，四项均可成立；原B不应判错",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-4-124",
@@ -2166,10 +2258,24 @@
     "noteChapter": 4,
     "noteHeading": "因特网的路由选择协议",
     "noteSha256": "be99a448a82d617b253d9e5bd684440991f9822349029fa4707af2ac25237b03",
-    "conclusion": "A按封装层次确有问题，但C将OSPF的LSA说成“路由表一部分”也不准确，B把区域洪泛泛称全AS；单错题不严谨，停止计分。",
+    "conclusion": "按TCP/IP封装分类RIP使用UDP，A把它与OSPF都归网络层不当；按功能分类又常统称网络路由协议。更关键的是C：OSPF发送LSA，不是“路由表的一部分”；区域内拓扑LSA与部分跨AS洪泛的外部LSA范围也不同，B不可一概而论。多处措辞问题不能只纠正A并恢复单选。",
     "checkId": null,
-    "references": [],
-    "reviewedAt": "2026-10-23"
+    "references": [
+      {
+        "id": "rfc2328",
+        "title": "RFC2328：OSPF区域间路由与LSA",
+        "url": "https://www.rfc-editor.org/rfc/rfc2328.html"
+      }
+    ],
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "A按封装层次确有问题，但C将OSPF的LSA说成“路由表一部分”也不准确，B把区域洪泛泛称全AS；单错题不严谨，停止计分。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "A、C均有问题，B还需限定区域/LSA类型",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-4-133",
@@ -2342,10 +2448,18 @@
     "noteChapter": 4,
     "noteHeading": "路由信息协议（RIP）",
     "noteSha256": "be99a448a82d617b253d9e5bd684440991f9822349029fa4707af2ac25237b03",
-    "conclusion": "配图实际是含NAT、Hub与Web的另一道拓扑，没有题设RIP三角与201.1.2.0/25一致标注；原解析又自行加入保存所有邻居向量的模型，不能支持唯一答案3。",
+    "conclusion": "再次检查来源配图，仍为含NAT、Hub和Web主机的其他题拓扑，与题面RIP三角/目的网段不匹配。来源解析另行假设保存所有邻居向量，不能替代原题给出的路由状态。需要与题干对应的原图和路由信息；不依据该解析倒推并补造图。",
     "checkId": null,
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "配图实际是含NAT、Hub与Web的另一道拓扑，没有题设RIP三角与201.1.2.0/25一致标注；原解析又自行加入保存所有邻居向量的模型，不能支持唯一答案3。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "缺失匹配拓扑，无法确认原答案3",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-4-144",
@@ -2454,10 +2568,24 @@
     "noteChapter": 4,
     "noteHeading": "网际协议",
     "noteSha256": "be99a448a82d617b253d9e5bd684440991f9822349029fa4707af2ac25237b03",
-    "conclusion": "移动IPv4注册最终更新归属代理，但可经外部代理登记，C表述不足以单独排错；B还忽略共址转交地址无需外部代理的情形，题面未限定代理模型。",
+    "conclusion": "RFC5944规定注册的最终绑定在归属代理；使用外部代理转交地址时，移动节点先向外部代理发注册请求，外部代理再转交归属代理。因此C的“通知外部代理”并非在该模式下一定错误。使用共址转交地址又不要求外部代理存在，B的隧道终点叙述也非通用。需说明具体代理模型及注册最终目的。",
     "checkId": null,
-    "references": [],
-    "reviewedAt": "2026-10-23"
+    "references": [
+      {
+        "id": "rfc5944",
+        "title": "RFC5944：移动IPv4注册及转交地址",
+        "url": "https://www.rfc-editor.org/rfc/rfc5944.html"
+      }
+    ],
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "移动IPv4注册最终更新归属代理，但可经外部代理登记，C表述不足以单独排错；B还忽略共址转交地址无需外部代理的情形，题面未限定代理模型。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "B、C都依赖转交地址与代理模型；无法唯一排错",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-4-151",
@@ -2710,10 +2838,18 @@
     "noteChapter": 4,
     "noteHeading": "网际协议",
     "noteSha256": "be99a448a82d617b253d9e5bd684440991f9822349029fa4707af2ac25237b03",
-    "conclusion": "处理/转发时延取决于型号、ASIC、包长、速率和排队，无法按设备类别固定排序；现代路由器也硬件转发，来源C及毫秒级泛化无充分依据。",
+    "conclusion": "交换机和路由器均可用ASIC线速转发，也可能经过软件慢路径；集线器、中继器和网桥的具体延迟还受速率、帧长、实现及排队影响。题面不给型号和工作方式，无法证明原C固定排序。可比较处理层次，不能据此推出所有设备的数值时延顺序。",
     "checkId": null,
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "处理/转发时延取决于型号、ASIC、包长、速率和排队，无法按设备类别固定排序；现代路由器也硬件转发，来源C及毫秒级泛化无充分依据。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "无法仅按设备类型确定固定时延排序",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-4-167",
@@ -2919,15 +3055,23 @@
     "sourcePath": "ch4/quiz.html",
     "sourceOrdinal": 179,
     "sourceAnswer": null,
-    "status": "disputed",
+    "status": "corrected",
     "scoring": "self",
     "noteChapter": 4,
     "noteHeading": "因特网的路由选择协议",
     "noteSha256": "be99a448a82d617b253d9e5bd684440991f9822349029fa4707af2ac25237b03",
-    "conclusion": "已检查原图，存在R13—R15而无R12—R15/R13—R16，来源误读拓扑且把t=0首次交换当30s。按同步扩散，到R14直连网最大2跳需30s，到R16直连网最大3跳需60s，并非90/90。其余OSPF、TTL16、eBGP UPDATE/iBGP及下一跳R11/R13成立。",
+    "conclusion": "按原图AS1边集11—12、12—13、11—14、14—15、15—16、13—15，R14到所有路由器最大距离2跳，R16最大3跳。题面明确t=0立即交换一次，此时已扩散1跳，故全网到210.2.3.0/24和210.2.4.0/24分别在30s、60s得到正确路由。原解误读纵向连边并额外多算首次30s。第(5)问在题设无其他策略且IGP等开销下，R14最近出口R11、R15最近出口R13；BGP的路径与出口比较不能简化成任意同长AS路径随便选。",
     "checkId": "calc:cn-4-179",
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "已检查原图，存在R13—R15而无R12—R15/R13—R16，来源误读拓扑且把t=0首次交换当30s。按同步扩散，到R14直连网最大2跳需30s，到R16直连网最大3跳需60s，并非90/90。其余OSPF、TTL16、eBGP UPDATE/iBGP及下一跳R11/R13成立。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "(1)OSPF；(2)16；(3)30s、60s；(4)eBGP/UPDATE/iBGP；(5)R11、R13",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-4-180",

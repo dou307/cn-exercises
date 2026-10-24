@@ -74,10 +74,24 @@
     "noteChapter": 5,
     "noteHeading": "对数据传输可靠性的支持情况",
     "noteSha256": "120caa22d1cdd02990577fd1f16f700c99beb00cd678cfcc70aff2293ec32c35",
-    "conclusion": "确认机制本身不确保不丢数据，还需校验、序号、重传及失败处理；可靠性是交付语义，不等于“用了ACK”。D措辞过强，来源推理不成立。",
+    "conclusion": "可靠性描述对上层的可靠交付服务，不是仅指存在某个机制。ACK需与校验、序号、重传、重复抑制和失败处理协作；只有ACK的协议仍可丢失数据。A、B、C也不能独立定义可靠。因此若D指完整可靠协议内的确认机制，可作预期答案；若按原解ACK本身充分，则不成立。保留争议，不恢复绝对判分。",
     "checkId": null,
-    "references": [],
-    "reviewedAt": "2026-10-23"
+    "references": [
+      {
+        "id": "rfc9293",
+        "title": "RFC 9293：TCP 段、序号、关闭与复位",
+        "url": "https://www.rfc-editor.org/rfc/rfc9293.html"
+      }
+    ],
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "确认机制本身不确保不丢数据，还需校验、序号、重传及失败处理；可靠性是交付语义，不等于“用了ACK”。D措辞过强，来源推理不成立。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "D最接近教材意图，但“用了确认就确保不丢失”的解释错误",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-5-006",
@@ -304,7 +318,7 @@
     "noteChapter": 5,
     "noteHeading": "首部对比",
     "noteSha256": "120caa22d1cdd02990577fd1f16f700c99beb00cd678cfcc70aff2293ec32c35",
-    "conclusion": "B发送伪首部错误；C允许将已检出错误的UDP交上层也不符合RFC1122普通UDP须静默丢弃的要求，A还须限定IPv4，单错题不唯一。",
+    "conclusion": "伪首部仅参与计算不随UDP报文发送，所以B错。RFC1122 §4.1.3.4明确非零且无效的UDP校验和必须静默丢弃，C的“也可交上层”错；可选的是是否接受未提供校验和的数据报，二者不能混淆。A的全零省略校验和仅适用通常IPv4模型，普通IPv6 UDP不能照搬。单错题不唯一，保留争议并明确两处修正。",
     "checkId": null,
     "references": [
       {
@@ -313,7 +327,15 @@
         "url": "https://www.rfc-editor.org/rfc/rfc1122.html#section-4.1.3.4"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "B发送伪首部错误；C允许将已检出错误的UDP交上层也不符合RFC1122普通UDP须静默丢弃的要求，A还须限定IPv4，单错题不唯一。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "普通IPv4 UDP下B、C都错误；A还依赖IP版本",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-5-020",
@@ -438,10 +460,24 @@
     "noteChapter": 5,
     "noteHeading": "首部对比",
     "noteSha256": "120caa22d1cdd02990577fd1f16f700c99beb00cd678cfcc70aff2293ec32c35",
-    "conclusion": "NAT不一定改源端口，NAPT也可保持原端口；IPv4零UDP校验和须继续为0。题面未限定NAPT与非零校验和，无法断言I、IV一定修改。",
+    "conclusion": "RFC3022区分Basic NAT与NAPT；前者只改地址，不必改UDP源端口，后者也可保留端口。IPv4 UDP原校验和为0时须保持0；非零时须按伪首部变化调整，但调整后的数值是否不同还取决于具体地址与端口。源端口与检验和均不能在所有NAT情形下断言数值一定改变。题面缺映射模式与字段值，继续不计分。",
     "checkId": null,
-    "references": [],
-    "reviewedAt": "2026-10-23"
+    "references": [
+      {
+        "id": "rfc3022",
+        "title": "RFC3022：Basic NAT、NAPT与零UDP校验和例外",
+        "url": "https://www.rfc-editor.org/rfc/rfc3022.html"
+      }
+    ],
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "NAT不一定改源端口，NAPT也可保持原端口；IPv4零UDP校验和须继续为0。题面未限定NAPT与非零校验和，无法断言I、IV一定修改。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "无必然对应选项；NAPT且源端口改变、非零校验和时教材选B",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-5-028",
@@ -642,7 +678,7 @@
     "noteChapter": 5,
     "noteHeading": "对应用层报文的处理",
     "noteSha256": "120caa22d1cdd02990577fd1f16f700c99beb00cd678cfcc70aff2293ec32c35",
-    "conclusion": "MSS是单段数据上限，不是固定发送或重传单位；TCP可发短段、合并/重新分段重传，两端MSS各自限制接收方向，来源A的绝对叙述错误。",
+    "conclusion": "MSS规定单个TCP段数据的上限，并不要求每次发送/重传都恰为MSS。发送窗口、剩余数据或实现可导致短段，重传也可重新分段。双方各通告自己可接收的最大段长，不能笼统说统一取二者较小值后所有方向固定使用。若题目改为“通常按不超过什么上限分段”，A可成立；原固定单位说法继续保留争议。",
     "checkId": null,
     "references": [
       {
@@ -651,7 +687,15 @@
         "url": "https://www.rfc-editor.org/rfc/rfc9293.html"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "MSS是单段数据上限，不是固定发送或重传单位；TCP可发短段、合并/重新分段重传，两端MSS各自限制接收方向，来源A的绝对叙述错误。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "满长段的教材模型预期A；协议不规定固定MSS重传单位",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-5-040",
@@ -728,7 +772,7 @@
     "noteChapter": 5,
     "noteHeading": "释放 TCP 连接",
     "noteSha256": "120caa22d1cdd02990577fd1f16f700c99beb00cd678cfcc70aff2293ec32c35",
-    "conclusion": "C“只有客户可主动关闭”错误；D“需要四次”也非必然，FIN与ACK可合并为三报文关闭，来源承认的后续题也采用合并。",
+    "conclusion": "任一端都能主动关闭，C确定错误。RFC9293的正常关闭序列允许ACK与本端FIN合并，三报文也可完成关闭；四次挥手是常见分步讲解，并非协议强制四个报文。应把D限定为“典型过程可分别包含四次收发”，才可唯一选C。",
     "checkId": null,
     "references": [
       {
@@ -737,7 +781,15 @@
         "url": "https://www.rfc-editor.org/rfc/rfc9293.html"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "C“只有客户可主动关闭”错误；D“需要四次”也非必然，FIN与ACK可合并为三报文关闭，来源承认的后续题也采用合并。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "C确定错误；D若理解为必需四个报文也错误",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-5-045",
@@ -870,7 +922,7 @@
     "noteChapter": 5,
     "noteHeading": "释放 TCP 连接",
     "noteSha256": "120caa22d1cdd02990577fd1f16f700c99beb00cd678cfcc70aff2293ec32c35",
-    "conclusion": "FIN可与数据同段，确认应为x+载荷长度+1，题面未说FIN段无数据，D的“一定x+1”不成立；不能用所谓主流实现不携数据替代协议条件。",
+    "conclusion": "RFC9293允许FIN与数据同段，FIN占用位于数据之后的一个序号。题目未给A载荷长度，无法断言B.ack一定x+1；B.seq又取决于服务器关闭前是否继续发送数据。原解所谓主流系统不允许FIN携带数据不是协议依据。需明确A不携数据且为正常有序关闭，才恢复D。",
     "checkId": null,
     "references": [
       {
@@ -879,7 +931,15 @@
         "url": "https://www.rfc-editor.org/rfc/rfc9293.html"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "FIN可与数据同段，确认应为x+载荷长度+1，题面未说FIN段无数据，D的“一定x+1”不成立；不能用所谓主流实现不携数据替代协议条件。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "FIN段A载荷为n字节时，确认通常为x+n+1；n=0才对应D",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-5-052",
@@ -1303,7 +1363,7 @@
     "noteChapter": 5,
     "noteHeading": "报文段首部格式",
     "noteSha256": "120caa22d1cdd02990577fd1f16f700c99beb00cd678cfcc70aff2293ec32c35",
-    "conclusion": "按顺序接收可知ACK应2013，但甲持续发送时SND.NXT可能已超过乙确认的2046，无法由单个入段唯一断言回段seq2046。",
+    "conclusion": "1913起的100B覆盖到2012，按题设顺序接收则下一期待2013。乙发来的ACK2046仅说明它当时已收到甲到2045，并不表示甲此后未再发送；例如甲已发2046至2145，回段SEQ可为2146。双方持续传输且无丢失也不排除这些在途数据，故B只在额外“甲无其他在途数据”条件下成立。",
     "checkId": null,
     "references": [
       {
@@ -1312,7 +1372,15 @@
         "url": "https://www.rfc-editor.org/rfc/rfc9293.html"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "按顺序接收可知ACK应2013，但甲持续发送时SND.NXT可能已超过乙确认的2046，无法由单个入段唯一断言回段seq2046。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "按有序接收ACK=2013；回复SEQ为当前SND.NXT，不能唯一推出2046",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-5-074",
@@ -1563,7 +1631,7 @@
     "noteChapter": 5,
     "noteHeading": "释放 TCP 连接",
     "noteSha256": "120caa22d1cdd02990577fd1f16f700c99beb00cd678cfcc70aff2293ec32c35",
-    "conclusion": "来源60.04s隐含初窗1MSS且等待全部数据ACK后才发FIN；题面未给这些条件，FIN可在数据后立即发送/与数据合并，60.03s等更短流程可能，最少时间不唯一。",
+    "conclusion": "来源隐含初窗1MSS、收到全部数据ACK后才发FIN。若初窗允许3MSS，t=10ms发第三握手时即可发送全部3000B并紧接FIN，t=15ms服务器收到并立即回ACK+FIN，t=20ms到达H并使其进入TIME-WAIT，60.02s即可CLOSED（忽略发送时延）。即使初窗1MSS，末批数据后不等确认就发FIN也可缩短流程。题目未限定这些条件，选项也不含所有合法最短模型，继续不计分。",
     "checkId": null,
     "references": [
       {
@@ -1577,7 +1645,15 @@
         "url": "https://www.rfc-editor.org/rfc/rfc6928.html"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "来源60.04s隐含初窗1MSS且等待全部数据ACK后才发FIN；题面未给这些条件，FIN可在数据后立即发送/与数据合并，60.03s等更短流程可能，最少时间不唯一。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "60.04s不是题面可推出的最小值；初窗及关闭时点未给",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-5-087",
@@ -1864,10 +1940,24 @@
     "noteChapter": 5,
     "noteHeading": "流量控制",
     "noteSha256": "120caa22d1cdd02990577fd1f16f700c99beb00cd678cfcc70aff2293ec32c35",
-    "conclusion": "TCP逐段滑窗不能把整个窗口当停等的一帧。忽略段发送耗时按窗口/RTT，128kb/s×0.256/8=4096B；来源8192需额外假设整窗批次等待，缺少段长与ACK模型无法唯一推出。",
+    "conclusion": "单向传播128ms给出传播RTT=256ms。连续滑窗的近似W=吞吐率×RTT/8=4096B；但题面并未忽略数据段发送时间，有限段长L时ACK循环还含L/256000，需给MSS、ACK节奏与实际瓶颈才能精确反推窗口。8192B来自吞吐=W/(W/C+RTT)把整窗当一个停等批次，不能直接当普通TCP滑窗结论。本轮修正原推导并保留缺条件争议。",
     "checkId": "calc:cn-5-103",
-    "references": [],
-    "reviewedAt": "2026-10-23"
+    "references": [
+      {
+        "id": "rfc9293",
+        "title": "RFC 9293：TCP 段、序号、关闭与复位",
+        "url": "https://www.rfc-editor.org/rfc/rfc9293.html"
+      }
+    ],
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "TCP逐段滑窗不能把整个窗口当停等的一帧。忽略段发送耗时按窗口/RTT，128kb/s×0.256/8=4096B；来源8192需额外假设整窗批次等待，缺少段长与ACK模型无法唯一推出。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "逐段滑窗且忽略序列化时约4096B；8192B依赖整窗停等模型",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-5-104",
@@ -1918,10 +2008,29 @@
     "noteChapter": 5,
     "noteHeading": "报文段首部格式",
     "noteSha256": "120caa22d1cdd02990577fd1f16f700c99beb00cd678cfcc70aff2293ec32c35",
-    "conclusion": "已检查三张原图：表1第五包TCP部分及表2主体被截断，第二包首字节还为0x43使IPv4 IHL=3非法。可确认1/3/4来自H、3/5需填充，但16B确认量与15跳无法从完整可见字段独立验证，待补全原图。",
+    "conclusion": "原图表1第五包TCP字段和表2主体仍被裁切，无法独立读取第五包ACK与发送时TTL；16B和15跳只来自原解析，不能当已核实。表1第二包首字节0x43又意味着IHL=3，小于合法IPv4首部最短5，应另查是否印错。先保留可读字段的结论，不自行补成0x45，不用解析代替缺失证据。",
     "checkId": null,
-    "references": [],
-    "reviewedAt": "2026-10-23"
+    "references": [
+      {
+        "id": "rfc791",
+        "title": "RFC 791 §3.1–3.2：IPv4 首部、分片与重组",
+        "url": "https://www.rfc-editor.org/rfc/rfc791.html"
+      },
+      {
+        "id": "rfc9293",
+        "title": "RFC 9293：TCP 段、序号、关闭与复位",
+        "url": "https://www.rfc-editor.org/rfc/rfc9293.html"
+      }
+    ],
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "已检查三张原图：表1第五包TCP部分及表2主体被截断，第二包首字节还为0x43使IPv4 IHL=3非法。可确认1/3/4来自H、3/5需填充，但16B确认量与15跳无法从完整可见字段独立验证，待补全原图。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "可确认1/3/4来自H、3/5需填充；其余关键字段缺失待补图",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-5-107",

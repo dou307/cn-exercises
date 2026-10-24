@@ -21,7 +21,18 @@ assert {r["id"]: r["hash"] for r in registry} == {q["id"]: q["hash"] for q in da
 assert {m["questionId"]: m["sourceContentHash"] for m in mappings} == {q["id"]: q["hash"] for q in data}, "mapping mismatch"
 assert len(reviews) == len({r['questionId'] for r in reviews}) == len(data), 'review duplicates or missing records'
 assert {r["questionId"]: r["sourceContentHash"] for r in reviews} == baseline == {q["id"]: q["hash"] for q in data}, "review coverage or hash mismatch"
-assert all(r['status'] in ('verified','qualified','disputed') and r['conclusion'] and r['noteHeading'] for r in reviews), 'incomplete review'
+assert all(r['status'] in ('verified','qualified','corrected','disputed') and r['conclusion'] and r['noteHeading'] for r in reviews), 'incomplete review'
+second = json.loads((ROOT / 'data/reviews/recheck-20261024.json').read_text(encoding='utf-8'))
+second_by_id = {r['id']: r for r in second['items']}
+assert len(second_by_id) == len(second['items']) == 48
+assert set(second_by_id) == {r['questionId'] for r in reviews if r.get('recheckId')}, 'second-pass coverage differs'
+for r in reviews:
+    if r['questionId'] not in second_by_id: continue
+    item = second_by_id[r['questionId']]
+    assert r['previousReview']['status'] == 'disputed'
+    assert r['status'] == item['status'] and r['scoring'] == item['scoring']
+    assert r['answerLabel'] == item['answerLabel'] and r['conclusion'] == item['explanation']
+    assert r['reviewedAt'] == second['date']
 for ch in range(1,7):
     assert json.loads((ROOT / f'data/reviews/ch{ch}.json').read_text(encoding='utf-8')) == [r for r in reviews if r['noteChapter']==ch], 'chapter reviews differ from combined review'
 assert all(r["status"] != "disputed" or r["scoring"] == "self" for r in reviews), "disputed item auto-scored"

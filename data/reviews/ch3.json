@@ -229,15 +229,29 @@
     "sourcePath": "ch3/quiz.html",
     "sourceOrdinal": 15,
     "sourceAnswer": "D",
-    "status": "disputed",
+    "status": "corrected",
     "scoring": "self",
     "noteChapter": 3,
     "noteHeading": "差错检测",
     "noteSha256": "09a50fb2e1ffe7e61d0d99995507b0b5df0836c958b6da0dafaf1e1f116ef286",
-    "conclusion": "D的CRC余数为0，但这只能说明未检出差错，不能断定传输无错；错误模式若为生成多项式倍数也会通过。题面四项均不能证明绝对无错。",
+    "conclusion": "用10011作模2除法，A/B/C/D余数分别为1100、1000、0100、0000，因此若题干改为“未检出差错”应选D。原题使用“可以断定未发生错误”，严格说无正确选项：非零错误模式只要是生成多项式的倍数，也会保持余数0。原解析把检错通过等同于绝对无错，应纠正；当前按勘误自评。",
     "checkId": "calc:cn-3-015",
-    "references": [],
-    "reviewedAt": "2026-10-23"
+    "references": [
+      {
+        "id": "rfc3385",
+        "title": "RFC3385：CRC的未检出差错与概率分析",
+        "url": "https://www.rfc-editor.org/rfc/rfc3385.html"
+      }
+    ],
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "D的CRC余数为0，但这只能说明未检出差错，不能断定传输无错；错误模式若为生成多项式倍数也会通过。题面四项均不能证明绝对无错。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "没有选项能断定绝对无错；D是唯一CRC未检出差错的码字",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-3-016",
@@ -378,10 +392,18 @@
     "noteChapter": 3,
     "noteHeading": "回退 N 帧协议 (Go-Back-N, GBN)",
     "noteSha256": "09a50fb2e1ffe7e61d0d99995507b0b5df0836c958b6da0dafaf1e1f116ef286",
-    "conclusion": "若连续ARQ专指GBN则D错误；来源却将连续ARQ定义为包含SR，SR允许失序接收，因此题面与解析口径冲突，需明确协议。",
+    "conclusion": "GBN接收窗为1，不接收失序帧；SR可缓存窗口内失序帧。来源解析先称连续ARQ包含GBN和SR，又否定SR允许的行为，存在定义冲突。必须明确此处连续ARQ是否专指GBN，不能在两种定义间切换。",
     "checkId": null,
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "若连续ARQ专指GBN则D错误；来源却将连续ARQ定义为包含SR，SR允许失序接收，因此题面与解析口径冲突，需明确协议。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "连续ARQ=GBN时选D；包含SR时D并非普遍错误",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-3-025",
@@ -474,10 +496,18 @@
     "noteChapter": 3,
     "noteHeading": "可靠传输",
     "noteSha256": "09a50fb2e1ffe7e61d0d99995507b0b5df0836c958b6da0dafaf1e1f116ef286",
-    "conclusion": "“窗口总大小n”未定义；若n指发送窗，未确认可达n；若指序号空间且采用GBN才是n−1。来源把序号空间和窗口大小混用。",
+    "conclusion": "未确认帧数最多等于发送窗口大小。若n就是该大小，则最多n帧；若n指序号空间且接收窗口为1，则GBN发送窗最大n−1；SR还需另给两个窗口与序号空间的约束。题面“窗口总大小”未定义，来源把它直接替换成序号空间大小，不能唯一判B。",
     "checkId": null,
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "“窗口总大小n”未定义；若n指发送窗，未确认可达n；若指序号空间且采用GBN才是n−1。来源把序号空间和窗口大小混用。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "n为发送窗口大小时选C；n为GBN序号空间大小时选B",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-3-031",
@@ -773,15 +803,29 @@
     "sourcePath": "ch3/quiz.html",
     "sourceOrdinal": 49,
     "sourceAnswer": null,
-    "status": "disputed",
+    "status": "corrected",
     "scoring": "self",
     "noteChapter": 3,
     "noteHeading": "差错检测",
     "noteSha256": "09a50fb2e1ffe7e61d0d99995507b0b5df0836c958b6da0dafaf1e1f116ef286",
-    "conclusion": "模2余数确为0，数据前7位1011001、CRC后4位1010；但只能说未检出差错，不能推断未出现差错，原解答结论过强。",
+    "conclusion": "10110011010除以11001的模2余数为0，只能报告未检出差错，不能确认传输过程中无差错。若按题目第二问显式作“未出错”的条件假设，则前7位数据为1011001、后4位CRC为1010。若确有未检出的差错，不能从收到码字反推出原始发送数据。",
     "checkId": "calc:cn-3-049",
-    "references": [],
-    "reviewedAt": "2026-10-23"
+    "references": [
+      {
+        "id": "rfc3385",
+        "title": "RFC3385：CRC的未检出差错与概率分析",
+        "url": "https://www.rfc-editor.org/rfc/rfc3385.html"
+      }
+    ],
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "模2余数确为0，数据前7位1011001、CRC后4位1010；但只能说未检出差错，不能推断未出现差错，原解答结论过强。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "余数0：未检出差错；在未出错假设下数据1011001、CRC1010",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-3-050",
@@ -933,15 +977,23 @@
     "sourcePath": "ch3/quiz.html",
     "sourceOrdinal": 59,
     "sourceAnswer": "B",
-    "status": "disputed",
+    "status": "corrected",
     "scoring": "self",
     "noteChapter": 3,
     "noteHeading": "共享式以太网",
     "noteSha256": "09a50fb2e1ffe7e61d0d99995507b0b5df0836c958b6da0dafaf1e1f116ef286",
-    "conclusion": "FDM可通过调制承载数字数据，B“FDM不行”错误；现代OFDM也是频分思想。四项没有支撑题干普遍结论的严格正确答案。",
+    "conclusion": "数字数据可先调制到不同载波频带后用FDM复用，因此“FDM不行”确定错误；A、C也无普遍依据，D的带宽优势不能脱离保护频带、同步开销及业务负载比较。不能从“计算机网络使用数字数据”推出FDM不适用。当前保留原选项，按无严格正确选项的勘误题自评。",
     "checkId": null,
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "FDM可通过调制承载数字数据，B“FDM不行”错误；现代OFDM也是频分思想。四项没有支撑题干普遍结论的严格正确答案。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "四项均不能成立为题干的一般原因；原B错误",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-3-060",
@@ -1301,21 +1353,29 @@
     "sourcePath": "ch3/quiz.html",
     "sourceOrdinal": 82,
     "sourceAnswer": "D",
-    "status": "disputed",
+    "status": "corrected",
     "scoring": "self",
     "noteChapter": 3,
     "noteHeading": "以太网的发展",
     "noteSha256": "09a50fb2e1ffe7e61d0d99995507b0b5df0836c958b6da0dafaf1e1f116ef286",
-    "conclusion": "光纤介质不必然全双工，10BASE-F等存在半双工CSMA/CD实现；D并非错误，且光纤不必总是两芯，也可直连终端，来源理由错误。",
+    "conclusion": "A的集线器属于共享半双工；B说交换机“可以”全双工成立；C描述光纤点到点连接与扩大距离的典型用途，并未说它只能连接中继设备。D也成立：Cisco 10BASE-FL接口明确支持半双工和CSMA/CD。介质为光纤不等于必为全双工；也不能声称每条光纤连接至少两芯或不能连接终端。题面没有可唯一选出的错误项，按勘误自评。",
     "checkId": null,
     "references": [
       {
         "id": "fiber-half-duplex",
-        "title": "Cisco：10BASE-FL 光纤半双工接口",
-        "url": "https://www.cisco.com/c/en/us/td/docs/interfaces_modules/port_adapters/install_upgrade/ethernet/pa-5efl_ethernet_10baset_install_config/pa_5efl/3495over.html"
+        "title": "Cisco：10BASE-FL 光纤半双工接口手册",
+        "url": "https://www.cisco.com/c/en/us/td/docs/interfaces_modules/port_adapters/install_upgrade/ethernet/pa-5efl_ethernet_10baset_install_config/pa_5efl.pdf"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "光纤介质不必然全双工，10BASE-F等存在半双工CSMA/CD实现；D并非错误，且光纤不必总是两芯，也可直连终端，来源理由错误。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "按题面通常含义，四项均可成立；原D不是错误项",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-3-083",
@@ -1691,15 +1751,29 @@
     "sourcePath": "ch3/quiz.html",
     "sourceOrdinal": 106,
     "sourceAnswer": "D",
-    "status": "disputed",
+    "status": "corrected",
     "scoring": "self",
     "noteChapter": 3,
     "noteHeading": "MAC 帧",
     "noteSha256": "09a50fb2e1ffe7e61d0d99995507b0b5df0836c958b6da0dafaf1e1f116ef286",
-    "conclusion": "已检查图中AP1和AP2之间是路由器且标有MAC1/MAC2；AP2发往B的地址3应为路由器出口MAC2，而不是端到端MAC_A。四项均未给MAC2，来源D不成立。",
+    "conclusion": "原图AP1与AP2之间是路由器，且其左右接口标为MAC1、MAC2。路由器转发时重新封装链路层帧，AP2有线侧收到的源MAC为MAC2。AP2向B发送From DS=1、To DS=0帧时，地址1为B、地址2为AP2、地址3为分布系统送来的源MAC2。原D写MAC_A，错误地把IP端到端源地址规则套到跨路由的MAC源地址。",
     "checkId": null,
-    "references": [],
-    "reviewedAt": "2026-10-23"
+    "references": [
+      {
+        "id": "wifi-addresses",
+        "title": "Cisco技术文档：802.11 From DS帧地址字段",
+        "url": "https://community.cisco.com/t5/networking-knowledge-base/802-11-frames-a-starter-guide-to-learn-wireless-sniffer-traces/ta-p/3110019"
+      }
+    ],
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "已检查图中AP1和AP2之间是路由器且标有MAC1/MAC2；AP2发往B的地址3应为路由器出口MAC2，而不是端到端MAC_A。四项均未给MAC2，来源D不成立。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "地址1=MAC_B，地址2=BSSID2，地址3=MAC2；选项缺失",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-3-107",
@@ -1744,10 +1818,18 @@
     "noteChapter": 3,
     "noteHeading": "虚拟局域网",
     "noteSha256": "09a50fb2e1ffe7e61d0d99995507b0b5df0836c958b6da0dafaf1e1f116ef286",
-    "conclusion": "VLAN配置常由软件管理，但转发与标签处理可由交换ASIC硬件实现；B的“硬件方式”本身不构成必错，来源软件/硬件二分失真。",
+    "conclusion": "VLAN配置和成员关系通常由软件管理，但实际隔离、查表和标签处理可由交换ASIC硬件执行。“通过硬件方式实现逻辑分组与管理”究竟指必须改物理接线，还是指硬件执行逻辑，题面未说明。前者B错，后者不能一概否定；需明确B所指，继续不计分。",
     "checkId": null,
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "VLAN配置常由软件管理，但转发与标签处理可由交换ASIC硬件实现；B的“硬件方式”本身不构成必错，来源软件/硬件二分失真。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "B是传统“软件逻辑划分”表述下的预期答案，措辞不足以普遍判错",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-3-110",
@@ -1755,21 +1837,29 @@
     "sourcePath": "ch3/quiz.html",
     "sourceOrdinal": 110,
     "sourceAnswer": "C",
-    "status": "disputed",
+    "status": "corrected",
     "scoring": "self",
     "noteChapter": 3,
     "noteHeading": "虚拟局域网",
     "noteSha256": "09a50fb2e1ffe7e61d0d99995507b0b5df0836c958b6da0dafaf1e1f116ef286",
-    "conclusion": "802.1X/RADIUS可按用户身份动态分配VLAN，用户名/身份并非不正确方式；C只是传统教材未列方式，不能当普遍错误。",
+    "conclusion": "IEEE 802.1X认证后，RADIUS可按用户配置文件返回VLAN ID，设备把该用户会话动态分配到指定VLAN，构成按用户身份划分的实际反例。端口、MAC及网络层协议/地址分类也都是已有方式。VLAN转发位于二层，并不禁止管理或认证决策使用用户名。因此不能以C为唯一错误项，按勘误自评。",
     "checkId": null,
     "references": [
       {
         "id": "identity-vlan",
-        "title": "Cisco：IEEE 802.1X 认证后分配 VLAN",
-        "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/sec_usr_8021x/configuration/15-mt/sec-user-8021x-15-mt-book/sec-ieee-8021x-vlan-assign.html"
+        "title": "Cisco：IEEE 802.1X 认证后按用户名分配 VLAN",
+        "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/sec_usr_8021x/configuration/xe-3e/sec-usr-8021x-xe-3e-book/sec-ieee-8021x-vlan-assign.html"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "802.1X/RADIUS可按用户身份动态分配VLAN，用户名/身份并非不正确方式；C只是传统教材未列方式，不能当普遍错误。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "四种均存在实现方式；原C不是不正确方式",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-3-111",
@@ -2172,16 +2262,29 @@
     "noteChapter": 3,
     "noteHeading": "点对点协议",
     "noteSha256": "09a50fb2e1ffe7e61d0d99995507b0b5df0836c958b6da0dafaf1e1f116ef286",
-    "conclusion": "D的面向字节封装成立；C“两端必须运行相同网络层协议”在所传业务协议一致的意义下也成立。可多协议复用不等于两端用不兼容协议仍可通信，单选存在语义歧义。",
+    "conclusion": "RFC1661规定PPP能在一条链路上复用多种网络层协议，各协议须分别经NCP配置。若C指双方整个网络层协议栈必须相同，C不成立；若指一项实际承载的业务必须得到对端对应协议支持，C也有成立的解释。D按字节组织封装成立，PPP帧在同步线路上也可做比特填充。需明确C的量词，保留争议；不能说一端仅懂IPv4、另一端仅懂IPv6就能靠NCP直接互通。",
     "checkId": null,
     "references": [
       {
         "id": "rfc1662",
         "title": "RFC 1662：PPP 字节/比特填充",
         "url": "https://www.rfc-editor.org/rfc/rfc1662.html"
+      },
+      {
+        "id": "rfc1661",
+        "title": "RFC1661 §3.6：PPP网络层协议复用与NCP配置",
+        "url": "https://www.rfc-editor.org/rfc/rfc1661.html#section-3.6"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "D的面向字节封装成立；C“两端必须运行相同网络层协议”在所传业务协议一致的意义下也成立。可多协议复用不等于两端用不兼容协议仍可通信，单选存在语义歧义。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "D成立；C中的“相同协议”存在两种含义",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-3-136",

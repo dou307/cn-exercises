@@ -19,6 +19,7 @@
         if (!object(r) || !/^[a-f0-9]{64}$/.test(r.hash) || !/^(?:[A-D]|self-right|self-wrong)$/.test(r.answer) || typeof r.correct !== 'boolean' || !iso(r.at)) throw Error(`作答字段无效：${id}`);
         if (r.hash === q.hash && q.grading === 'auto' && /^[A-D]$/.test(r.answer) && r.correct !== (r.answer === q.answer)) throw Error(`判分字段不一致：${id}`);
         if (r.answer === 'self-right' && !r.correct || r.answer === 'self-wrong' && r.correct) throw Error(`自评字段不一致：${id}`);
+        if (r.reviewVersion !== undefined && !/^recheck-\d{8}$/.test(r.reviewVersion)) throw Error(`审核版本无效：${id}`);
       }
     }
     return {...value, drafts:value.drafts || {}};
@@ -31,9 +32,9 @@
     const result = structuredClone(current);
     for (const [id, entries] of Object.entries(incoming.records)) {
       const all = result.records[id] || [];
-      const keys = new Set(all.map(r => `${r.hash}|${r.answer}|${r.at}`));
+      const keys = new Set(all.map(r => `${r.hash}|${r.answer}|${r.at}|${r.reviewVersion || ''}`));
       for (const r of entries) {
-        const key = `${r.hash}|${r.answer}|${r.at}`;
+        const key = `${r.hash}|${r.answer}|${r.at}|${r.reviewVersion || ''}`;
         if (!keys.has(key)) { all.push(r); keys.add(key); }
       }
       all.sort((a,b) => a.at.localeCompare(b.at));
@@ -44,5 +45,12 @@
     for (const [id, draft] of Object.entries(incoming.drafts)) if (draft && !result.drafts[id]) result.drafts[id] = draft;
     return result;
   }
-  return {empty, validateState, validateExport, merge};
+  function currentRecord(q, review, entries = []) {
+    if (review?.status === 'disputed') return null;
+    const mode = review?.scoring || q.grading;
+    return entries.findLast(r => r.hash === q.hash &&
+      (mode === 'self' ? /^self-(right|wrong)$/.test(r.answer) : /^[A-D]$/.test(r.answer)) &&
+      (review?.status !== 'corrected' || r.reviewVersion === review.recheckId)) || null;
+  }
+  return {empty, validateState, validateExport, merge, currentRecord};
 });

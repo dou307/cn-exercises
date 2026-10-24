@@ -21,8 +21,7 @@
     catch (_) { $('#storage-warning').hidden = false; $('#storage-warning').textContent = '浏览器存储失败：本次练习仅保存在内存，请立即导出记录。'; return false; }
   }
   function last(q) {
-    const entries = state.records[q.id] || [];
-    return entries.length ? entries[entries.length - 1] : null;
+    return CNState.currentRecord(q, review(q), state.records[q.id]);
   }
   function review(q) { const r = byReview.get(q.id); return r?.sourceContentHash === q.hash ? r : null; }
   function scoring(q) { return review(q)?.scoring || q.grading; }
@@ -73,7 +72,7 @@
   function record(q, answer, correct) {
     if (review(q)?.status === 'disputed') return;
     const next = visible[visible.findIndex(item => item.id === q.id)+1]?.id;
-    (state.records[q.id] ||= []).push({hash:q.hash, answer, correct, at:new Date().toISOString()});
+    (state.records[q.id] ||= []).push({hash:q.hash, answer, correct, at:new Date().toISOString(), ...(review(q)?.recheckId ? {reviewVersion:review(q).recheckId} : {})});
     redoId = null;
     save();
     if (!matches(q) && next && byId.has(next)) current = next;
@@ -97,15 +96,17 @@
       }).join('')}</div>`;
     } else if (q.optionsHtml.length) options = `<div class="options">${q.optionsHtml.map(o => `<div class="option">${o}</div>`).join('')}</div>`;
     const idx = visible.findIndex(x => x.id === q.id);
-    const reviewLabel = rv ? ({verified:'已逐题审核', qualified:'附前提', disputed:'答案待核对'}[rv.status]) : '未独立审核';
+    const reviewLabel = rv ? ({verified:rv.recheckId ? '复核确认' : '已逐题审核', qualified:'附前提', corrected:'已勘误', disputed:'答案待核对'}[rv.status]) : '未独立审核';
+    const referenceLinks = rv?.references?.length ? `<div class="review-references">核查依据：${rv.references.map(ref => `<a href="${esc(ref.url)}" target="_blank" rel="noopener noreferrer">${esc(ref.title)} ↗</a>`).join('')}</div>` : '';
+    const reviewPanel = rv ? `<div class="review-note"><strong>本项目审核：${reviewLabel}${rv.recheckId ? ` · ${esc(rv.reviewedAt)}` : ''}</strong>${rv.answerLabel ? `<h3>复核答案：${esc(rv.answerLabel)}</h3>` : ''}<p>${esc(rv.conclusion)}</p>${referenceLinks}</div>` : '<p class="unreviewed">本题尚未在本项目逐题审核；判分只按来源给出的答案。</p>';
     const topicLabel = mp?.primaryTopic ? `笔记：${mp.primaryTopic}` : mp?.topicCandidates?.length ? `候选考点：${mp.topicCandidates.join('、')}` : '笔记中未找到明确小节';
-    card.innerHTML = `<div class="question-meta"><span class="pill">${esc(q.sourceLabel)}</span><span class="pill muted">${disputed ? '争议 · 不计分' : mode === 'auto' ? '单选 · 来源答案判分' : '综合／特殊 · 自评'}</span><span class="pill muted">${reviewLabel}</span></div>
+    card.innerHTML = `<div class="question-meta"><span class="pill">${esc(q.sourceLabel)}</span><span class="pill muted">${disputed ? '争议 · 不计分' : rv?.status === 'corrected' ? '勘误参考答案 · 自评' : mode === 'auto' ? '单选 · 来源答案判分' : '综合／特殊 · 自评'}</span><span class="pill muted">${reviewLabel}</span></div>
       <h2>${esc(q.sourceHeading || '章末习题')}</h2><div class="source-note">题目 ID：${q.id} · 来源第 ${q.sourceChapter} 章 / ${esc(q.sourceSection)} · ${esc(topicLabel)}</div>
       <div class="stem">${q.stemHtml}</div>${options}
       ${mode === 'self' && !disputed ? `<label class="draft-label">我的思路或答案草稿<textarea id="draft" rows="5" placeholder="先写下解题过程，再查看参考解答">${esc(state.drafts[q.id] || '')}</textarea></label>` : ''}
       <div class="card-actions">${mode === 'auto' && !shown ? '<button id="submit" class="primary" type="button" disabled>提交答案</button>' : ''}${mode === 'self' && !shown ? `<button id="reveal" class="primary" type="button">${disputed ? '查看来源答案与争议' : '查看参考解答'}</button>` : ''}<button id="star" type="button">${state.stars[q.id] ? '★ 已收藏' : '☆ 收藏'}</button>${answered ? '<button id="redo" type="button">重做此题</button>' : ''}</div>
       ${answered && !revealed ? `<div class="feedback">上次作答：${status(q) === '正确' ? '正确' : '需复习'} · ${new Date(r.at).toLocaleString('zh-CN')}</div>` : ''}
-      ${shown ? `<div class="answer-panel"><h3>原来源答案与解析</h3>${q.answerHtml || '<p>来源没有可提取的答案，请自行核对原页面。</p>'}${rv ? `<div class="review-note"><strong>本项目审核：${reviewLabel}</strong><p>${esc(rv.conclusion)}</p>${rv.references?.length ? `<div class="review-references">核查依据：${rv.references.map(ref => `<a href="${esc(ref.url)}" target="_blank" rel="noopener noreferrer">${esc(ref.title)} ↗</a>`).join('')}</div>` : ''}</div>` : '<p class="unreviewed">本题尚未在本项目逐题审核；判分只按来源给出的答案。</p>'}${mode === 'self' && !disputed && !answered ? '<div class="self-actions"><button id="self-right" type="button">我做对了</button><button id="self-wrong" type="button">需要复习</button></div>' : ''}${mode === 'self' && answered ? '<button id="self-change" type="button">更正本轮自评</button>' : ''}</div>` : ''}
+      ${shown ? `<div class="answer-panel">${rv?.recheckId ? reviewPanel : ''}${rv?.recheckId ? '<details class="source-answer"><summary>对照原来源答案与解析（未覆盖原文）</summary>' : '<h3>原来源答案与解析</h3>'}${q.answerHtml || '<p>来源没有可提取的答案，请自行核对原页面。</p>'}${rv?.recheckId ? '</details>' : reviewPanel}${mode === 'self' && !disputed && !answered ? '<div class="self-actions"><button id="self-right" type="button">我做对了</button><button id="self-wrong" type="button">需要复习</button></div>' : ''}${mode === 'self' && answered ? '<button id="self-change" type="button">更正本轮自评</button>' : ''}</div>` : ''}
       <div class="card-nav"><button id="prev" type="button" ${idx <= 0 ? 'disabled' : ''}>← 上一题</button><label>跳到题号 <input id="jump" type="number" min="1" max="${visible.length}" value="${idx+1}"></label><button id="next" type="button" ${idx >= visible.length-1 ? 'disabled' : ''}>下一题 →</button></div><div id="jump-error" class="jump-error" role="status"></div>`;
     card.querySelectorAll('[data-pick]').forEach(b => b.onclick = () => { picked = b.dataset.pick; card.querySelectorAll('[data-pick]').forEach(x => x.classList.toggle('selected', x === b)); $('#submit').disabled = false; });
     if ($('#submit')) $('#submit').onclick = () => { if (picked) record(q, picked, picked === q.answer); };
@@ -147,7 +148,7 @@
     else link.hidden = true;
     const inChapter = questions.filter(q => q.noteChapter === chapter);
     const counts = inChapter.reduce((acc,q) => { const s=review(q)?.status; if(s) acc[s]=(acc[s]||0)+1; return acc; },{});
-    $('#scope-info').textContent = note ? `笔记：${note.name} · ${inChapter.length ? `本章审核 ${inChapter.length} 题：${counts.verified||0} 题结论成立 / ${counts.qualified||0} 题附前提 / ${counts.disputed||0} 题待核对` : '本章暂无来源习题'}` : '未找到对应笔记';
+    $('#scope-info').textContent = note ? `笔记：${note.name} · ${inChapter.length ? `本章审核 ${inChapter.length} 题：${counts.verified||0} 题结论成立 / ${counts.qualified||0} 题附前提 / ${counts.corrected||0} 题已勘误 / ${counts.disputed||0} 题待核对` : '本章暂无来源习题'}` : '未找到对应笔记';
     updateProgress(); renderList(); renderQuestion();
   }
   function exportData() {

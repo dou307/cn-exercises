@@ -18,8 +18,9 @@ Set-Location -LiteralPath 'D:\desk\1learn\CN\exercises\cn-exercises'
 - 来源：`jlshdsdk/kaoyan-408-networks` 固定提交 `4efa1e80be9d44b9485c6b2420fc26be01c0deca`，原始快照在 `vendor/`，全部文件哈希在 `data/source-manifest.json`。
 - 实际从六个 `quiz.html` 提取 **641 个题块**；557 个符合单选自动判分的结构条件，84 个需要自评。来源 README 写 562 道选择题和 77 道综合题（639），与当前页面题块数不一致，本站采用页面实数。分类数字仅表示程序可判分条件，不代表答案经过独立审核。
 - Obsidian 笔记：`D:\desk\Obsidian\1大三秋冬\CN\1-概述.md` 至 `7-网络安全.md`。第 1～6 章 641 题均逐题选择主要笔记小节，未穷举所有前置知识。笔记只读。笔记第 7 章在来源中无独立章末习题。
-- **641 题已逐题核查**：323 题结论成立、270 题需要限定前提或指出解析问题、48 题存在争议且不计分。第 2～6 章本轮新增审核 583 题，其中 45 题标为争议。审核针对固定网页快照，**没有与王道原书扫描页或官方真题逐题比对**。网页可按审核结论筛选，查看答案后展示审核说明及适用的外部核查依据。
+- **641题已逐题核查**：324题结论成立、270题附前提、12题已勘误、35题仍有争议。2026-10-24重点复核原48道争议题，12题明确修正，1题确认原答案，35题保留歧义/缺证据标记。已勘误题中原选项缺失或无正确项的，显示完整参考答案并自评，不强行按原字母判分。审核针对固定网页快照，**没有与原书扫描页或官方真题逐题比对**。
 - 争议题历史作答仍保留在浏览器记录中，但不再计入正误或已作答进度；附前提题按来源答案评分，并显示条件与解析提示。自动判分的结构条件与审核后是否计分是两个不同字段。
+- 48题复核答案与解析优先显示，原来源答案可展开对照；12道勘误题须按新结论重新自评，旧记录保留但不会自动算作已掌握。筛选提供“已勘误”类别。
 - 课程课件只有第 1 至 4 章，其中第 4 章为 MAC 子层；来源把相关内容放在第 3 章的 3.5～3.8 节。网页以 Obsidian 笔记章节为主，后续若按课件分组需单独映射。
 - 用户未指定已学章节，初始全为未标记，网页中可自行调整。
 - 第三方来源声明仅供个人学习，不商用、不再分发。本项目未创建远端仓库或公开部署。
@@ -32,6 +33,7 @@ python -X utf8 scripts/build_metadata.py
 python -X utf8 scripts/verify.py
 python -X utf8 scripts/review_ch1_checks.py
 python -X utf8 scripts/review_checks.py
+python -X utf8 scripts/recheck_checks.py
 python -X utf8 -m unittest discover -s tests -p 'test_*.py' -v
 node --check app/app.js
 node --test tests/state.test.cjs
@@ -39,4 +41,6 @@ node --test tests/state.test.cjs
 
 `extract.py` 需要 Beautiful Soup 4；`verify.py` 需要 lxml。`source-registry.json` 按题目内容哈希维持稳定 ID：题块重排不会更改身份；来源题目变更或删除会停止生成，要求先人工核对并制定记录迁移。维护审核输入 `data/reviews/ch1.tsv` 至 `ch6.tsv` 后，运行 `build_metadata.py` 生成各章/合并审核、主要考点和审核报告。`data/reviews/baseline.json` 冻结审核时正文哈希，来源改变时必须重新核查后显式更新基线，不能重新生成就沿用旧结论。不要编辑 `vendor/` 原文，也不要手改生成的 JSON。
 
-详见 [全题库逐题审核](docs/全题库逐题审核.md)、[来源与边界](docs/来源与边界.md)、[第一章逐题复核](docs/第一章逐题复核.md) 和 [实施记录](docs/实施记录.md)。
+复核维护输入为 `data/reviews/recheck-20261024.json`，会覆盖各章TSV的当前展示结论，同时保存首轮状态及说明，不修改源题数据。
+
+详见 [48道争议题重点复核](docs/48道争议题重点复核.md)、[全题库逐题审核](docs/全题库逐题审核.md)、[来源与边界](docs/来源与边界.md)、[第一章首轮复核](docs/第一章逐题复核.md) 和 [实施记录](docs/实施记录.md)。

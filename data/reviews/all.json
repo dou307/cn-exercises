@@ -90,10 +90,18 @@
     "noteChapter": 1,
     "noteHeading": "电路交换、分组交换和报文交换",
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
-    "conclusion": "① 的时延结论依赖是否计入电路建立时间及业务长度；题面未给，不能唯一比较。",
+    "conclusion": "①若从电路已经建立后计时且忽略排队，电路交换通常较快；若包含建立时间，短报文可由分组交换更快送达。②只比较交换方式自身的差错控制，不能据此否认端到端协议可在电路上纠错。③A；④在相同链路和存储转发模型下为C。需明确计时起点、报文长度和差错控制层次，整题继续不计分。",
     "checkId": null,
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "① 的时延结论依赖是否计入电路建立时间及业务长度；题面未给，不能唯一比较。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "①不能唯一确定；教材预期①A、②A、③A、④C",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-1-007",
@@ -186,10 +194,18 @@
     "noteChapter": 1,
     "noteHeading": "电路交换、分组交换和报文交换",
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
-    "conclusion": "发送 5kb 时三种方式均为 4s，A 若将并列最短也视为最节省则成立；B 同时成立，单选不唯一。",
+    "conclusion": "两条链路、分组5kb时，发送L kb的三种时延分别为2+L/2.5、2L/2.5、(L+5)/2.5秒。L=5时三者均4s；L=500时电路与分组均202s。C、D均错误。若A意为严格快于另两种，则唯一B；若允许并列最短，A也成立。应把A改为“严格少于另外两种”才能恢复单选。",
     "checkId": "calc:cn-1-012",
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "发送 5kb 时三种方式均为 4s，A 若将并列最短也视为最节省则成立；B 同时成立，单选不唯一。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "B确定成立；A对“最节省”的理解影响唯一性",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-1-013",
@@ -629,15 +645,29 @@
     "sourcePath": "ch1/quiz.html",
     "sourceOrdinal": 40,
     "sourceAnswer": null,
-    "status": "disputed",
+    "status": "verified",
     "scoring": "self",
     "noteChapter": 1,
     "noteHeading": "体系结构",
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
-    "conclusion": "① 把网络层流量控制与数据链路层、传输层并列依赖特定教材模型；题面未说明模型细节，保留来源答案供自评。",
+    "conclusion": "撤销首轮对①的争议：题干明确指定OSI，不能套用TCP/IP无连接网络层模型。ITU-T X.200 §7.5.4.1.2及§7.5.4.9明确列出网络层流量控制，数据链路层和传输层也具有相应功能，因此第2、3、4层即B。其余空分别考查传输层端到端连接、网络层路由、进程间传输以及链路层向网络层提供服务。OSI把这些列为可提供的功能，不表示每个具体协议都必须实现。",
     "checkId": null,
-    "references": [],
-    "reviewedAt": "2026-10-23"
+    "references": [
+      {
+        "id": "x200",
+        "title": "ITU-T X.200：OSI基本模型，§7.5.4.9网络层流量控制",
+        "url": "https://www.itu.int/rec/T-REC-X.200-199407-I/en"
+      }
+    ],
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "① 把网络层流量控制与数据链路层、传输层并列依赖特定教材模型；题面未说明模型细节，保留来源答案供自评。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "①B、②D、③C、④A、⑤B",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-1-041",
@@ -970,10 +1000,18 @@
     "noteChapter": 2,
     "noteHeading": "串行传输和并行传输",
     "noteSha256": "ad1bcb61b9a8158b533c58c1e96f99fe7cb5815a4c1f4344c1601fe380c49e0e",
-    "conclusion": "计算机内部同时存在串行与并行互连，未限定具体总线；不能将内部传输唯一归为并行，也不能断言串行必慢。",
+    "conclusion": "计算机内部既有并行互连，也有PCIe等串行互连；同步/异步是另一分类维度，也可用于内部通信。题面未指定传统并行总线，不能把B当作唯一答案。需指定具体总线或限定教材讨论对象。",
     "checkId": null,
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "计算机内部同时存在串行与并行互连，未限定具体总线；不能将内部传输唯一归为并行，也不能断言串行必慢。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "至少A、B均可，无法唯一选B",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-2-004",
@@ -1242,7 +1280,7 @@
     "noteChapter": 2,
     "noteHeading": "常用编码方式",
     "noteSha256": "ad1bcb61b9a8158b533c58c1e96f99fe7cb5815a4c1f4344c1601fe380c49e0e",
-    "conclusion": "图示按IEEE 802.3的上升为1约定读得11001001，选项中没有；A对应相反极性。题面指定10Base-T，不能任意互换标准约定；需补充电压极性说明或修正选项。",
+    "conclusion": "复看原图：图像上部有裁切，未给完整电压/差分极性标注。按图示中点方向且IEEE 802.3上升表示1读得11001001，四项无此值；反相后为00110110即A。网卡收到的差分信号还涉及接线极性，不能在缺极性说明时仅凭10Base-T名称强制确定图的符号。保留争议，需完整波形及约定；不擅自把某个选项改成11001001。",
     "checkId": null,
     "references": [
       {
@@ -1251,7 +1289,15 @@
         "url": "https://www.iol.unh.edu/sites/default/files/knowledgebase/ethernet/10basetmau.pdf"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "图示按IEEE 802.3的上升为1约定读得11001001，选项中没有；A对应相反极性。题面指定10Base-T，不能任意互换标准约定；需补充电压极性说明或修正选项。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "教材相反极性约定选A；IEEE约定得到11001001，选项缺失",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-2-021",
@@ -1440,10 +1486,18 @@
     "noteChapter": 2,
     "noteHeading": "导向性传输介质",
     "noteSha256": "ad1bcb61b9a8158b533c58c1e96f99fe7cb5815a4c1f4344c1601fe380c49e0e",
-    "conclusion": "未给电缆类别、长度及收发器，不能笼统断言同轴比双绞线快；C的屏蔽优势不能推出所有实现的速率顺序。",
+    "conclusion": "同轴外导体的屏蔽作用可支持C的抗干扰解释；实际速率还由电缆类别、距离、编码及收发器决定。10Mb/s同轴以太网与更高速双绞线以太网就能推翻题干的一概比较。需给出可比介质参数或改问屏蔽结构优势，才能唯一按C判分。",
     "checkId": null,
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "未给电缆类别、长度及收发器，不能笼统断言同轴比双绞线快；C的屏蔽优势不能推出所有实现的速率顺序。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "C是题目预期的屏蔽结构解释，但速率比较前提未成立",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-2-033",
@@ -1483,21 +1537,29 @@
     "sourcePath": "ch2/quiz.html",
     "sourceOrdinal": 35,
     "sourceAnswer": "B",
-    "status": "disputed",
+    "status": "corrected",
     "scoring": "self",
     "noteChapter": 2,
     "noteHeading": "导向性传输介质",
     "noteSha256": "ad1bcb61b9a8158b533c58c1e96f99fe7cb5815a4c1f4344c1601fe380c49e0e",
-    "conclusion": "单模是只支持一个导模，不是纤芯直径等于一个波长或无反射直线传播。实际单模纤芯常约8至10μm而工作波长约1.3至1.55μm，B表述失真，选项无严格正确项。",
+    "conclusion": "单模指在规定波长下只支持一个空间导模，不是光纤直径等于一个波长，也不是光不受波导约束地沿直线传播。A的粗细与速率单调关系不成立；B混淆纤芯、整根光纤和波长；C把普通LED列为单模通信的适用光源不符合常规教材模型；D中空也不是这里的普通石英光纤。应将B修订为“在工作波长下仅支持一个空间导模”后再设单选，当前按勘误自评。",
     "checkId": null,
     "references": [
       {
         "id": "single-mode",
-        "title": "Corning：单模光纤产品的纤芯尺寸",
-        "url": "https://ecatalog.corning.com/optical-communications/EMEA/en/Fiber-Optic-Cable-Assemblies/Indoor-Cable-Assemblies/Simplex-Indoor-Cable-Assemblies/Basic-2-0-mm-1-Fiber-Patch-Cord/p/F585801J1Z20010M"
+        "title": "Corning：单模纤芯8.2μm、包层125μm的产品资料",
+        "url": "https://www.corning.com/catalog/coc/documents/infographics/CRR-392-BEN.pdf"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "单模是只支持一个导模，不是纤芯直径等于一个波长或无反射直线传播。实际单模纤芯常约8至10μm而工作波长约1.3至1.55μm，B表述失真，选项无严格正确项。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "四项无严格正确答案；原B错误",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-2-036",
@@ -1750,10 +1812,18 @@
     "noteChapter": 2,
     "noteHeading": "传输方式",
     "noteSha256": "ad1bcb61b9a8158b533c58c1e96f99fe7cb5815a4c1f4344c1601fe380c49e0e",
-    "conclusion": "原式只在处理阶段可充分流水且不形成瓶颈时成立；若每节点串行处理且m大于(h+p)/b，后续包会排队。另“开始发送数据”通常不含此前建立虚电路的s，题面计时口径需澄清。",
+    "conclusion": "题面从“源点开始发送数据”计时，因此此前建立虚电路的s不应再加；若从请求建链计时才加s。处理不限制吞吐时上述公式成立；若k≥2且每节点用单个串行处理器，则流水线瓶颈可能是m，完工时间为kt+(k−1)m+kd+(N−1)max(t,m)。k=1时没有中间处理阶段，退化为Nt+d。两种模型在m>t时不同。题干只给平均处理时延，未给处理并发与排队模型，无法唯一选一种。",
     "checkId": "calc:cn-2-051",
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "原式只在处理阶段可充分流水且不形成瓶颈时成立；若每节点串行处理且m大于(h+p)/b，后续包会排队。另“开始发送数据”通常不含此前建立虚电路的s，题面计时口径需澄清。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "令N=L/p、t=(h+p)/b；常用非瓶颈模型为(N+k−1)t+(k−1)m+kd",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-3-001",
@@ -1985,15 +2055,29 @@
     "sourcePath": "ch3/quiz.html",
     "sourceOrdinal": 15,
     "sourceAnswer": "D",
-    "status": "disputed",
+    "status": "corrected",
     "scoring": "self",
     "noteChapter": 3,
     "noteHeading": "差错检测",
     "noteSha256": "09a50fb2e1ffe7e61d0d99995507b0b5df0836c958b6da0dafaf1e1f116ef286",
-    "conclusion": "D的CRC余数为0，但这只能说明未检出差错，不能断定传输无错；错误模式若为生成多项式倍数也会通过。题面四项均不能证明绝对无错。",
+    "conclusion": "用10011作模2除法，A/B/C/D余数分别为1100、1000、0100、0000，因此若题干改为“未检出差错”应选D。原题使用“可以断定未发生错误”，严格说无正确选项：非零错误模式只要是生成多项式的倍数，也会保持余数0。原解析把检错通过等同于绝对无错，应纠正；当前按勘误自评。",
     "checkId": "calc:cn-3-015",
-    "references": [],
-    "reviewedAt": "2026-10-23"
+    "references": [
+      {
+        "id": "rfc3385",
+        "title": "RFC3385：CRC的未检出差错与概率分析",
+        "url": "https://www.rfc-editor.org/rfc/rfc3385.html"
+      }
+    ],
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "D的CRC余数为0，但这只能说明未检出差错，不能断定传输无错；错误模式若为生成多项式倍数也会通过。题面四项均不能证明绝对无错。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "没有选项能断定绝对无错；D是唯一CRC未检出差错的码字",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-3-016",
@@ -2134,10 +2218,18 @@
     "noteChapter": 3,
     "noteHeading": "回退 N 帧协议 (Go-Back-N, GBN)",
     "noteSha256": "09a50fb2e1ffe7e61d0d99995507b0b5df0836c958b6da0dafaf1e1f116ef286",
-    "conclusion": "若连续ARQ专指GBN则D错误；来源却将连续ARQ定义为包含SR，SR允许失序接收，因此题面与解析口径冲突，需明确协议。",
+    "conclusion": "GBN接收窗为1，不接收失序帧；SR可缓存窗口内失序帧。来源解析先称连续ARQ包含GBN和SR，又否定SR允许的行为，存在定义冲突。必须明确此处连续ARQ是否专指GBN，不能在两种定义间切换。",
     "checkId": null,
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "若连续ARQ专指GBN则D错误；来源却将连续ARQ定义为包含SR，SR允许失序接收，因此题面与解析口径冲突，需明确协议。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "连续ARQ=GBN时选D；包含SR时D并非普遍错误",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-3-025",
@@ -2230,10 +2322,18 @@
     "noteChapter": 3,
     "noteHeading": "可靠传输",
     "noteSha256": "09a50fb2e1ffe7e61d0d99995507b0b5df0836c958b6da0dafaf1e1f116ef286",
-    "conclusion": "“窗口总大小n”未定义；若n指发送窗，未确认可达n；若指序号空间且采用GBN才是n−1。来源把序号空间和窗口大小混用。",
+    "conclusion": "未确认帧数最多等于发送窗口大小。若n就是该大小，则最多n帧；若n指序号空间且接收窗口为1，则GBN发送窗最大n−1；SR还需另给两个窗口与序号空间的约束。题面“窗口总大小”未定义，来源把它直接替换成序号空间大小，不能唯一判B。",
     "checkId": null,
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "“窗口总大小n”未定义；若n指发送窗，未确认可达n；若指序号空间且采用GBN才是n−1。来源把序号空间和窗口大小混用。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "n为发送窗口大小时选C；n为GBN序号空间大小时选B",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-3-031",
@@ -2529,15 +2629,29 @@
     "sourcePath": "ch3/quiz.html",
     "sourceOrdinal": 49,
     "sourceAnswer": null,
-    "status": "disputed",
+    "status": "corrected",
     "scoring": "self",
     "noteChapter": 3,
     "noteHeading": "差错检测",
     "noteSha256": "09a50fb2e1ffe7e61d0d99995507b0b5df0836c958b6da0dafaf1e1f116ef286",
-    "conclusion": "模2余数确为0，数据前7位1011001、CRC后4位1010；但只能说未检出差错，不能推断未出现差错，原解答结论过强。",
+    "conclusion": "10110011010除以11001的模2余数为0，只能报告未检出差错，不能确认传输过程中无差错。若按题目第二问显式作“未出错”的条件假设，则前7位数据为1011001、后4位CRC为1010。若确有未检出的差错，不能从收到码字反推出原始发送数据。",
     "checkId": "calc:cn-3-049",
-    "references": [],
-    "reviewedAt": "2026-10-23"
+    "references": [
+      {
+        "id": "rfc3385",
+        "title": "RFC3385：CRC的未检出差错与概率分析",
+        "url": "https://www.rfc-editor.org/rfc/rfc3385.html"
+      }
+    ],
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "模2余数确为0，数据前7位1011001、CRC后4位1010；但只能说未检出差错，不能推断未出现差错，原解答结论过强。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "余数0：未检出差错；在未出错假设下数据1011001、CRC1010",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-3-050",
@@ -2689,15 +2803,23 @@
     "sourcePath": "ch3/quiz.html",
     "sourceOrdinal": 59,
     "sourceAnswer": "B",
-    "status": "disputed",
+    "status": "corrected",
     "scoring": "self",
     "noteChapter": 3,
     "noteHeading": "共享式以太网",
     "noteSha256": "09a50fb2e1ffe7e61d0d99995507b0b5df0836c958b6da0dafaf1e1f116ef286",
-    "conclusion": "FDM可通过调制承载数字数据，B“FDM不行”错误；现代OFDM也是频分思想。四项没有支撑题干普遍结论的严格正确答案。",
+    "conclusion": "数字数据可先调制到不同载波频带后用FDM复用，因此“FDM不行”确定错误；A、C也无普遍依据，D的带宽优势不能脱离保护频带、同步开销及业务负载比较。不能从“计算机网络使用数字数据”推出FDM不适用。当前保留原选项，按无严格正确选项的勘误题自评。",
     "checkId": null,
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "FDM可通过调制承载数字数据，B“FDM不行”错误；现代OFDM也是频分思想。四项没有支撑题干普遍结论的严格正确答案。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "四项均不能成立为题干的一般原因；原B错误",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-3-060",
@@ -3057,21 +3179,29 @@
     "sourcePath": "ch3/quiz.html",
     "sourceOrdinal": 82,
     "sourceAnswer": "D",
-    "status": "disputed",
+    "status": "corrected",
     "scoring": "self",
     "noteChapter": 3,
     "noteHeading": "以太网的发展",
     "noteSha256": "09a50fb2e1ffe7e61d0d99995507b0b5df0836c958b6da0dafaf1e1f116ef286",
-    "conclusion": "光纤介质不必然全双工，10BASE-F等存在半双工CSMA/CD实现；D并非错误，且光纤不必总是两芯，也可直连终端，来源理由错误。",
+    "conclusion": "A的集线器属于共享半双工；B说交换机“可以”全双工成立；C描述光纤点到点连接与扩大距离的典型用途，并未说它只能连接中继设备。D也成立：Cisco 10BASE-FL接口明确支持半双工和CSMA/CD。介质为光纤不等于必为全双工；也不能声称每条光纤连接至少两芯或不能连接终端。题面没有可唯一选出的错误项，按勘误自评。",
     "checkId": null,
     "references": [
       {
         "id": "fiber-half-duplex",
-        "title": "Cisco：10BASE-FL 光纤半双工接口",
-        "url": "https://www.cisco.com/c/en/us/td/docs/interfaces_modules/port_adapters/install_upgrade/ethernet/pa-5efl_ethernet_10baset_install_config/pa_5efl/3495over.html"
+        "title": "Cisco：10BASE-FL 光纤半双工接口手册",
+        "url": "https://www.cisco.com/c/en/us/td/docs/interfaces_modules/port_adapters/install_upgrade/ethernet/pa-5efl_ethernet_10baset_install_config/pa_5efl.pdf"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "光纤介质不必然全双工，10BASE-F等存在半双工CSMA/CD实现；D并非错误，且光纤不必总是两芯，也可直连终端，来源理由错误。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "按题面通常含义，四项均可成立；原D不是错误项",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-3-083",
@@ -3447,15 +3577,29 @@
     "sourcePath": "ch3/quiz.html",
     "sourceOrdinal": 106,
     "sourceAnswer": "D",
-    "status": "disputed",
+    "status": "corrected",
     "scoring": "self",
     "noteChapter": 3,
     "noteHeading": "MAC 帧",
     "noteSha256": "09a50fb2e1ffe7e61d0d99995507b0b5df0836c958b6da0dafaf1e1f116ef286",
-    "conclusion": "已检查图中AP1和AP2之间是路由器且标有MAC1/MAC2；AP2发往B的地址3应为路由器出口MAC2，而不是端到端MAC_A。四项均未给MAC2，来源D不成立。",
+    "conclusion": "原图AP1与AP2之间是路由器，且其左右接口标为MAC1、MAC2。路由器转发时重新封装链路层帧，AP2有线侧收到的源MAC为MAC2。AP2向B发送From DS=1、To DS=0帧时，地址1为B、地址2为AP2、地址3为分布系统送来的源MAC2。原D写MAC_A，错误地把IP端到端源地址规则套到跨路由的MAC源地址。",
     "checkId": null,
-    "references": [],
-    "reviewedAt": "2026-10-23"
+    "references": [
+      {
+        "id": "wifi-addresses",
+        "title": "Cisco技术文档：802.11 From DS帧地址字段",
+        "url": "https://community.cisco.com/t5/networking-knowledge-base/802-11-frames-a-starter-guide-to-learn-wireless-sniffer-traces/ta-p/3110019"
+      }
+    ],
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "已检查图中AP1和AP2之间是路由器且标有MAC1/MAC2；AP2发往B的地址3应为路由器出口MAC2，而不是端到端MAC_A。四项均未给MAC2，来源D不成立。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "地址1=MAC_B，地址2=BSSID2，地址3=MAC2；选项缺失",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-3-107",
@@ -3500,10 +3644,18 @@
     "noteChapter": 3,
     "noteHeading": "虚拟局域网",
     "noteSha256": "09a50fb2e1ffe7e61d0d99995507b0b5df0836c958b6da0dafaf1e1f116ef286",
-    "conclusion": "VLAN配置常由软件管理，但转发与标签处理可由交换ASIC硬件实现；B的“硬件方式”本身不构成必错，来源软件/硬件二分失真。",
+    "conclusion": "VLAN配置和成员关系通常由软件管理，但实际隔离、查表和标签处理可由交换ASIC硬件执行。“通过硬件方式实现逻辑分组与管理”究竟指必须改物理接线，还是指硬件执行逻辑，题面未说明。前者B错，后者不能一概否定；需明确B所指，继续不计分。",
     "checkId": null,
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "VLAN配置常由软件管理，但转发与标签处理可由交换ASIC硬件实现；B的“硬件方式”本身不构成必错，来源软件/硬件二分失真。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "B是传统“软件逻辑划分”表述下的预期答案，措辞不足以普遍判错",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-3-110",
@@ -3511,21 +3663,29 @@
     "sourcePath": "ch3/quiz.html",
     "sourceOrdinal": 110,
     "sourceAnswer": "C",
-    "status": "disputed",
+    "status": "corrected",
     "scoring": "self",
     "noteChapter": 3,
     "noteHeading": "虚拟局域网",
     "noteSha256": "09a50fb2e1ffe7e61d0d99995507b0b5df0836c958b6da0dafaf1e1f116ef286",
-    "conclusion": "802.1X/RADIUS可按用户身份动态分配VLAN，用户名/身份并非不正确方式；C只是传统教材未列方式，不能当普遍错误。",
+    "conclusion": "IEEE 802.1X认证后，RADIUS可按用户配置文件返回VLAN ID，设备把该用户会话动态分配到指定VLAN，构成按用户身份划分的实际反例。端口、MAC及网络层协议/地址分类也都是已有方式。VLAN转发位于二层，并不禁止管理或认证决策使用用户名。因此不能以C为唯一错误项，按勘误自评。",
     "checkId": null,
     "references": [
       {
         "id": "identity-vlan",
-        "title": "Cisco：IEEE 802.1X 认证后分配 VLAN",
-        "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/sec_usr_8021x/configuration/15-mt/sec-user-8021x-15-mt-book/sec-ieee-8021x-vlan-assign.html"
+        "title": "Cisco：IEEE 802.1X 认证后按用户名分配 VLAN",
+        "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/sec_usr_8021x/configuration/xe-3e/sec-usr-8021x-xe-3e-book/sec-ieee-8021x-vlan-assign.html"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "802.1X/RADIUS可按用户身份动态分配VLAN，用户名/身份并非不正确方式；C只是传统教材未列方式，不能当普遍错误。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "四种均存在实现方式；原C不是不正确方式",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-3-111",
@@ -3928,16 +4088,29 @@
     "noteChapter": 3,
     "noteHeading": "点对点协议",
     "noteSha256": "09a50fb2e1ffe7e61d0d99995507b0b5df0836c958b6da0dafaf1e1f116ef286",
-    "conclusion": "D的面向字节封装成立；C“两端必须运行相同网络层协议”在所传业务协议一致的意义下也成立。可多协议复用不等于两端用不兼容协议仍可通信，单选存在语义歧义。",
+    "conclusion": "RFC1661规定PPP能在一条链路上复用多种网络层协议，各协议须分别经NCP配置。若C指双方整个网络层协议栈必须相同，C不成立；若指一项实际承载的业务必须得到对端对应协议支持，C也有成立的解释。D按字节组织封装成立，PPP帧在同步线路上也可做比特填充。需明确C的量词，保留争议；不能说一端仅懂IPv4、另一端仅懂IPv6就能靠NCP直接互通。",
     "checkId": null,
     "references": [
       {
         "id": "rfc1662",
         "title": "RFC 1662：PPP 字节/比特填充",
         "url": "https://www.rfc-editor.org/rfc/rfc1662.html"
+      },
+      {
+        "id": "rfc1661",
+        "title": "RFC1661 §3.6：PPP网络层协议复用与NCP配置",
+        "url": "https://www.rfc-editor.org/rfc/rfc1661.html#section-3.6"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "D的面向字节封装成立；C“两端必须运行相同网络层协议”在所传业务协议一致的意义下也成立。可多协议复用不等于两端用不兼容协议仍可通信，单选存在语义歧义。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "D成立；C中的“相同协议”存在两种含义",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-3-136",
@@ -4446,10 +4619,24 @@
     "noteChapter": 4,
     "noteHeading": "网际协议",
     "noteSha256": "be99a448a82d617b253d9e5bd684440991f9822349029fa4707af2ac25237b03",
-    "conclusion": "普通IP路由不转换任意网络层协议；IPv4/IPv6互通需双栈、隧道或翻译条件。不同LAN也不要求所有高层应用协议相同，来源C的普遍要求不成立。",
+    "conclusion": "普通IP路由器跨异构物理/链路层转发同一IP协议，不会自动转换任意网络层协议；专用翻译、隧道或双栈又有不同条件。各局域网更不必拥有完全相同的所有高层应用协议，只有一次端到端通信的协议需要兼容。A至D都把这些条件过度概括，来源C的理由不足。需明确普通路由还是协议转换网关、以及“必须相同”的对象。",
     "checkId": null,
-    "references": [],
-    "reviewedAt": "2026-10-23"
+    "references": [
+      {
+        "id": "x200",
+        "title": "ITU-T X.200：OSI基本模型，§7.5.4.9网络层流量控制",
+        "url": "https://www.itu.int/rec/T-REC-X.200-199407-I/en"
+      }
+    ],
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "普通IP路由不转换任意网络层协议；IPv4/IPv6互通需双栈、隧道或翻译条件。不同LAN也不要求所有高层应用协议相同，来源C的普遍要求不成立。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "普通同一IP层互连与跨协议翻译的答案口径不同",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-4-004",
@@ -4542,10 +4729,18 @@
     "noteChapter": 4,
     "noteHeading": "网际协议",
     "noteSha256": "be99a448a82d617b253d9e5bd684440991f9822349029fa4707af2ac25237b03",
-    "conclusion": "虚电路不必提供可靠交付，Frame Relay/ATM等服务性质不同，C不能无条件成立；“故障率”是误码还是节点故障也影响D，单错题缺少模型限定。",
+    "conclusion": "面向连接只规定先建立逻辑连接，不自动保证可靠交付；不同虚电路技术可把差错恢复留给上层。“故障率”若指节点/链路失效，固定VC受影响；若指比特误码，结论还依赖差错恢复机制。需明确可靠VC模型和故障类型，不能唯一按D判分。",
     "checkId": null,
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "虚电路不必提供可靠交付，Frame Relay/ATM等服务性质不同，C不能无条件成立；“故障率”是误码还是节点故障也影响D，单错题缺少模型限定。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "教材可靠VC模型预期D；一般VC模型下C也不成立",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-4-010",
@@ -4622,10 +4817,18 @@
     "noteChapter": 4,
     "noteHeading": "网际协议",
     "noteSha256": "be99a448a82d617b253d9e5bd684440991f9822349029fa4707af2ac25237b03",
-    "conclusion": "VC连接本身不保证差错控制，A在部分VC技术下也成立；C的实时性能依资源与排队保证，题面未限定可靠VC模型。",
+    "conclusion": "虚电路通常用短标识转发，故B不成立；共享链路可复用多个VC，故D不成立。A是否成立取决于该VC技术是否内置差错恢复；C所说实时优势还需资源预留或服务质量保证。单凭逻辑连接不能推出可靠性或时延保证，需明确所用VC模型。",
     "checkId": null,
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "VC连接本身不保证差错控制，A在部分VC技术下也成立；C的实时性能依资源与排队保证，题面未限定可靠VC模型。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "教材预期C；未限定VC技术时A也可能成立",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-4-015",
@@ -4859,12 +5062,12 @@
     "sourcePath": "ch4/quiz.html",
     "sourceOrdinal": 28,
     "sourceAnswer": "A",
-    "status": "disputed",
+    "status": "corrected",
     "scoring": "self",
     "noteChapter": 4,
     "noteHeading": "IPv4 数据报的首部格式",
     "noteSha256": "be99a448a82d617b253d9e5bd684440991f9822349029fa4707af2ac25237b03",
-    "conclusion": "总长度减IHL给出每片数据长度，是重组确定字节范围和末端位置的必要信息，不能称A与分片重组无关；题目无严格正确项。",
+    "conclusion": "RFC791重组算法需要总长度减首部长度来得到每片数据字节数，再与片偏移确定字节覆盖范围；最后一片的长度还参与确定原始数据总长度。标识用于归组，MF/DF表示分片状态/许可，偏移给出位置。因此A绝不能称为“无关”。原解析只是少列了总长度的作用，不足以证明它无关，按勘误自评。",
     "checkId": null,
     "references": [
       {
@@ -4873,7 +5076,15 @@
         "url": "https://www.rfc-editor.org/rfc/rfc791.html"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "总长度减IHL给出每片数据长度，是重组确定字节范围和末端位置的必要信息，不能称A与分片重组无关；题目无严格正确项。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "无正确选项：A、B、C、D都与分片或重组有关",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-4-029",
@@ -4924,7 +5135,7 @@
     "noteChapter": 4,
     "noteHeading": "IPv4 数据报的首部格式",
     "noteSha256": "be99a448a82d617b253d9e5bd684440991f9822349029fa4707af2ac25237b03",
-    "conclusion": "B错在DF=1丢包后一般应回ICMP需分片；A“超过MTU就必须分片”也忽略DF=1情形，两项均有问题。",
+    "conclusion": "A遗漏DF=1时不得分片而应丢弃；B又错误地声称无需报告，正常可报告情形应发ICMP目的不可达/需分片。C、D成立。应给A补上“允许分片且DF=0”等条件，才可把B作为唯一错误项；本轮不改题干，继续不计分。",
     "checkId": null,
     "references": [
       {
@@ -4933,7 +5144,15 @@
         "url": "https://www.rfc-editor.org/rfc/rfc791.html"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "B错在DF=1丢包后一般应回ICMP需分片；A“超过MTU就必须分片”也忽略DF=1情形，两项均有问题。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "A、B均不严谨；原题不能唯一选B",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-4-032",
@@ -5122,10 +5341,18 @@
     "noteChapter": 4,
     "noteHeading": "IPv4 地址及其编址方法",
     "noteSha256": "be99a448a82d617b253d9e5bd684440991f9822349029fa4707af2ac25237b03",
-    "conclusion": "题干称已给定网段为/27，却按其原始C类/24被划成8个/27解答；若继续细分/27，答案不同。需改清父网段与子网掩码。",
+    "conclusion": "198.90.10.0/27自身只有32个地址。若不继续细分，该子网普通主机地址为30个；若要继续细分，则子网数量和每网主机数随目标前缀变化，题面未给。来源8×32=256地址，实际使用的是父网198.90.10.0/24。应明确/24父网与/27目标掩码，不能把原/27悄悄解释成/24。",
     "checkId": null,
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "题干称已给定网段为/27，却按其原始C类/24被划成8个/27解答；若继续细分/27，答案不同。需改清父网段与子网掩码。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "父网/24划为/27时为8个、30地址；原题已给/27则不能这样推出",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-4-044",
@@ -5138,10 +5365,18 @@
     "noteChapter": 4,
     "noteHeading": "IPv4 地址及其编址方法",
     "noteSha256": "be99a448a82d617b253d9e5bd684440991f9822349029fa4707af2ac25237b03",
-    "conclusion": "同一主机/网卡可绑定同子网多个地址，B、D均可能，C不是唯一。题干还未给掩码，不能强制按分类地址断言。",
+    "conclusion": "主机可在同一接口或不同接口配置多个地址，同子网多个地址并不违法。例如掩码/24时，.11.25与.11.26或.11.24均可配置，另一个接口用.13.25也可。题目未给掩码与接口限制；其他掩码下A也可能是有效主机地址。原解“一台主机的两个IP必须来自不同网络”错误。",
     "checkId": null,
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "同一主机/网卡可绑定同子网多个地址，B、D均可能，C不是唯一。题干还未给掩码，不能强制按分类地址断言。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "至少B、C、D均可能；无唯一答案",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-4-045",
@@ -5586,7 +5821,7 @@
     "noteChapter": 4,
     "noteHeading": "网际控制报文协议（ICMP）",
     "noteSha256": "be99a448a82d617b253d9e5bd684440991f9822349029fa4707af2ac25237b03",
-    "conclusion": "C源点抑制仅历史ICMP定义；RFC6633规定不得再发送Source Quench。按现行标准四项无对应拥塞抑制通知，保留历史答案但停止计分。",
+    "conclusion": "RFC6633更新旧规范，禁止路由器发送Source Quench，并要求主机忽略此报文。题干的“可”若考旧ICMP类型，C是历史答案；若问现行路由器行为，四项没有相应拥塞通知。题面未给年代，继续标历史/现行口径争议，不能将历史C不加说明地恢复为现行判分。",
     "checkId": null,
     "references": [
       {
@@ -5595,7 +5830,15 @@
         "url": "https://www.rfc-editor.org/rfc/rfc6633.html"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "C源点抑制仅历史ICMP定义；RFC6633规定不得再发送Source Quench。按现行标准四项无对应拥塞抑制通知，保留历史答案但停止计分。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "历史ICMP模型选C；现行标准不得发送源点抑制",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-4-073",
@@ -6095,12 +6338,12 @@
     "sourcePath": "ch4/quiz.html",
     "sourceOrdinal": 103,
     "sourceAnswer": null,
-    "status": "disputed",
+    "status": "corrected",
     "scoring": "self",
     "noteChapter": 4,
     "noteHeading": "IPv4 数据报的首部格式",
     "noteSha256": "be99a448a82d617b253d9e5bd684440991f9822349029fa4707af2ac25237b03",
-    "conclusion": "源124.78.3.2、目的180.14.15.2、载荷64B可读出；片字段0x5850使DF1而偏移6224非0，头部自相矛盾。实际字节偏移49792，来源未清楚回答且不能当正常分片示例。",
+    "conclusion": "版本4、IHL5，所以首部20B；总长度0x54=84B，载荷64B。0x5850中DF=1、MF=0、13位偏移=0x1850=6224，即原数据起点的49792B偏移；按偏移它声称是末片，但DF又禁止分片，不能把它当作正常合法分片。该20B首部的校验和折叠和恰为0xffff，校验通过并不能消除字段语义矛盾。修正答案应同时报告解析值和异常，不猜哪一个字节印错。",
     "checkId": "calc:cn-4-103",
     "references": [
       {
@@ -6109,7 +6352,15 @@
         "url": "https://www.rfc-editor.org/rfc/rfc791.html"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "源124.78.3.2、目的180.14.15.2、载荷64B可读出；片字段0x5850使DF1而偏移6224非0，头部自相矛盾。实际字节偏移49792，来源未清楚回答且不能当正常分片示例。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "源124.78.3.2；目的180.14.15.2；载荷64B；片偏移6224单位=49792B，但首部语义矛盾",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-4-104",
@@ -6421,15 +6672,29 @@
     "sourcePath": "ch4/quiz.html",
     "sourceOrdinal": 123,
     "sourceAnswer": "B",
-    "status": "disputed",
+    "status": "corrected",
     "scoring": "self",
     "noteChapter": 4,
     "noteHeading": "分层次的路由选择协议",
     "noteSha256": "be99a448a82d617b253d9e5bd684440991f9822349029fa4707af2ac25237b03",
-    "conclusion": "B“知道如何路由到其他区域”并不要求知道其内部拓扑，分层路由当然需要区域间汇总/下一跳信息；来源将这两件事混同，B不应判错。",
+    "conclusion": "分层路由隐藏的是其他区域的内部拓扑，并非取消到其他区域的路由。RFC2328 §3.2说明通过区域边界路由器的汇总信息计算跨区路径，区域内路由器可据此选择出口，所以B中的“知道如何路由到其他区域”成立。A、C、D也未构成错误。原解把不知道内部结构误读为不知道跨区路由，按勘误自评。",
     "checkId": null,
-    "references": [],
-    "reviewedAt": "2026-10-23"
+    "references": [
+      {
+        "id": "rfc2328",
+        "title": "RFC2328：OSPF区域间路由与LSA",
+        "url": "https://www.rfc-editor.org/rfc/rfc2328.html"
+      }
+    ],
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "B“知道如何路由到其他区域”并不要求知道其内部拓扑，分层路由当然需要区域间汇总/下一跳信息；来源将这两件事混同，B不应判错。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "按通常分层路由定义，四项均可成立；原B不应判错",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-4-124",
@@ -6570,10 +6835,24 @@
     "noteChapter": 4,
     "noteHeading": "因特网的路由选择协议",
     "noteSha256": "be99a448a82d617b253d9e5bd684440991f9822349029fa4707af2ac25237b03",
-    "conclusion": "A按封装层次确有问题，但C将OSPF的LSA说成“路由表一部分”也不准确，B把区域洪泛泛称全AS；单错题不严谨，停止计分。",
+    "conclusion": "按TCP/IP封装分类RIP使用UDP，A把它与OSPF都归网络层不当；按功能分类又常统称网络路由协议。更关键的是C：OSPF发送LSA，不是“路由表的一部分”；区域内拓扑LSA与部分跨AS洪泛的外部LSA范围也不同，B不可一概而论。多处措辞问题不能只纠正A并恢复单选。",
     "checkId": null,
-    "references": [],
-    "reviewedAt": "2026-10-23"
+    "references": [
+      {
+        "id": "rfc2328",
+        "title": "RFC2328：OSPF区域间路由与LSA",
+        "url": "https://www.rfc-editor.org/rfc/rfc2328.html"
+      }
+    ],
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "A按封装层次确有问题，但C将OSPF的LSA说成“路由表一部分”也不准确，B把区域洪泛泛称全AS；单错题不严谨，停止计分。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "A、C均有问题，B还需限定区域/LSA类型",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-4-133",
@@ -6746,10 +7025,18 @@
     "noteChapter": 4,
     "noteHeading": "路由信息协议（RIP）",
     "noteSha256": "be99a448a82d617b253d9e5bd684440991f9822349029fa4707af2ac25237b03",
-    "conclusion": "配图实际是含NAT、Hub与Web的另一道拓扑，没有题设RIP三角与201.1.2.0/25一致标注；原解析又自行加入保存所有邻居向量的模型，不能支持唯一答案3。",
+    "conclusion": "再次检查来源配图，仍为含NAT、Hub和Web主机的其他题拓扑，与题面RIP三角/目的网段不匹配。来源解析另行假设保存所有邻居向量，不能替代原题给出的路由状态。需要与题干对应的原图和路由信息；不依据该解析倒推并补造图。",
     "checkId": null,
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "配图实际是含NAT、Hub与Web的另一道拓扑，没有题设RIP三角与201.1.2.0/25一致标注；原解析又自行加入保存所有邻居向量的模型，不能支持唯一答案3。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "缺失匹配拓扑，无法确认原答案3",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-4-144",
@@ -6858,10 +7145,24 @@
     "noteChapter": 4,
     "noteHeading": "网际协议",
     "noteSha256": "be99a448a82d617b253d9e5bd684440991f9822349029fa4707af2ac25237b03",
-    "conclusion": "移动IPv4注册最终更新归属代理，但可经外部代理登记，C表述不足以单独排错；B还忽略共址转交地址无需外部代理的情形，题面未限定代理模型。",
+    "conclusion": "RFC5944规定注册的最终绑定在归属代理；使用外部代理转交地址时，移动节点先向外部代理发注册请求，外部代理再转交归属代理。因此C的“通知外部代理”并非在该模式下一定错误。使用共址转交地址又不要求外部代理存在，B的隧道终点叙述也非通用。需说明具体代理模型及注册最终目的。",
     "checkId": null,
-    "references": [],
-    "reviewedAt": "2026-10-23"
+    "references": [
+      {
+        "id": "rfc5944",
+        "title": "RFC5944：移动IPv4注册及转交地址",
+        "url": "https://www.rfc-editor.org/rfc/rfc5944.html"
+      }
+    ],
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "移动IPv4注册最终更新归属代理，但可经外部代理登记，C表述不足以单独排错；B还忽略共址转交地址无需外部代理的情形，题面未限定代理模型。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "B、C都依赖转交地址与代理模型；无法唯一排错",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-4-151",
@@ -7114,10 +7415,18 @@
     "noteChapter": 4,
     "noteHeading": "网际协议",
     "noteSha256": "be99a448a82d617b253d9e5bd684440991f9822349029fa4707af2ac25237b03",
-    "conclusion": "处理/转发时延取决于型号、ASIC、包长、速率和排队，无法按设备类别固定排序；现代路由器也硬件转发，来源C及毫秒级泛化无充分依据。",
+    "conclusion": "交换机和路由器均可用ASIC线速转发，也可能经过软件慢路径；集线器、中继器和网桥的具体延迟还受速率、帧长、实现及排队影响。题面不给型号和工作方式，无法证明原C固定排序。可比较处理层次，不能据此推出所有设备的数值时延顺序。",
     "checkId": null,
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "处理/转发时延取决于型号、ASIC、包长、速率和排队，无法按设备类别固定排序；现代路由器也硬件转发，来源C及毫秒级泛化无充分依据。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "无法仅按设备类型确定固定时延排序",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-4-167",
@@ -7323,15 +7632,23 @@
     "sourcePath": "ch4/quiz.html",
     "sourceOrdinal": 179,
     "sourceAnswer": null,
-    "status": "disputed",
+    "status": "corrected",
     "scoring": "self",
     "noteChapter": 4,
     "noteHeading": "因特网的路由选择协议",
     "noteSha256": "be99a448a82d617b253d9e5bd684440991f9822349029fa4707af2ac25237b03",
-    "conclusion": "已检查原图，存在R13—R15而无R12—R15/R13—R16，来源误读拓扑且把t=0首次交换当30s。按同步扩散，到R14直连网最大2跳需30s，到R16直连网最大3跳需60s，并非90/90。其余OSPF、TTL16、eBGP UPDATE/iBGP及下一跳R11/R13成立。",
+    "conclusion": "按原图AS1边集11—12、12—13、11—14、14—15、15—16、13—15，R14到所有路由器最大距离2跳，R16最大3跳。题面明确t=0立即交换一次，此时已扩散1跳，故全网到210.2.3.0/24和210.2.4.0/24分别在30s、60s得到正确路由。原解误读纵向连边并额外多算首次30s。第(5)问在题设无其他策略且IGP等开销下，R14最近出口R11、R15最近出口R13；BGP的路径与出口比较不能简化成任意同长AS路径随便选。",
     "checkId": "calc:cn-4-179",
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "已检查原图，存在R13—R15而无R12—R15/R13—R16，来源误读拓扑且把t=0首次交换当30s。按同步扩散，到R14直连网最大2跳需30s，到R16直连网最大3跳需60s，并非90/90。其余OSPF、TTL16、eBGP UPDATE/iBGP及下一跳R11/R13成立。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "(1)OSPF；(2)16；(3)30s、60s；(4)eBGP/UPDATE/iBGP；(5)R11、R13",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-4-180",
@@ -7472,10 +7789,24 @@
     "noteChapter": 5,
     "noteHeading": "对数据传输可靠性的支持情况",
     "noteSha256": "120caa22d1cdd02990577fd1f16f700c99beb00cd678cfcc70aff2293ec32c35",
-    "conclusion": "确认机制本身不确保不丢数据，还需校验、序号、重传及失败处理；可靠性是交付语义，不等于“用了ACK”。D措辞过强，来源推理不成立。",
+    "conclusion": "可靠性描述对上层的可靠交付服务，不是仅指存在某个机制。ACK需与校验、序号、重传、重复抑制和失败处理协作；只有ACK的协议仍可丢失数据。A、B、C也不能独立定义可靠。因此若D指完整可靠协议内的确认机制，可作预期答案；若按原解ACK本身充分，则不成立。保留争议，不恢复绝对判分。",
     "checkId": null,
-    "references": [],
-    "reviewedAt": "2026-10-23"
+    "references": [
+      {
+        "id": "rfc9293",
+        "title": "RFC 9293：TCP 段、序号、关闭与复位",
+        "url": "https://www.rfc-editor.org/rfc/rfc9293.html"
+      }
+    ],
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "确认机制本身不确保不丢数据，还需校验、序号、重传及失败处理；可靠性是交付语义，不等于“用了ACK”。D措辞过强，来源推理不成立。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "D最接近教材意图，但“用了确认就确保不丢失”的解释错误",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-5-006",
@@ -7702,7 +8033,7 @@
     "noteChapter": 5,
     "noteHeading": "首部对比",
     "noteSha256": "120caa22d1cdd02990577fd1f16f700c99beb00cd678cfcc70aff2293ec32c35",
-    "conclusion": "B发送伪首部错误；C允许将已检出错误的UDP交上层也不符合RFC1122普通UDP须静默丢弃的要求，A还须限定IPv4，单错题不唯一。",
+    "conclusion": "伪首部仅参与计算不随UDP报文发送，所以B错。RFC1122 §4.1.3.4明确非零且无效的UDP校验和必须静默丢弃，C的“也可交上层”错；可选的是是否接受未提供校验和的数据报，二者不能混淆。A的全零省略校验和仅适用通常IPv4模型，普通IPv6 UDP不能照搬。单错题不唯一，保留争议并明确两处修正。",
     "checkId": null,
     "references": [
       {
@@ -7711,7 +8042,15 @@
         "url": "https://www.rfc-editor.org/rfc/rfc1122.html#section-4.1.3.4"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "B发送伪首部错误；C允许将已检出错误的UDP交上层也不符合RFC1122普通UDP须静默丢弃的要求，A还须限定IPv4，单错题不唯一。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "普通IPv4 UDP下B、C都错误；A还依赖IP版本",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-5-020",
@@ -7836,10 +8175,24 @@
     "noteChapter": 5,
     "noteHeading": "首部对比",
     "noteSha256": "120caa22d1cdd02990577fd1f16f700c99beb00cd678cfcc70aff2293ec32c35",
-    "conclusion": "NAT不一定改源端口，NAPT也可保持原端口；IPv4零UDP校验和须继续为0。题面未限定NAPT与非零校验和，无法断言I、IV一定修改。",
+    "conclusion": "RFC3022区分Basic NAT与NAPT；前者只改地址，不必改UDP源端口，后者也可保留端口。IPv4 UDP原校验和为0时须保持0；非零时须按伪首部变化调整，但调整后的数值是否不同还取决于具体地址与端口。源端口与检验和均不能在所有NAT情形下断言数值一定改变。题面缺映射模式与字段值，继续不计分。",
     "checkId": null,
-    "references": [],
-    "reviewedAt": "2026-10-23"
+    "references": [
+      {
+        "id": "rfc3022",
+        "title": "RFC3022：Basic NAT、NAPT与零UDP校验和例外",
+        "url": "https://www.rfc-editor.org/rfc/rfc3022.html"
+      }
+    ],
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "NAT不一定改源端口，NAPT也可保持原端口；IPv4零UDP校验和须继续为0。题面未限定NAPT与非零校验和，无法断言I、IV一定修改。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "无必然对应选项；NAPT且源端口改变、非零校验和时教材选B",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-5-028",
@@ -8040,7 +8393,7 @@
     "noteChapter": 5,
     "noteHeading": "对应用层报文的处理",
     "noteSha256": "120caa22d1cdd02990577fd1f16f700c99beb00cd678cfcc70aff2293ec32c35",
-    "conclusion": "MSS是单段数据上限，不是固定发送或重传单位；TCP可发短段、合并/重新分段重传，两端MSS各自限制接收方向，来源A的绝对叙述错误。",
+    "conclusion": "MSS规定单个TCP段数据的上限，并不要求每次发送/重传都恰为MSS。发送窗口、剩余数据或实现可导致短段，重传也可重新分段。双方各通告自己可接收的最大段长，不能笼统说统一取二者较小值后所有方向固定使用。若题目改为“通常按不超过什么上限分段”，A可成立；原固定单位说法继续保留争议。",
     "checkId": null,
     "references": [
       {
@@ -8049,7 +8402,15 @@
         "url": "https://www.rfc-editor.org/rfc/rfc9293.html"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "MSS是单段数据上限，不是固定发送或重传单位；TCP可发短段、合并/重新分段重传，两端MSS各自限制接收方向，来源A的绝对叙述错误。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "满长段的教材模型预期A；协议不规定固定MSS重传单位",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-5-040",
@@ -8126,7 +8487,7 @@
     "noteChapter": 5,
     "noteHeading": "释放 TCP 连接",
     "noteSha256": "120caa22d1cdd02990577fd1f16f700c99beb00cd678cfcc70aff2293ec32c35",
-    "conclusion": "C“只有客户可主动关闭”错误；D“需要四次”也非必然，FIN与ACK可合并为三报文关闭，来源承认的后续题也采用合并。",
+    "conclusion": "任一端都能主动关闭，C确定错误。RFC9293的正常关闭序列允许ACK与本端FIN合并，三报文也可完成关闭；四次挥手是常见分步讲解，并非协议强制四个报文。应把D限定为“典型过程可分别包含四次收发”，才可唯一选C。",
     "checkId": null,
     "references": [
       {
@@ -8135,7 +8496,15 @@
         "url": "https://www.rfc-editor.org/rfc/rfc9293.html"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "C“只有客户可主动关闭”错误；D“需要四次”也非必然，FIN与ACK可合并为三报文关闭，来源承认的后续题也采用合并。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "C确定错误；D若理解为必需四个报文也错误",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-5-045",
@@ -8268,7 +8637,7 @@
     "noteChapter": 5,
     "noteHeading": "释放 TCP 连接",
     "noteSha256": "120caa22d1cdd02990577fd1f16f700c99beb00cd678cfcc70aff2293ec32c35",
-    "conclusion": "FIN可与数据同段，确认应为x+载荷长度+1，题面未说FIN段无数据，D的“一定x+1”不成立；不能用所谓主流实现不携数据替代协议条件。",
+    "conclusion": "RFC9293允许FIN与数据同段，FIN占用位于数据之后的一个序号。题目未给A载荷长度，无法断言B.ack一定x+1；B.seq又取决于服务器关闭前是否继续发送数据。原解所谓主流系统不允许FIN携带数据不是协议依据。需明确A不携数据且为正常有序关闭，才恢复D。",
     "checkId": null,
     "references": [
       {
@@ -8277,7 +8646,15 @@
         "url": "https://www.rfc-editor.org/rfc/rfc9293.html"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "FIN可与数据同段，确认应为x+载荷长度+1，题面未说FIN段无数据，D的“一定x+1”不成立；不能用所谓主流实现不携数据替代协议条件。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "FIN段A载荷为n字节时，确认通常为x+n+1；n=0才对应D",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-5-052",
@@ -8701,7 +9078,7 @@
     "noteChapter": 5,
     "noteHeading": "报文段首部格式",
     "noteSha256": "120caa22d1cdd02990577fd1f16f700c99beb00cd678cfcc70aff2293ec32c35",
-    "conclusion": "按顺序接收可知ACK应2013，但甲持续发送时SND.NXT可能已超过乙确认的2046，无法由单个入段唯一断言回段seq2046。",
+    "conclusion": "1913起的100B覆盖到2012，按题设顺序接收则下一期待2013。乙发来的ACK2046仅说明它当时已收到甲到2045，并不表示甲此后未再发送；例如甲已发2046至2145，回段SEQ可为2146。双方持续传输且无丢失也不排除这些在途数据，故B只在额外“甲无其他在途数据”条件下成立。",
     "checkId": null,
     "references": [
       {
@@ -8710,7 +9087,15 @@
         "url": "https://www.rfc-editor.org/rfc/rfc9293.html"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "按顺序接收可知ACK应2013，但甲持续发送时SND.NXT可能已超过乙确认的2046，无法由单个入段唯一断言回段seq2046。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "按有序接收ACK=2013；回复SEQ为当前SND.NXT，不能唯一推出2046",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-5-074",
@@ -8961,7 +9346,7 @@
     "noteChapter": 5,
     "noteHeading": "释放 TCP 连接",
     "noteSha256": "120caa22d1cdd02990577fd1f16f700c99beb00cd678cfcc70aff2293ec32c35",
-    "conclusion": "来源60.04s隐含初窗1MSS且等待全部数据ACK后才发FIN；题面未给这些条件，FIN可在数据后立即发送/与数据合并，60.03s等更短流程可能，最少时间不唯一。",
+    "conclusion": "来源隐含初窗1MSS、收到全部数据ACK后才发FIN。若初窗允许3MSS，t=10ms发第三握手时即可发送全部3000B并紧接FIN，t=15ms服务器收到并立即回ACK+FIN，t=20ms到达H并使其进入TIME-WAIT，60.02s即可CLOSED（忽略发送时延）。即使初窗1MSS，末批数据后不等确认就发FIN也可缩短流程。题目未限定这些条件，选项也不含所有合法最短模型，继续不计分。",
     "checkId": null,
     "references": [
       {
@@ -8975,7 +9360,15 @@
         "url": "https://www.rfc-editor.org/rfc/rfc6928.html"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "来源60.04s隐含初窗1MSS且等待全部数据ACK后才发FIN；题面未给这些条件，FIN可在数据后立即发送/与数据合并，60.03s等更短流程可能，最少时间不唯一。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "60.04s不是题面可推出的最小值；初窗及关闭时点未给",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-5-087",
@@ -9262,10 +9655,24 @@
     "noteChapter": 5,
     "noteHeading": "流量控制",
     "noteSha256": "120caa22d1cdd02990577fd1f16f700c99beb00cd678cfcc70aff2293ec32c35",
-    "conclusion": "TCP逐段滑窗不能把整个窗口当停等的一帧。忽略段发送耗时按窗口/RTT，128kb/s×0.256/8=4096B；来源8192需额外假设整窗批次等待，缺少段长与ACK模型无法唯一推出。",
+    "conclusion": "单向传播128ms给出传播RTT=256ms。连续滑窗的近似W=吞吐率×RTT/8=4096B；但题面并未忽略数据段发送时间，有限段长L时ACK循环还含L/256000，需给MSS、ACK节奏与实际瓶颈才能精确反推窗口。8192B来自吞吐=W/(W/C+RTT)把整窗当一个停等批次，不能直接当普通TCP滑窗结论。本轮修正原推导并保留缺条件争议。",
     "checkId": "calc:cn-5-103",
-    "references": [],
-    "reviewedAt": "2026-10-23"
+    "references": [
+      {
+        "id": "rfc9293",
+        "title": "RFC 9293：TCP 段、序号、关闭与复位",
+        "url": "https://www.rfc-editor.org/rfc/rfc9293.html"
+      }
+    ],
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "TCP逐段滑窗不能把整个窗口当停等的一帧。忽略段发送耗时按窗口/RTT，128kb/s×0.256/8=4096B；来源8192需额外假设整窗批次等待，缺少段长与ACK模型无法唯一推出。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "逐段滑窗且忽略序列化时约4096B；8192B依赖整窗停等模型",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-5-104",
@@ -9316,10 +9723,29 @@
     "noteChapter": 5,
     "noteHeading": "报文段首部格式",
     "noteSha256": "120caa22d1cdd02990577fd1f16f700c99beb00cd678cfcc70aff2293ec32c35",
-    "conclusion": "已检查三张原图：表1第五包TCP部分及表2主体被截断，第二包首字节还为0x43使IPv4 IHL=3非法。可确认1/3/4来自H、3/5需填充，但16B确认量与15跳无法从完整可见字段独立验证，待补全原图。",
+    "conclusion": "原图表1第五包TCP字段和表2主体仍被裁切，无法独立读取第五包ACK与发送时TTL；16B和15跳只来自原解析，不能当已核实。表1第二包首字节0x43又意味着IHL=3，小于合法IPv4首部最短5，应另查是否印错。先保留可读字段的结论，不自行补成0x45，不用解析代替缺失证据。",
     "checkId": null,
-    "references": [],
-    "reviewedAt": "2026-10-23"
+    "references": [
+      {
+        "id": "rfc791",
+        "title": "RFC 791 §3.1–3.2：IPv4 首部、分片与重组",
+        "url": "https://www.rfc-editor.org/rfc/rfc791.html"
+      },
+      {
+        "id": "rfc9293",
+        "title": "RFC 9293：TCP 段、序号、关闭与复位",
+        "url": "https://www.rfc-editor.org/rfc/rfc9293.html"
+      }
+    ],
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "已检查三张原图：表1第五包TCP部分及表2主体被截断，第二包首字节还为0x43使IPv4 IHL=3非法。可确认1/3/4来自H、3/5需填充，但16B确认量与15跳无法从完整可见字段独立验证，待补全原图。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "可确认1/3/4来自H、3/5需填充；其余关键字段缺失待补图",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-5-107",
@@ -9642,7 +10068,7 @@
     "noteChapter": 6,
     "noteHeading": "超文本传输协议",
     "noteSha256": "dfa23a6e9cc00abf98cecf2d01e00ccde740d40796c191f58f658be0fd3d8592",
-    "conclusion": "DNS可用UDP，B成立；现代HTTP/3经QUIC使用UDP，因此D也可使用传输层UDP。题面未限定HTTP/1.x或HTTP/2，单选不唯一。",
+    "conclusion": "DNS可用UDP；HTTP/3经QUIC承载于UDP，故按“使用传输层无连接服务”的底层含义D也成立。QUIC本身有连接及可靠流，不应把HTTP/3称为不可靠HTTP。题面未限制HTTP版本，需明确传统模型才可唯一判B。",
     "checkId": null,
     "references": [
       {
@@ -9656,7 +10082,15 @@
         "url": "https://www.rfc-editor.org/rfc/rfc9210.html"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "DNS可用UDP，B成立；现代HTTP/3经QUIC使用UDP，因此D也可使用传输层UDP。题面未限定HTTP/1.x或HTTP/2，单选不唯一。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "传统HTTP/1.x、HTTP/2模型选B；包含HTTP/3时B、D皆可",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-6-020",
@@ -10167,7 +10601,7 @@
     "noteChapter": 6,
     "noteHeading": "超文本传输协议",
     "noteSha256": "dfa23a6e9cc00abf98cecf2d01e00ccde740d40796c191f58f658be0fd3d8592",
-    "conclusion": "传统答案C指DNS/UDP；DNS也支持TCP，HTTP/3又经QUIC使用UDP，题目未限制版本时HTTP选项同样可能，单选失去唯一性。",
+    "conclusion": "DNS可通过UDP也可通过TCP，不是固定仅用无连接协议；HTTP/3的QUIC传输本身是面向连接、提供可靠流，但底层使用UDP。题目“采用面向无连接的协议”没有说明考哪一层及HTTP版本，因此C是教材预期而非现代协议全集下的唯一答案。",
     "checkId": null,
     "references": [
       {
@@ -10181,7 +10615,15 @@
         "url": "https://www.rfc-editor.org/rfc/rfc9210.html"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "传统答案C指DNS/UDP；DNS也支持TCP，HTTP/3又经QUIC使用UDP，题目未限制版本时HTTP选项同样可能，单选失去唯一性。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "传统模型选C；若指底层UDP且包括HTTP/3，C、D皆可",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-6-048",
@@ -10318,7 +10760,7 @@
     "noteChapter": 6,
     "noteHeading": "使用 Cookie 在服务器上记录信息",
     "noteSha256": "dfa23a6e9cc00abf98cecf2d01e00ccde740d40796c191f58f658be0fd3d8592",
-    "conclusion": "A“仅在服务器”确实错误；B“由服务器产生”也非普遍成立，客户端脚本可设置非HttpOnly Cookie。原解析未限定Set-Cookie模型，单错题有歧义。",
+    "conclusion": "Cookie由用户代理保存，不是仅存服务器端。RFC6265 §5.3处理非HTTP API设置Cookie的情况，客户端脚本也可设置非HttpOnly Cookie；故B不能当所有Cookie的普遍起源。若B仅描述常见Set-Cookie流程，A可作唯一预期答案；题面未限定，继续标歧义。Cookie也不必存成独立文本文件。",
     "checkId": null,
     "references": [
       {
@@ -10327,7 +10769,15 @@
         "url": "https://www.rfc-editor.org/rfc/rfc6265.html#section-5.3"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "A“仅在服务器”确实错误；B“由服务器产生”也非普遍成立，客户端脚本可设置非HttpOnly Cookie。原解析未限定Set-Cookie模型，单错题有歧义。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "A确定错误；B若指只能由服务器生成也不成立",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-6-056",
@@ -10426,10 +10876,24 @@
     "noteChapter": 6,
     "noteHeading": "超文本传输协议",
     "noteSha256": "dfa23a6e9cc00abf98cecf2d01e00ccde740d40796c191f58f658be0fd3d8592",
-    "conclusion": "已检查NAT表，仅缺192.168.32.56:80映射不能推出必须丢弃；未给目的地址、协议与过滤策略，可能建立出站映射或内网路由，源端口80也不能证明是Web响应。",
+    "conclusion": "缺192.168.32.56:80映射不等于必须丢弃：普通出站NAPT可为新会话分配映射。源端口80不能证明报文是公网HTTP请求的响应；还需目的地址、协议、方向和路由/过滤策略。A所用2056也不能从无映射状态推出，D会暴露私网源地址。原解“内网响应不需转发，所以路由器丢弃”亦不成立，目的跨子网时仍可路由。",
     "checkId": null,
-    "references": [],
-    "reviewedAt": "2026-10-23"
+    "references": [
+      {
+        "id": "rfc3022",
+        "title": "RFC3022：Basic NAT、NAPT与零UDP校验和例外",
+        "url": "https://www.rfc-editor.org/rfc/rfc3022.html"
+      }
+    ],
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "已检查NAT表，仅缺192.168.32.56:80映射不能推出必须丢弃；未给目的地址、协议与过滤策略，可能建立出站映射或内网路由，源端口80也不能证明是Web响应。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "无法唯一决定；符合出站策略可建映射B，过滤策略也可能丢弃C",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-6-062",
@@ -10724,15 +11188,34 @@
     "sourcePath": "ch6/quiz.html",
     "sourceOrdinal": 77,
     "sourceAnswer": null,
-    "status": "disputed",
+    "status": "corrected",
     "scoring": "self",
     "noteChapter": 6,
     "noteHeading": "超文本传输协议",
     "noteSha256": "dfa23a6e9cc00abf98cecf2d01e00ccde740d40796c191f58f658be0fd3d8592",
-    "conclusion": "已检查帧图，目的64.170.98.32、网关MAC00-21-27-21-51-ee，ARP广播与6RTT成立；主机10.2.128.100属私网而R外口101.12.123.15，正常公网访问需NAT并修改源IP，原解答只列TTL/校验和不完整。分片本身也不应改变Identification。",
+    "conclusion": "原帧目的IP为40 aa 62 20，目的MAC为00-21-27-21-51-ee；ARP请求帧用ff-ff-ff-ff-ff-ff。已发HTTP请求后，非流水线持续连接的页面及5图共6RTT。第(4)问应分层说明：普通IPv4转发减TTL并更新首部校验和；按图私网10.2.128.100经R访问公网的NAT模型，还将源IP改为R公网101.12.123.15，并调整TCP校验和，NAPT可能改TCP源端口。题面未明说R配置NAT，不能把源地址改写称为所有路由器必做，但也不能忽略该拓扑的公网可达前提。所示IP总长度0x01ef=495B，小于1500，不需分片；即使分片，Identification也应保持原标识，不应列为必改。",
     "checkId": "calc:cn-6-077",
-    "references": [],
-    "reviewedAt": "2026-10-23"
+    "references": [
+      {
+        "id": "rfc791",
+        "title": "RFC 791 §3.1–3.2：IPv4 首部、分片与重组",
+        "url": "https://www.rfc-editor.org/rfc/rfc791.html"
+      },
+      {
+        "id": "rfc3022",
+        "title": "RFC3022：Basic NAT、NAPT与零UDP校验和例外",
+        "url": "https://www.rfc-editor.org/rfc/rfc3022.html"
+      }
+    ],
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "已检查帧图，目的64.170.98.32、网关MAC00-21-27-21-51-ee，ARP广播与6RTT成立；主机10.2.128.100属私网而R外口101.12.123.15，正常公网访问需NAT并修改源IP，原解答只列TTL/校验和不完整。分片本身也不应改变Identification。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "(1)64.170.98.32；00-21-27-21-51-ee；(2)ARP/广播；(3)6RTT；(4)TTL、首部校验和，公网NAT还改源IP",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-6-078",

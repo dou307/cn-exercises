@@ -38,3 +38,21 @@ test('rejects a forged correct answer', () => {
   incoming.records[q.id] = [{...validRecord, correct:false}];
   assert.throws(() => S.validateState(incoming, known), /判分字段不一致/);
 });
+
+test('corrections retain history but require a self review under the new decision', () => {
+  const rv = {status:'corrected', scoring:'self', recheckId:'recheck-20261024'};
+  const oldSelf = {...validRecord, answer:'self-right'};
+  assert.equal(S.currentRecord(q, rv, [validRecord, oldSelf]), null);
+  const updated = {...oldSelf, reviewVersion:rv.recheckId, at:'2026-10-24T00:00:00.000Z'};
+  const entries = [validRecord, oldSelf, updated];
+  assert.equal(S.currentRecord(q, rv, entries), updated);
+  assert.equal(S.currentRecord(q, {...rv, status:'disputed'}, entries), null);
+  const state = S.empty(); state.records[q.id] = entries;
+  S.validateState(state, known);
+  assert.equal(entries.length, 3);
+});
+
+test('a confirmed source answer still accepts compatible old attempts', () => {
+  assert.equal(S.currentRecord(q, {status:'verified', scoring:'auto'}, [validRecord]), validRecord);
+  assert.equal(S.currentRecord(q, null, [{...validRecord, hash:'0'.repeat(64)}]), null);
+});

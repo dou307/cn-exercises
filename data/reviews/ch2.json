@@ -42,10 +42,18 @@
     "noteChapter": 2,
     "noteHeading": "串行传输和并行传输",
     "noteSha256": "ad1bcb61b9a8158b533c58c1e96f99fe7cb5815a4c1f4344c1601fe380c49e0e",
-    "conclusion": "计算机内部同时存在串行与并行互连，未限定具体总线；不能将内部传输唯一归为并行，也不能断言串行必慢。",
+    "conclusion": "计算机内部既有并行互连，也有PCIe等串行互连；同步/异步是另一分类维度，也可用于内部通信。题面未指定传统并行总线，不能把B当作唯一答案。需指定具体总线或限定教材讨论对象。",
     "checkId": null,
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "计算机内部同时存在串行与并行互连，未限定具体总线；不能将内部传输唯一归为并行，也不能断言串行必慢。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "至少A、B均可，无法唯一选B",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-2-004",
@@ -314,7 +322,7 @@
     "noteChapter": 2,
     "noteHeading": "常用编码方式",
     "noteSha256": "ad1bcb61b9a8158b533c58c1e96f99fe7cb5815a4c1f4344c1601fe380c49e0e",
-    "conclusion": "图示按IEEE 802.3的上升为1约定读得11001001，选项中没有；A对应相反极性。题面指定10Base-T，不能任意互换标准约定；需补充电压极性说明或修正选项。",
+    "conclusion": "复看原图：图像上部有裁切，未给完整电压/差分极性标注。按图示中点方向且IEEE 802.3上升表示1读得11001001，四项无此值；反相后为00110110即A。网卡收到的差分信号还涉及接线极性，不能在缺极性说明时仅凭10Base-T名称强制确定图的符号。保留争议，需完整波形及约定；不擅自把某个选项改成11001001。",
     "checkId": null,
     "references": [
       {
@@ -323,7 +331,15 @@
         "url": "https://www.iol.unh.edu/sites/default/files/knowledgebase/ethernet/10basetmau.pdf"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "图示按IEEE 802.3的上升为1约定读得11001001，选项中没有；A对应相反极性。题面指定10Base-T，不能任意互换标准约定；需补充电压极性说明或修正选项。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "教材相反极性约定选A；IEEE约定得到11001001，选项缺失",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-2-021",
@@ -512,10 +528,18 @@
     "noteChapter": 2,
     "noteHeading": "导向性传输介质",
     "noteSha256": "ad1bcb61b9a8158b533c58c1e96f99fe7cb5815a4c1f4344c1601fe380c49e0e",
-    "conclusion": "未给电缆类别、长度及收发器，不能笼统断言同轴比双绞线快；C的屏蔽优势不能推出所有实现的速率顺序。",
+    "conclusion": "同轴外导体的屏蔽作用可支持C的抗干扰解释；实际速率还由电缆类别、距离、编码及收发器决定。10Mb/s同轴以太网与更高速双绞线以太网就能推翻题干的一概比较。需给出可比介质参数或改问屏蔽结构优势，才能唯一按C判分。",
     "checkId": null,
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "未给电缆类别、长度及收发器，不能笼统断言同轴比双绞线快；C的屏蔽优势不能推出所有实现的速率顺序。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "C是题目预期的屏蔽结构解释，但速率比较前提未成立",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-2-033",
@@ -555,21 +579,29 @@
     "sourcePath": "ch2/quiz.html",
     "sourceOrdinal": 35,
     "sourceAnswer": "B",
-    "status": "disputed",
+    "status": "corrected",
     "scoring": "self",
     "noteChapter": 2,
     "noteHeading": "导向性传输介质",
     "noteSha256": "ad1bcb61b9a8158b533c58c1e96f99fe7cb5815a4c1f4344c1601fe380c49e0e",
-    "conclusion": "单模是只支持一个导模，不是纤芯直径等于一个波长或无反射直线传播。实际单模纤芯常约8至10μm而工作波长约1.3至1.55μm，B表述失真，选项无严格正确项。",
+    "conclusion": "单模指在规定波长下只支持一个空间导模，不是光纤直径等于一个波长，也不是光不受波导约束地沿直线传播。A的粗细与速率单调关系不成立；B混淆纤芯、整根光纤和波长；C把普通LED列为单模通信的适用光源不符合常规教材模型；D中空也不是这里的普通石英光纤。应将B修订为“在工作波长下仅支持一个空间导模”后再设单选，当前按勘误自评。",
     "checkId": null,
     "references": [
       {
         "id": "single-mode",
-        "title": "Corning：单模光纤产品的纤芯尺寸",
-        "url": "https://ecatalog.corning.com/optical-communications/EMEA/en/Fiber-Optic-Cable-Assemblies/Indoor-Cable-Assemblies/Simplex-Indoor-Cable-Assemblies/Basic-2-0-mm-1-Fiber-Patch-Cord/p/F585801J1Z20010M"
+        "title": "Corning：单模纤芯8.2μm、包层125μm的产品资料",
+        "url": "https://www.corning.com/catalog/coc/documents/infographics/CRR-392-BEN.pdf"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "单模是只支持一个导模，不是纤芯直径等于一个波长或无反射直线传播。实际单模纤芯常约8至10μm而工作波长约1.3至1.55μm，B表述失真，选项无严格正确项。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "四项无严格正确答案；原B错误",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-2-036",
@@ -822,9 +854,17 @@
     "noteChapter": 2,
     "noteHeading": "传输方式",
     "noteSha256": "ad1bcb61b9a8158b533c58c1e96f99fe7cb5815a4c1f4344c1601fe380c49e0e",
-    "conclusion": "原式只在处理阶段可充分流水且不形成瓶颈时成立；若每节点串行处理且m大于(h+p)/b，后续包会排队。另“开始发送数据”通常不含此前建立虚电路的s，题面计时口径需澄清。",
+    "conclusion": "题面从“源点开始发送数据”计时，因此此前建立虚电路的s不应再加；若从请求建链计时才加s。处理不限制吞吐时上述公式成立；若k≥2且每节点用单个串行处理器，则流水线瓶颈可能是m，完工时间为kt+(k−1)m+kd+(N−1)max(t,m)。k=1时没有中间处理阶段，退化为Nt+d。两种模型在m>t时不同。题干只给平均处理时延，未给处理并发与排队模型，无法唯一选一种。",
     "checkId": "calc:cn-2-051",
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "原式只在处理阶段可充分流水且不形成瓶颈时成立；若每节点串行处理且m大于(h+p)/b，后续包会排队。另“开始发送数据”通常不含此前建立虚电路的s，题面计时口径需澄清。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "令N=L/p、t=(h+p)/b；常用非瓶颈模型为(N+k−1)t+(k−1)m+kd",
+    "recheckId": "recheck-20261024"
   }
 ]

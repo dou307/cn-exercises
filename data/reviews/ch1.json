@@ -90,10 +90,18 @@
     "noteChapter": 1,
     "noteHeading": "电路交换、分组交换和报文交换",
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
-    "conclusion": "① 的时延结论依赖是否计入电路建立时间及业务长度；题面未给，不能唯一比较。",
+    "conclusion": "①若从电路已经建立后计时且忽略排队，电路交换通常较快；若包含建立时间，短报文可由分组交换更快送达。②只比较交换方式自身的差错控制，不能据此否认端到端协议可在电路上纠错。③A；④在相同链路和存储转发模型下为C。需明确计时起点、报文长度和差错控制层次，整题继续不计分。",
     "checkId": null,
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "① 的时延结论依赖是否计入电路建立时间及业务长度；题面未给，不能唯一比较。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "①不能唯一确定；教材预期①A、②A、③A、④C",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-1-007",
@@ -186,10 +194,18 @@
     "noteChapter": 1,
     "noteHeading": "电路交换、分组交换和报文交换",
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
-    "conclusion": "发送 5kb 时三种方式均为 4s，A 若将并列最短也视为最节省则成立；B 同时成立，单选不唯一。",
+    "conclusion": "两条链路、分组5kb时，发送L kb的三种时延分别为2+L/2.5、2L/2.5、(L+5)/2.5秒。L=5时三者均4s；L=500时电路与分组均202s。C、D均错误。若A意为严格快于另两种，则唯一B；若允许并列最短，A也成立。应把A改为“严格少于另外两种”才能恢复单选。",
     "checkId": "calc:cn-1-012",
     "references": [],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "发送 5kb 时三种方式均为 4s，A 若将并列最短也视为最节省则成立；B 同时成立，单选不唯一。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "B确定成立；A对“最节省”的理解影响唯一性",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-1-013",
@@ -629,15 +645,29 @@
     "sourcePath": "ch1/quiz.html",
     "sourceOrdinal": 40,
     "sourceAnswer": null,
-    "status": "disputed",
+    "status": "verified",
     "scoring": "self",
     "noteChapter": 1,
     "noteHeading": "体系结构",
     "noteSha256": "5a69b4bbb73fe01b51cda90bc13ccb95531f034b7cf15fcf642917b447cb4a2c",
-    "conclusion": "① 把网络层流量控制与数据链路层、传输层并列依赖特定教材模型；题面未说明模型细节，保留来源答案供自评。",
+    "conclusion": "撤销首轮对①的争议：题干明确指定OSI，不能套用TCP/IP无连接网络层模型。ITU-T X.200 §7.5.4.1.2及§7.5.4.9明确列出网络层流量控制，数据链路层和传输层也具有相应功能，因此第2、3、4层即B。其余空分别考查传输层端到端连接、网络层路由、进程间传输以及链路层向网络层提供服务。OSI把这些列为可提供的功能，不表示每个具体协议都必须实现。",
     "checkId": null,
-    "references": [],
-    "reviewedAt": "2026-10-23"
+    "references": [
+      {
+        "id": "x200",
+        "title": "ITU-T X.200：OSI基本模型，§7.5.4.9网络层流量控制",
+        "url": "https://www.itu.int/rec/T-REC-X.200-199407-I/en"
+      }
+    ],
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "① 把网络层流量控制与数据链路层、传输层并列依赖特定教材模型；题面未说明模型细节，保留来源答案供自评。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "①B、②D、③C、④A、⑤B",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-1-041",

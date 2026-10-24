@@ -1,8 +1,8 @@
 [
   {"id":"ethernet-manchester","title":"UNH-IOL：10BASE-T MAU，曼彻斯特编码定义","url":"https://www.iol.unh.edu/sites/default/files/knowledgebase/ethernet/10basetmau.pdf","questions":"cn-2-020"},
-  {"id":"single-mode","title":"Corning：单模光纤产品的纤芯尺寸","url":"https://ecatalog.corning.com/optical-communications/EMEA/en/Fiber-Optic-Cable-Assemblies/Indoor-Cable-Assemblies/Simplex-Indoor-Cable-Assemblies/Basic-2-0-mm-1-Fiber-Patch-Cord/p/F585801J1Z20010M","questions":"cn-2-035"},
-  {"id":"fiber-half-duplex","title":"Cisco：10BASE-FL 光纤半双工接口","url":"https://www.cisco.com/c/en/us/td/docs/interfaces_modules/port_adapters/install_upgrade/ethernet/pa-5efl_ethernet_10baset_install_config/pa_5efl/3495over.html","questions":"cn-3-082"},
-  {"id":"identity-vlan","title":"Cisco：IEEE 802.1X 认证后分配 VLAN","url":"https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/sec_usr_8021x/configuration/15-mt/sec-user-8021x-15-mt-book/sec-ieee-8021x-vlan-assign.html","questions":"cn-3-110"},
+  {"id":"single-mode","title":"Corning：单模纤芯8.2μm、包层125μm的产品资料","url":"https://www.corning.com/catalog/coc/documents/infographics/CRR-392-BEN.pdf","questions":"cn-2-035"},
+  {"id":"fiber-half-duplex","title":"Cisco：10BASE-FL 光纤半双工接口手册","url":"https://www.cisco.com/c/en/us/td/docs/interfaces_modules/port_adapters/install_upgrade/ethernet/pa-5efl_ethernet_10baset_install_config/pa_5efl.pdf","questions":"cn-3-082"},
+  {"id":"identity-vlan","title":"Cisco：IEEE 802.1X 认证后按用户名分配 VLAN","url":"https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/sec_usr_8021x/configuration/xe-3e/sec-usr-8021x-xe-3e-book/sec-ieee-8021x-vlan-assign.html","questions":"cn-3-110"},
   {"id":"rfc1662","title":"RFC 1662：PPP 字节/比特填充","url":"https://www.rfc-editor.org/rfc/rfc1662.html","questions":"cn-3-131 cn-3-135"},
   {"id":"rfc791","title":"RFC 791 §3.1–3.2：IPv4 首部、分片与重组","url":"https://www.rfc-editor.org/rfc/rfc791.html","questions":"cn-4-023 cn-4-024 cn-4-025 cn-4-028 cn-4-030 cn-4-031 cn-4-094 cn-4-095 cn-4-103"},
   {"id":"rfc1122","title":"RFC 1122 §4.1.3.4：错误 UDP 校验和必须丢弃","url":"https://www.rfc-editor.org/rfc/rfc1122.html#section-4.1.3.4","questions":"cn-5-017 cn-5-019"},
@@ -14,5 +14,12 @@
   {"id":"rfc9210","title":"RFC 9210：DNS 同时支持 TCP 和 UDP","url":"https://www.rfc-editor.org/rfc/rfc9210.html","questions":"cn-6-019 cn-6-032 cn-6-047 cn-6-050 cn-6-066"},
   {"id":"rfc6152","title":"RFC 6152：SMTP 8BITMIME 扩展","url":"https://www.rfc-editor.org/rfc/rfc6152.html","questions":"cn-6-043 cn-6-045 cn-6-073"},
   {"id":"rfc6265","title":"RFC 6265 §5.3：包括非 HTTP API 在内的 Cookie 存储","url":"https://www.rfc-editor.org/rfc/rfc6265.html#section-5.3","questions":"cn-6-055 cn-6-063"},
-  {"id":"rfc959","title":"RFC 959：FTP 控制/数据连接及传输模式","url":"https://www.rfc-editor.org/rfc/rfc959.html","questions":"cn-6-021 cn-6-022 cn-6-024 cn-6-025 cn-6-028 cn-6-029 cn-6-031 cn-6-034 cn-6-068 cn-6-070"}
+  {"id":"rfc959","title":"RFC 959：FTP 控制/数据连接及传输模式","url":"https://www.rfc-editor.org/rfc/rfc959.html","questions":"cn-6-021 cn-6-022 cn-6-024 cn-6-025 cn-6-028 cn-6-029 cn-6-031 cn-6-034 cn-6-068 cn-6-070"},
+  {"id":"x200","title":"ITU-T X.200：OSI基本模型，§7.5.4.9网络层流量控制","url":"https://www.itu.int/rec/T-REC-X.200-199407-I/en","questions":"cn-1-040 cn-4-003"},
+  {"id":"rfc3385","title":"RFC3385：CRC的未检出差错与概率分析","url":"https://www.rfc-editor.org/rfc/rfc3385.html","questions":"cn-3-015 cn-3-049"},
+  {"id":"rfc1661","title":"RFC1661 §3.6：PPP网络层协议复用与NCP配置","url":"https://www.rfc-editor.org/rfc/rfc1661.html#section-3.6","questions":"cn-3-135"},
+  {"id":"rfc2328","title":"RFC2328：OSPF区域间路由与LSA","url":"https://www.rfc-editor.org/rfc/rfc2328.html","questions":"cn-4-123 cn-4-132"},
+  {"id":"rfc3022","title":"RFC3022：Basic NAT、NAPT与零UDP校验和例外","url":"https://www.rfc-editor.org/rfc/rfc3022.html","questions":"cn-5-027 cn-6-061 cn-6-077"},
+  {"id":"rfc5944","title":"RFC5944：移动IPv4注册及转交地址","url":"https://www.rfc-editor.org/rfc/rfc5944.html","questions":"cn-4-150"},
+  {"id":"wifi-addresses","title":"Cisco技术文档：802.11 From DS帧地址字段","url":"https://community.cisco.com/t5/networking-knowledge-base/802-11-frames-a-starter-guide-to-learn-wireless-sniffer-traces/ta-p/3110019","questions":"cn-3-106"}
 ]

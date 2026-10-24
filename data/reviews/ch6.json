@@ -298,7 +298,7 @@
     "noteChapter": 6,
     "noteHeading": "超文本传输协议",
     "noteSha256": "dfa23a6e9cc00abf98cecf2d01e00ccde740d40796c191f58f658be0fd3d8592",
-    "conclusion": "DNS可用UDP，B成立；现代HTTP/3经QUIC使用UDP，因此D也可使用传输层UDP。题面未限定HTTP/1.x或HTTP/2，单选不唯一。",
+    "conclusion": "DNS可用UDP；HTTP/3经QUIC承载于UDP，故按“使用传输层无连接服务”的底层含义D也成立。QUIC本身有连接及可靠流，不应把HTTP/3称为不可靠HTTP。题面未限制HTTP版本，需明确传统模型才可唯一判B。",
     "checkId": null,
     "references": [
       {
@@ -312,7 +312,15 @@
         "url": "https://www.rfc-editor.org/rfc/rfc9210.html"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "DNS可用UDP，B成立；现代HTTP/3经QUIC使用UDP，因此D也可使用传输层UDP。题面未限定HTTP/1.x或HTTP/2，单选不唯一。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "传统HTTP/1.x、HTTP/2模型选B；包含HTTP/3时B、D皆可",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-6-020",
@@ -823,7 +831,7 @@
     "noteChapter": 6,
     "noteHeading": "超文本传输协议",
     "noteSha256": "dfa23a6e9cc00abf98cecf2d01e00ccde740d40796c191f58f658be0fd3d8592",
-    "conclusion": "传统答案C指DNS/UDP；DNS也支持TCP，HTTP/3又经QUIC使用UDP，题目未限制版本时HTTP选项同样可能，单选失去唯一性。",
+    "conclusion": "DNS可通过UDP也可通过TCP，不是固定仅用无连接协议；HTTP/3的QUIC传输本身是面向连接、提供可靠流，但底层使用UDP。题目“采用面向无连接的协议”没有说明考哪一层及HTTP版本，因此C是教材预期而非现代协议全集下的唯一答案。",
     "checkId": null,
     "references": [
       {
@@ -837,7 +845,15 @@
         "url": "https://www.rfc-editor.org/rfc/rfc9210.html"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "传统答案C指DNS/UDP；DNS也支持TCP，HTTP/3又经QUIC使用UDP，题目未限制版本时HTTP选项同样可能，单选失去唯一性。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "传统模型选C；若指底层UDP且包括HTTP/3，C、D皆可",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-6-048",
@@ -974,7 +990,7 @@
     "noteChapter": 6,
     "noteHeading": "使用 Cookie 在服务器上记录信息",
     "noteSha256": "dfa23a6e9cc00abf98cecf2d01e00ccde740d40796c191f58f658be0fd3d8592",
-    "conclusion": "A“仅在服务器”确实错误；B“由服务器产生”也非普遍成立，客户端脚本可设置非HttpOnly Cookie。原解析未限定Set-Cookie模型，单错题有歧义。",
+    "conclusion": "Cookie由用户代理保存，不是仅存服务器端。RFC6265 §5.3处理非HTTP API设置Cookie的情况，客户端脚本也可设置非HttpOnly Cookie；故B不能当所有Cookie的普遍起源。若B仅描述常见Set-Cookie流程，A可作唯一预期答案；题面未限定，继续标歧义。Cookie也不必存成独立文本文件。",
     "checkId": null,
     "references": [
       {
@@ -983,7 +999,15 @@
         "url": "https://www.rfc-editor.org/rfc/rfc6265.html#section-5.3"
       }
     ],
-    "reviewedAt": "2026-10-23"
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "A“仅在服务器”确实错误；B“由服务器产生”也非普遍成立，客户端脚本可设置非HttpOnly Cookie。原解析未限定Set-Cookie模型，单错题有歧义。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "A确定错误；B若指只能由服务器生成也不成立",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-6-056",
@@ -1082,10 +1106,24 @@
     "noteChapter": 6,
     "noteHeading": "超文本传输协议",
     "noteSha256": "dfa23a6e9cc00abf98cecf2d01e00ccde740d40796c191f58f658be0fd3d8592",
-    "conclusion": "已检查NAT表，仅缺192.168.32.56:80映射不能推出必须丢弃；未给目的地址、协议与过滤策略，可能建立出站映射或内网路由，源端口80也不能证明是Web响应。",
+    "conclusion": "缺192.168.32.56:80映射不等于必须丢弃：普通出站NAPT可为新会话分配映射。源端口80不能证明报文是公网HTTP请求的响应；还需目的地址、协议、方向和路由/过滤策略。A所用2056也不能从无映射状态推出，D会暴露私网源地址。原解“内网响应不需转发，所以路由器丢弃”亦不成立，目的跨子网时仍可路由。",
     "checkId": null,
-    "references": [],
-    "reviewedAt": "2026-10-23"
+    "references": [
+      {
+        "id": "rfc3022",
+        "title": "RFC3022：Basic NAT、NAPT与零UDP校验和例外",
+        "url": "https://www.rfc-editor.org/rfc/rfc3022.html"
+      }
+    ],
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "已检查NAT表，仅缺192.168.32.56:80映射不能推出必须丢弃；未给目的地址、协议与过滤策略，可能建立出站映射或内网路由，源端口80也不能证明是Web响应。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "无法唯一决定；符合出站策略可建映射B，过滤策略也可能丢弃C",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-6-062",
@@ -1380,15 +1418,34 @@
     "sourcePath": "ch6/quiz.html",
     "sourceOrdinal": 77,
     "sourceAnswer": null,
-    "status": "disputed",
+    "status": "corrected",
     "scoring": "self",
     "noteChapter": 6,
     "noteHeading": "超文本传输协议",
     "noteSha256": "dfa23a6e9cc00abf98cecf2d01e00ccde740d40796c191f58f658be0fd3d8592",
-    "conclusion": "已检查帧图，目的64.170.98.32、网关MAC00-21-27-21-51-ee，ARP广播与6RTT成立；主机10.2.128.100属私网而R外口101.12.123.15，正常公网访问需NAT并修改源IP，原解答只列TTL/校验和不完整。分片本身也不应改变Identification。",
+    "conclusion": "原帧目的IP为40 aa 62 20，目的MAC为00-21-27-21-51-ee；ARP请求帧用ff-ff-ff-ff-ff-ff。已发HTTP请求后，非流水线持续连接的页面及5图共6RTT。第(4)问应分层说明：普通IPv4转发减TTL并更新首部校验和；按图私网10.2.128.100经R访问公网的NAT模型，还将源IP改为R公网101.12.123.15，并调整TCP校验和，NAPT可能改TCP源端口。题面未明说R配置NAT，不能把源地址改写称为所有路由器必做，但也不能忽略该拓扑的公网可达前提。所示IP总长度0x01ef=495B，小于1500，不需分片；即使分片，Identification也应保持原标识，不应列为必改。",
     "checkId": "calc:cn-6-077",
-    "references": [],
-    "reviewedAt": "2026-10-23"
+    "references": [
+      {
+        "id": "rfc791",
+        "title": "RFC 791 §3.1–3.2：IPv4 首部、分片与重组",
+        "url": "https://www.rfc-editor.org/rfc/rfc791.html"
+      },
+      {
+        "id": "rfc3022",
+        "title": "RFC3022：Basic NAT、NAPT与零UDP校验和例外",
+        "url": "https://www.rfc-editor.org/rfc/rfc3022.html"
+      }
+    ],
+    "reviewedAt": "2026-10-24",
+    "previousReview": {
+      "status": "disputed",
+      "scoring": "self",
+      "conclusion": "已检查帧图，目的64.170.98.32、网关MAC00-21-27-21-51-ee，ARP广播与6RTT成立；主机10.2.128.100属私网而R外口101.12.123.15，正常公网访问需NAT并修改源IP，原解答只列TTL/校验和不完整。分片本身也不应改变Identification。",
+      "reviewedAt": "2026-10-23"
+    },
+    "answerLabel": "(1)64.170.98.32；00-21-27-21-51-ee；(2)ARP/广播；(3)6RTT；(4)TTL、首部校验和，公网NAT还改源IP",
+    "recheckId": "recheck-20261024"
   },
   {
     "questionId": "cn-6-078",
