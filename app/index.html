@@ -5,18 +5,32 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="light">
   <title>CN 练习站</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=20261117-sync1">
   <link rel="stylesheet" href="../vendor/kaoyan-408-networks/assets/katex/katex.min.css">
   <script defer src="../vendor/kaoyan-408-networks/assets/katex/katex.min.js"></script>
   <script defer src="../vendor/kaoyan-408-networks/assets/katex/contrib/auto-render.min.js"></script>
-  <script defer src="state.js"></script>
-  <script defer src="app.js"></script>
+  <script defer src="state.js?v=20261117-sync1"></script>
+  <script defer src="sync.js?v=20261117-sync1"></script>
+  <script defer src="app.js?v=20261117-sync1"></script>
 </head>
 <body>
   <header class="topbar">
     <a class="brand" href="./index.html"><span class="brand-mark">CN</span><span>计算机网络练习站<small>课程笔记 × 王道题库</small></span></a>
-    <div class="top-actions"><button id="btn-export" type="button">导出记录</button><label class="import">导入记录<input id="file-import" type="file" accept="application/json,.json"></label></div>
+    <div class="top-actions"><button id="btn-sync" type="button">设备同步</button><button id="btn-export" type="button">导出记录</button><label class="import">导入记录<input id="file-import" type="file" accept="application/json,.json"></label></div>
   </header>
+  <dialog id="sync-dialog" class="sync-dialog">
+    <form id="sync-form">
+      <div class="sync-heading"><h2>手机与电脑同步</h2><button id="sync-close" type="button" aria-label="关闭同步设置">关闭</button></div>
+      <p>两台设备连接同一个私有进度仓库后，会自动同步作答、收藏、草稿和已学状态；离线时先存在本机，联网后补传。</p>
+      <label>私有进度仓库<input id="sync-repo" value="dou307/cn-exercises-progress" required autocomplete="off"></label>
+      <label>此设备的 GitHub 令牌<input id="sync-token" type="password" autocomplete="off" placeholder="已连接时留空保留"></label>
+      <p class="sync-help">首次在手机和电脑各连接一次。创建细粒度令牌时，仓库只选 <strong>cn-exercises-progress</strong>，Contents 权限选 Read and write。<a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener noreferrer">创建令牌 ↗</a>。请直接填在这里，不要发到聊天中。</p>
+      <label class="sync-check"><input id="sync-remember" type="checkbox"> 在这台可信设备上记住连接（令牌仅存此浏览器）</label>
+      <p id="sync-status" role="status">此设备尚未连接</p>
+      <div class="sync-actions"><button type="submit" class="primary">连接并同步</button><button id="sync-disconnect" type="button">断开此设备</button></div>
+      <p class="sync-help">不勾选记住时，连接仅保留在当前标签页会话；断开不会删除本机或云端记录。同步数据不包含令牌。</p>
+    </form>
+  </dialog>
   <div id="storage-warning" class="storage-warning" hidden></div>
   <div class="shell">
     <aside class="sidebar">

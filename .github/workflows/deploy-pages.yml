@@ -24,7 +24,7 @@ jobs:
       - run: pip install beautifulsoup4 lxml
       - run: python scripts/verify.py
       - run: python scripts/recheck_checks.py
-      - run: node --test tests/state.test.cjs
+      - run: node --test tests/state.test.cjs tests/sync.test.cjs
       - run: python scripts/build_pages.py
       - uses: actions/upload-pages-artifact@v3
         with:

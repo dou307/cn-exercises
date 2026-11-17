@@ -7,18 +7,91 @@
   const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   let questions = [], notes = [], byId = new Map(), byReview = new Map(), byMapping = new Map(), chapter = 1, visible = [], current = null;
   let state = CNState.empty(), persistBlocked = false;
+  let savedState = CNState.empty(), syncClient = null, syncTimer = null, credential = '';
+  const SYNC_CONFIG = KEY+'-sync-config', SYNC_TOKEN = KEY+'-sync-token';
+  let syncConfig = {repository:'dou307/cn-exercises-progress', remember:false};
   let picked = null, revealed = false, redoId = null;
 
   function load() {
     try {
       const v = JSON.parse(localStorage.getItem(KEY) || 'null');
       if (v) state = CNState.validateState(v, byId);
+      savedState = structuredClone(state);
     } catch (_) { persistBlocked = true; $('#storage-warning').hidden = false; $('#storage-warning').textContent = '本机记录损坏或格式不兼容：已保留原数据。本次练习暂不写入浏览器；可导入有效备份恢复。'; }
   }
-  function save() {
+  function save(localChange = true) {
     if (persistBlocked) return false;
-    try { localStorage.setItem(KEY, JSON.stringify(state)); return true; }
+    try {
+      if (localChange) CNState.stampChanges(state,savedState);
+      localStorage.setItem(KEY, JSON.stringify(state));
+      savedState = structuredClone(state);
+      if (localChange) scheduleSync();
+      return true;
+    }
     catch (_) { $('#storage-warning').hidden = false; $('#storage-warning').textContent = '浏览器存储失败：本次练习仅保存在内存，请立即导出记录。'; return false; }
+  }
+  function scheduleSync(delay=2500) {
+    clearTimeout(syncTimer);
+    if (credential && syncClient) syncTimer=setTimeout(()=>syncClient.sync().catch(()=>{}),delay);
+  }
+  function setupSync() {
+    try {
+      syncConfig={...syncConfig,...JSON.parse(localStorage.getItem(SYNC_CONFIG)||'{}')};
+      credential=(syncConfig.remember?localStorage:sessionStorage).getItem(SYNC_TOKEN)||'';
+    } catch (_) { /* Unavailable settings do not block local practice. */ }
+    $('#sync-repo').value=syncConfig.repository;
+    $('#sync-remember').checked=syncConfig.remember;
+    const setStatus=text=>{ $('#sync-status').textContent=text; $('#btn-sync').title=text; };
+    syncClient=CNSync.create({
+      token:()=>credential, repository:()=>syncConfig.repository, read:()=>state,
+      validate:value=>CNState.validateState(value,byId), merge:CNState.merge, status:setStatus,
+      apply:async value=>{
+        if (persistBlocked) throw Error('本机记录需要先恢复，已停止自动合并');
+        state=value;
+        if (!save(false)) throw Error('本机存储失败，未上传');
+        // Avoid replacing a focused draft or a pending selected option during background pulls.
+        renderChapters(); updateProgress(); renderList();
+        if (document.activeElement?.id !== 'draft' && !picked && redoId === null) renderQuestion();
+      }
+    });
+    if (credential) setStatus('此设备已连接，等待同步');
+    $('#btn-sync').onclick=()=>$('#sync-dialog').showModal();
+    $('#sync-close').onclick=()=>$('#sync-dialog').close();
+    $('#sync-form').onsubmit=async event=>{
+      event.preventDefault();
+      const repo=$('#sync-repo').value.trim(), value=$('#sync-token').value.trim();
+      if (!/^[\w.-]+\/[\w.-]+$/.test(repo)) { setStatus('仓库格式应为账号/仓库名'); return; }
+      if (value) credential=value;
+      $('#sync-token').value='';
+      if (!credential) { setStatus('请先在此设备填写令牌'); return; }
+      syncConfig={repository:repo,remember:$('#sync-remember').checked};
+      try {
+        localStorage.removeItem(SYNC_TOKEN); sessionStorage.removeItem(SYNC_TOKEN);
+        (syncConfig.remember?localStorage:sessionStorage).setItem(SYNC_TOKEN,credential);
+        localStorage.setItem(SYNC_CONFIG,JSON.stringify(syncConfig));
+      } catch (_) { setStatus('无法记住连接，本次页面内仍可同步'); }
+      await syncClient.sync().catch(()=>{});
+    };
+    $('#sync-disconnect').onclick=()=>{
+      credential=''; clearTimeout(syncTimer);
+      try { localStorage.removeItem(SYNC_TOKEN); sessionStorage.removeItem(SYNC_TOKEN); } catch (_) {}
+      setStatus('已断开；本机与私有仓库的记录均保留');
+    };
+    window.addEventListener('online',()=>scheduleSync(0));
+    window.addEventListener('focus',()=>scheduleSync(0));
+    document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible') scheduleSync(0);});
+    setInterval(()=>{if(document.visibilityState==='visible') scheduleSync(0);},60000);
+    window.addEventListener('storage',event=>{
+      if(event.key!==KEY || !event.newValue || persistBlocked) return;
+      try {
+        state=CNState.merge(state,CNState.validateState(JSON.parse(event.newValue),byId));
+        savedState=structuredClone(state);
+        renderChapters(); updateProgress(); renderList();
+        if(document.activeElement?.id!=='draft' && !picked && redoId===null) renderQuestion();
+        scheduleSync();
+      } catch (_) {}
+    });
+    scheduleSync(0);
   }
   function last(q) {
     return CNState.currentRecord(q, review(q), state.records[q.id]);
@@ -188,6 +261,7 @@
     $('#btn-export').onclick = exportData;
     $('#file-import').onchange = e => importData(e.target.files[0]);
     render();
+    setupSync();
   }
   init();
 })();
