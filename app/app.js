@@ -11,6 +11,7 @@
   const SYNC_CONFIG = KEY+'-sync-config', SYNC_TOKEN = KEY+'-sync-token';
   let syncConfig = {repository:'dou307/cn-exercises-progress', remember:false};
   let picked = null, revealed = false, redoId = null;
+  let view = 'chapter';
 
   function load() {
     try {
@@ -109,11 +110,22 @@
   }
   function chapterCounts(n) { return questions.filter(q => q.noteChapter === n).length; }
   function renderChapters() {
-    $('#chapters').innerHTML = CHAPTERS.map((name,i) => `<button class="chapter ${chapter === i+1 ? 'active' : ''}" data-ch="${i+1}" type="button">${i+1}. ${name}<small>${chapterCounts(i+1)} 题 ${state.studied[i+1] ? '· 已学' : ''}</small></button>`).join('');
-    $('#chapters').querySelectorAll('button').forEach(b => b.onclick = () => { chapter = +b.dataset.ch; current = null; picked = null; revealed = false; redoId = null; render(); });
+    const counts = {wrong:questions.filter(q=>status(q)==='错题').length,starred:questions.filter(q=>state.stars[q.id]).length};
+    $('#chapters').innerHTML = CHAPTERS.map((name,i) => `<button class="chapter ${view === 'chapter' && chapter === i+1 ? 'active' : ''}" data-ch="${i+1}" type="button" ${view === 'chapter' && chapter === i+1 ? 'aria-current="page"' : ''}>${i+1}. ${name}</button>`).join('')+
+      `<button class="chapter collection ${view==='wrong'?'active':''}" data-view="wrong" type="button" ${view==='wrong'?'aria-current="page"':''}>错题库 <span class="nav-count">${counts.wrong}</span></button><button class="chapter collection ${view==='starred'?'active':''}" data-view="starred" type="button" ${view==='starred'?'aria-current="page"':''}>收藏夹 <span class="nav-count">${counts.starred}</span></button>`;
+    $('#chapters').querySelectorAll('button').forEach(b => b.onclick = () => {
+      view=b.dataset.view || 'chapter'; if(b.dataset.ch) chapter=+b.dataset.ch;
+      for(const id of ['filter-status','filter-type','filter-section','filter-review','filter-chapter']) $('#'+id).value='all';
+      $('#search').value=''; current=null;picked=null;revealed=false;redoId=null;render();
+    });
+  }
+  function inScope(q) {
+    return view==='wrong' ? status(q)==='错题' : view==='starred' ? !!state.stars[q.id] : q.noteChapter===chapter;
   }
   function matches(q) {
-    if (q.noteChapter !== chapter) return false;
+    if (!inScope(q)) return false;
+    const ch=$('#filter-chapter').value;
+    if(view!=='chapter' && ch!=='all' && q.noteChapter!==+ch) return false;
     const kind = $('#filter-type').value, st = $('#filter-status').value, section = $('#filter-section').value, audit = $('#filter-review').value, term = $('#search').value.trim().toLowerCase();
     if (audit !== 'all' && review(q)?.status !== audit) return false;
     if (kind !== 'all' && scoring(q) !== kind) return false;
@@ -134,10 +146,11 @@
       const st = status(q), cls = st === '正确' ? 'correct' : st === '错题' ? 'wrong' : st === '答案有争议' ? 'disputed' : '';
       const symbol = st === '正确' ? '✓' : st === '错题' ? '✕' : st === '答案有争议' ? '!' : '—';
       const excerpt = strip(q.stemHtml).replace(/\s+/g,' ').slice(0,65);
-      return `<button type="button" class="q-row ${current === q.id ? 'active' : ''}" data-id="${q.id}" role="listitem"><span class="row-top"><span>${esc(q.sourceLabel)} ${state.stars[q.id] ? '★' : ''}</span><span class="row-status ${cls}" role="img" aria-label="${esc(st)}" title="${esc(st)}"><span aria-hidden="true">${symbol}</span></span></span><span class="excerpt">${esc(excerpt)}</span></button>`;
-    }).join('') : '<div class="empty">当前筛选没有题目。</div>';
+      return `<button type="button" class="q-row ${current === q.id ? 'active' : ''}" data-id="${q.id}" role="listitem"><span class="row-top"><span>${view!=='chapter' ? `第${q.noteChapter}章 · ` : ''}${esc(q.sourceLabel)} ${state.stars[q.id] ? '★' : ''}</span><span class="row-status ${cls}" role="img" aria-label="${esc(st)}" title="${esc(st)}"><span aria-hidden="true">${symbol}</span></span></span><span class="excerpt">${esc(excerpt)}</span></button>`;
+    }).join('') : `<div class="empty">${questions.some(inScope) ? '当前筛选没有题目。' : view==='wrong' ? '暂无错题，继续练习吧。' : view==='starred' ? '暂无收藏，在题目中点击「收藏」即可加入。' : '当前筛选没有题目。'}</div>`;
     $('#question-list').querySelectorAll('button[data-id]').forEach(b => b.onclick = () => selectQuestion(b.dataset.id));
     const url = new URL(location.href);
+    if(view==='chapter') url.searchParams.delete('view'); else url.searchParams.set('view',view);
     if (current) url.searchParams.set('q', current);
     else url.searchParams.delete('q');
     history.replaceState(null, '', url);
@@ -188,9 +201,9 @@
     if ($('#reveal')) $('#reveal').onclick = () => { revealed = true; renderQuestion(); };
     if ($('#self-right')) $('#self-right').onclick = () => record(q, 'self-right', true);
     if ($('#self-wrong')) $('#self-wrong').onclick = () => record(q, 'self-wrong', false);
-    if ($('#self-change')) $('#self-change').onclick = () => { r.answer = r.answer === 'self-right' ? 'self-wrong' : 'self-right'; r.correct = r.answer === 'self-right'; save(); renderList(); renderQuestion(); };
+    if ($('#self-change')) $('#self-change').onclick = () => { r.answer = r.answer === 'self-right' ? 'self-wrong' : 'self-right'; r.correct = r.answer === 'self-right'; save(); renderList(); renderQuestion(); updateProgress(); };
     if ($('#draft')) $('#draft').oninput = e => { state.drafts[q.id] = e.target.value; save(); };
-    $('#star').onclick = () => { state.stars[q.id] = !state.stars[q.id]; save(); renderList(); renderQuestion(); };
+    $('#star').onclick = () => { state.stars[q.id] = !state.stars[q.id]; save(); renderList(); renderQuestion(); updateProgress(); };
     if ($('#redo')) $('#redo').onclick = () => { revealed = false; picked = null; redoId = q.id; renderQuestion(); };
     $('#prev').onclick = () => selectIndex(idx-1);
     $('#next').onclick = () => selectIndex(idx+1);
@@ -199,30 +212,33 @@
   }
   function selectIndex(i) { if (!visible[i]) return; current = visible[i].id; picked = null; revealed = false; redoId = null; renderList(); renderQuestion(); document.querySelector('.practice-layout').scrollIntoView({behavior:'smooth',block:'start'}); }
   function renderSections() {
-    const sections = [...new Set(questions.filter(q => q.noteChapter === chapter).map(q => q.sourceSection))].sort((a,b) => a.localeCompare(b, 'zh-CN', {numeric:true}));
+    const sections = [...new Set(questions.filter(inScope).map(q => q.sourceSection))].sort((a,b) => a.localeCompare(b, 'zh-CN', {numeric:true}));
     const select = $('#filter-section'), old = select.value;
     select.innerHTML = '<option value="all">全部小节</option>' + sections.map(s => `<option value="${esc(s)}">来源 ${esc(s)}</option>`).join('');
     select.value = sections.includes(old) ? old : 'all';
   }
   function updateProgress() {
-    const inChapter = questions.filter(q => q.noteChapter === chapter);
+    const inChapter = questions.filter(inScope);
     const done = inChapter.filter(q => ['正确','错题'].includes(status(q))).length;
-    $('#stat-total').textContent = questions.length;
     const disputed = inChapter.filter(q => review(q)?.status === 'disputed').length;
-    $('#stat-progress').textContent = `本章已作答 ${done}/${inChapter.length-disputed}${disputed ? ` · ${disputed} 题答案有争议（不计分）` : ''}`;
+    $('#stat-progress').textContent = view==='chapter' ? `${inChapter.length} 题 · 已作答 ${done}/${inChapter.length-disputed}${disputed ? ` · ${disputed} 题有争议，不计分` : ''}` : `${inChapter.length} 题 · 汇总所有章节`;
+    renderChapters();
   }
   function render() {
     renderChapters();
     renderSections();
-    $('#page-title').textContent = `第 ${chapter} 章 · ${CHAPTERS[chapter-1]}`;
+    $('#page-title').textContent = view==='wrong' ? '错题库' : view==='starred' ? '收藏夹' : `第 ${chapter} 章 · ${CHAPTERS[chapter-1]}`;
+    $('#chapter-filter-label').hidden=view==='chapter';
+    $('#filter-status').parentElement.hidden=view==='wrong';
+    $('#btn-study').hidden=view!=='chapter';
     $('#btn-study').textContent = state.studied[chapter] ? '✓ 已标为已学' : '标为已学';
     const note = notes.find(n => n.chapter === chapter);
     const link = $('#note-link');
-    if (note) { const path = note.path || `D:\\desk\\Obsidian\\1大三秋冬\\CN\\${note.name}.md`; link.hidden = false; link.href = `obsidian://open?path=${encodeURIComponent(path)}`; link.title = '在此电脑的 Obsidian 中打开'; }
+    if (note && view==='chapter') { const path = note.path || `D:\\desk\\Obsidian\\1大三秋冬\\CN\\${note.name}.md`; link.hidden = false; link.href = `obsidian://open?path=${encodeURIComponent(path)}`; link.title = '在此电脑的 Obsidian 中打开'; }
     else link.hidden = true;
     const inChapter = questions.filter(q => q.noteChapter === chapter);
     const counts = inChapter.reduce((acc,q) => { const s=review(q)?.status; if(s) acc[s]=(acc[s]||0)+1; return acc; },{});
-    $('#scope-info').textContent = note ? `笔记：${note.name} · ${inChapter.length ? `本章审核 ${inChapter.length} 题：${counts.verified||0} 题结论成立 / ${counts.qualified||0} 题附前提 / ${counts.corrected||0} 题已勘误 / ${counts.disputed||0} 题答案有争议` : '本章暂无来源习题'}` : '未找到对应笔记';
+    $('#scope-info').textContent = view!=='chapter' ? '错题按最新一次有效作答统计；收藏夹包含所有章节，取消收藏后会移出。' : note ? `笔记：${note.name} · ${counts.verified||0} 题结论成立 / ${counts.qualified||0} 题附前提 / ${counts.corrected||0} 题已勘误 / ${counts.disputed||0} 题答案有争议` : '未找到对应笔记';
     updateProgress(); renderList(); renderQuestion();
   }
   function exportData() {
@@ -256,7 +272,10 @@
     load();
     const route = new URL(location.href).searchParams.get('q');
     if (byId.has(route)) { current = route; chapter = byId.get(route).noteChapter; }
-    ['#filter-status','#filter-type','#filter-section','#filter-review','#search'].forEach(s => $(s).addEventListener(s === '#search' ? 'input' : 'change', () => { current = null; picked = null; revealed = false; redoId = null; renderList(); renderQuestion(); }));
+    const routeView=new URL(location.href).searchParams.get('view');
+    if(['wrong','starred'].includes(routeView)) view=routeView;
+    $('#filter-chapter').innerHTML='<option value="all">全部章节</option>'+CHAPTERS.map((name,i)=>`<option value="${i+1}">${i+1}. ${name}</option>`).join('');
+    ['#filter-status','#filter-type','#filter-section','#filter-review','#filter-chapter','#search'].forEach(s => $(s).addEventListener(s === '#search' ? 'input' : 'change', () => { current = null; picked = null; revealed = false; redoId = null; renderList(); renderQuestion(); }));
     $('#btn-study').onclick = () => { state.studied[chapter] = !state.studied[chapter]; save(); render(); };
     $('#btn-export').onclick = exportData;
     $('#file-import').onchange = e => importData(e.target.files[0]);
