@@ -100,13 +100,13 @@
     const referenceLinks = rv?.references?.length ? `<div class="review-references">核查依据：${rv.references.map(ref => `<a href="${esc(ref.url)}" target="_blank" rel="noopener noreferrer">${esc(ref.title)} ↗</a>`).join('')}</div>` : '';
     const reviewPanel = rv ? `<div class="review-note"><strong>本项目审核：${reviewLabel}${rv.recheckId ? ` · ${esc(rv.reviewedAt)}` : ''}</strong>${rv.answerLabel ? `<h3>复核答案：${esc(rv.answerLabel)}</h3>` : ''}<p>${esc(rv.conclusion)}</p>${referenceLinks}</div>` : '<p class="unreviewed">本题尚未在本项目逐题审核；判分只按来源给出的答案。</p>';
     const topicLabel = mp?.primaryTopic ? `笔记：${mp.primaryTopic}` : mp?.topicCandidates?.length ? `候选考点：${mp.topicCandidates.join('、')}` : '笔记中未找到明确小节';
-    card.innerHTML = `<div class="question-meta"><span class="pill">${esc(q.sourceLabel)}</span><span class="pill muted">${disputed ? '争议 · 不计分' : rv?.status === 'corrected' ? '勘误参考答案 · 自评' : mode === 'auto' ? '单选 · 来源答案判分' : '综合／特殊 · 自评'}</span><span class="pill muted">${reviewLabel}</span></div>
+    card.innerHTML = `<div class="question-meta"><span class="pill">${esc(q.sourceLabel)}</span>${q.sourceChapter === 7 ? '<span class="pill">本站原创补充</span>' : ''}<span class="pill muted">${disputed ? '争议 · 不计分' : rv?.status === 'corrected' ? '勘误参考答案 · 自评' : mode === 'auto' ? '单选 · 参考答案判分' : '综合／特殊 · 自评'}</span><span class="pill muted">${reviewLabel}</span></div>
       <h2>${esc(q.sourceHeading || '章末习题')}</h2><div class="source-note">题目 ID：${q.id} · 来源第 ${q.sourceChapter} 章 / ${esc(q.sourceSection)} · ${esc(topicLabel)}</div>
       <div class="stem">${q.stemHtml}</div>${options}
       ${mode === 'self' && !disputed ? `<label class="draft-label">我的思路或答案草稿<textarea id="draft" rows="5" placeholder="先写下解题过程，再查看参考解答">${esc(state.drafts[q.id] || '')}</textarea></label>` : ''}
       <div class="card-actions">${mode === 'auto' && !shown ? '<button id="submit" class="primary" type="button" disabled>提交答案</button>' : ''}${mode === 'self' && !shown ? `<button id="reveal" class="primary" type="button">${disputed ? '查看来源答案与争议' : '查看参考解答'}</button>` : ''}<button id="star" type="button">${state.stars[q.id] ? '★ 已收藏' : '☆ 收藏'}</button>${answered ? '<button id="redo" type="button">重做此题</button>' : ''}</div>
       ${answered && !revealed ? `<div class="feedback">上次作答：${status(q) === '正确' ? '正确' : '需复习'} · ${new Date(r.at).toLocaleString('zh-CN')}</div>` : ''}
-      ${shown ? `<div class="answer-panel">${rv?.recheckId ? reviewPanel : ''}${rv?.recheckId ? '<details class="source-answer"><summary>对照原来源答案与解析（未覆盖原文）</summary>' : '<h3>原来源答案与解析</h3>'}${q.answerHtml || '<p>来源没有可提取的答案，请自行核对原页面。</p>'}${rv?.recheckId ? '</details>' : reviewPanel}${mode === 'self' && !disputed && !answered ? '<div class="self-actions"><button id="self-right" type="button">我做对了</button><button id="self-wrong" type="button">需要复习</button></div>' : ''}${mode === 'self' && answered ? '<button id="self-change" type="button">更正本轮自评</button>' : ''}</div>` : ''}
+      ${shown ? `<div class="answer-panel">${rv?.recheckId ? reviewPanel : ''}${rv?.recheckId ? '<details class="source-answer"><summary>对照原来源答案与解析（未覆盖原文）</summary>' : '<h3>${q.sourceChapter === 7 ? "本站原创参考答案与解析" : "原来源答案与解析"}</h3>'}${q.answerHtml || '<p>来源没有可提取的答案，请自行核对原页面。</p>'}${rv?.recheckId ? '</details>' : reviewPanel}${mode === 'self' && !disputed && !answered ? '<div class="self-actions"><button id="self-right" type="button">我做对了</button><button id="self-wrong" type="button">需要复习</button></div>' : ''}${mode === 'self' && answered ? '<button id="self-change" type="button">更正本轮自评</button>' : ''}</div>` : ''}
       <div class="card-nav"><button id="prev" type="button" ${idx <= 0 ? 'disabled' : ''}>← 上一题</button><label>跳到题号 <input id="jump" type="number" min="1" max="${visible.length}" value="${idx+1}"></label><button id="next" type="button" ${idx >= visible.length-1 ? 'disabled' : ''}>下一题 →</button></div><div id="jump-error" class="jump-error" role="status"></div>`;
     card.querySelectorAll('[data-pick]').forEach(b => b.onclick = () => { picked = b.dataset.pick; card.querySelectorAll('[data-pick]').forEach(x => x.classList.toggle('selected', x === b)); $('#submit').disabled = false; });
     if ($('#submit')) $('#submit').onclick = () => { if (picked) record(q, picked, picked === q.answer); };
@@ -140,11 +140,11 @@
     renderChapters();
     renderSections();
     $('#page-title').textContent = `第 ${chapter} 章 · ${CHAPTERS[chapter-1]}`;
-    $('#page-description').textContent = chapter === 7 ? '笔记中有网络安全章节；当前王道来源没有独立的第 7 章习题。' : '按实际笔记章节练习。来源题目保留原题号；学习进度由你自行标记。';
+    $('#page-description').textContent = chapter === 7 ? '本章为本站原创补充题，含答案与解析；覆盖网络安全笔记主题，不是王道原题或官方真题。' : '按实际笔记章节练习。来源题目保留原题号；学习进度由你自行标记。';
     $('#btn-study').textContent = state.studied[chapter] ? '✓ 已标为已学' : '标为已学';
     const note = notes.find(n => n.chapter === chapter);
     const link = $('#note-link');
-    if (note) { link.hidden = false; link.href = `obsidian://open?path=${encodeURIComponent(note.path)}`; link.title = note.path; }
+    if (note) { const path = note.path || `D:\\desk\\Obsidian\\1大三秋冬\\CN\\${note.name}.md`; link.hidden = false; link.href = `obsidian://open?path=${encodeURIComponent(path)}`; link.title = '在此电脑的 Obsidian 中打开'; }
     else link.hidden = true;
     const inChapter = questions.filter(q => q.noteChapter === chapter);
     const counts = inChapter.reduce((acc,q) => { const s=review(q)?.status; if(s) acc[s]=(acc[s]||0)+1; return acc; },{});
@@ -172,12 +172,13 @@
   }
   async function init() {
     try {
-      let reviews, mappings;
-      [questions, notes, reviews, mappings] = await Promise.all(['../data/questions.json','../data/notes.json','../data/reviews/all.json','../data/mappings.json'].map(p => fetch(p).then(r => { if (!r.ok) throw Error(p); return r.json(); })));
+      let reviews, mappings, supplement;
+      [questions, notes, reviews, mappings, supplement] = await Promise.all(['../data/questions.json','../data/notes.json','../data/reviews/all.json','../data/mappings.json','../data/ch7-bundle.json'].map(p => fetch(p).then(r => { if (!r.ok) throw Error(p); return r.json(); })));
+      questions.push(...supplement.questions); reviews.push(...supplement.reviews); mappings.push(...supplement.mappings);
       byId = new Map(questions.map(q => [q.id,q]));
       byReview = new Map(reviews.map(r => [r.questionId,r]));
       byMapping = new Map(mappings.map(m => [m.questionId,m]));
-    } catch (_) { $('#question-card').innerHTML = '<div class="empty">数据加载失败。请用项目启动脚本运行本地 HTTP 服务，不要直接双击 HTML。</div>'; return; }
+    } catch (_) { $('#question-card').innerHTML = '<div class="empty">题库加载失败。请刷新重试；本地预览需通过HTTP服务打开。</div>'; return; }
     load();
     const route = new URL(location.href).searchParams.get('q');
     if (byId.has(route)) { current = route; chapter = byId.get(route).noteChapter; }

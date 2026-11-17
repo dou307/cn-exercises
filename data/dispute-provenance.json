@@ -1,0 +1,35 @@
+{
+  "checkedAt": "2026-11-17",
+  "sourceCommit": "4efa1e80be9d44b9485c6b2420fc26be01c0deca",
+  "all35HaveSourceAnswers": true,
+  "images": [
+    {
+      "path": "assets/ch4/quiz-4.4-q25.webp",
+      "bytes": 105044,
+      "sha256": "3591a9106a81c4300928438e6d22c8ca721de7a3c1ba8ff29eeb4736b667dc85",
+      "url": "https://raw.githubusercontent.com/jlshdsdk/kaoyan-408-networks/4efa1e80be9d44b9485c6b2420fc26be01c0deca/assets/ch4/quiz-4.4-q25.webp",
+      "equal": true
+    },
+    {
+      "path": "assets/ch5/quiz-5.3-comp18a.webp",
+      "bytes": 117424,
+      "sha256": "76966528d59e6125c4f2caa23b42b9025ffa27f631bb98f5aa24a0af79674c2e",
+      "url": "https://raw.githubusercontent.com/jlshdsdk/kaoyan-408-networks/4efa1e80be9d44b9485c6b2420fc26be01c0deca/assets/ch5/quiz-5.3-comp18a.webp",
+      "equal": true
+    },
+    {
+      "path": "assets/ch5/quiz-5.3-comp18b.webp",
+      "bytes": 31580,
+      "sha256": "1b805424730601e4ad03b1ffc384c8aa5da300cb412ff50603c08e4f51a4c176",
+      "url": "https://raw.githubusercontent.com/jlshdsdk/kaoyan-408-networks/4efa1e80be9d44b9485c6b2420fc26be01c0deca/assets/ch5/quiz-5.3-comp18b.webp",
+      "equal": true
+    },
+    {
+      "path": "assets/ch5/quiz-5.3-comp18c.webp",
+      "bytes": 88748,
+      "sha256": "d95b762fad84edb7850f30e92e89b8834bbe291ea8f5d074d2cda0cf9b70b39f",
+      "url": "https://raw.githubusercontent.com/jlshdsdk/kaoyan-408-networks/4efa1e80be9d44b9485c6b2420fc26be01c0deca/assets/ch5/quiz-5.3-comp18c.webp",
+      "equal": true
+    }
+  ]
+}

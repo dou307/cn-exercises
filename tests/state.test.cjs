@@ -56,3 +56,18 @@ test('a confirmed source answer still accepts compatible old attempts', () => {
   assert.equal(S.currentRecord(q, {status:'verified', scoring:'auto'}, [validRecord]), validRecord);
   assert.equal(S.currentRecord(q, null, [{...validRecord, hash:'0'.repeat(64)}]), null);
 });
+
+test('chapter seven imports and merges alongside the original stable IDs', () => {
+  const extra = require('../data/ch7-bundle.json');
+  const combined = new Map([...questions, ...extra.questions].map(q => [q.id,q]));
+  assert.equal(combined.size, 665);
+  const added = extra.questions.find(q => q.grading === 'auto');
+  const incoming = S.empty();
+  incoming.records[added.id] = [{hash:added.hash, answer:added.answer, correct:true, at:'2026-11-17T00:00:00.000Z'}];
+  S.validateState(incoming, combined);
+  const old = S.empty(); old.records[q.id] = [validRecord];
+  const merged = S.merge(old, incoming);
+  S.validateState(merged, combined);
+  assert.deepEqual(merged.records[q.id], [validRecord]);
+  assert.equal(merged.records[added.id].length, 1);
+});

@@ -1,0 +1,1038 @@
+{
+  "questions": [
+    {
+      "id": "cn-7-001",
+      "sourceChapter": 7,
+      "sourceSection": "7.1",
+      "sourceHeading": "原创补充 · 安全威胁",
+      "sourceLabel": "补充题 1",
+      "sourceType": "原创补充",
+      "sourcePath": "data/supplement-ch7.json",
+      "sourceOrdinal": 1,
+      "hash": "bd4c9e8846f79c6ec72197e3b2756e4d4158e4467d15be709c589865e4a1b2b5",
+      "stemHtml": "<p>攻击者只观察报文长度与通信频率，不修改报文。这属于哪类攻击？</p>",
+      "optionsHtml": [
+        "<li>A. 被动的流量分析</li>",
+        "<li>B. 主动篡改</li>",
+        "<li>C. 拒绝服务</li>",
+        "<li>D. 身份伪造</li>"
+      ],
+      "answerHtml": "<p class=\"ans-key\">答案：A。流量分析可从元数据推断通信关系，无须读取明文或修改流量；题设属于被动攻击。加密载荷不自动隐藏长度、时序等元数据。</p>",
+      "answer": "A",
+      "grading": "auto",
+      "noteChapter": 7
+    },
+    {
+      "id": "cn-7-002",
+      "sourceChapter": 7,
+      "sourceSection": "7.1",
+      "sourceHeading": "原创补充 · 安全威胁",
+      "sourceLabel": "补充题 2",
+      "sourceType": "原创补充",
+      "sourcePath": "data/supplement-ch7.json",
+      "sourceOrdinal": 2,
+      "hash": "b111c8328ee9e6d9abc9a0bf189938714078a173b5c5fe3e8df1949791e7664d",
+      "stemHtml": "<p>攻击者持续耗尽服务器资源，使合法用户无法访问，首先损害哪项安全目标？</p>",
+      "optionsHtml": [
+        "<li>A. 机密性</li>",
+        "<li>B. 可用性</li>",
+        "<li>C. 不可否认性</li>",
+        "<li>D. 密钥长度</li>"
+      ],
+      "answerHtml": "<p class=\"ans-key\">答案：B。拒绝服务首先影响可用性；服务器无法正常提供服务，并不必然意味着数据已被解密或签名被伪造。</p>",
+      "answer": "B",
+      "grading": "auto",
+      "noteChapter": 7
+    },
+    {
+      "id": "cn-7-003",
+      "sourceChapter": 7,
+      "sourceSection": "7.2",
+      "sourceHeading": "原创补充 · 密码学",
+      "sourceLabel": "补充题 3",
+      "sourceType": "原创补充",
+      "sourcePath": "data/supplement-ch7.json",
+      "sourceOrdinal": 3,
+      "hash": "88404daf61c271f247d6d21257860cf68bfb763c9b593f94f06a9d4b25bfec8e",
+      "stemHtml": "<p>在现代密码系统的通常设计原则中，下列哪项应作为保密的核心，而非依赖算法本身不公开？</p>",
+      "optionsHtml": [
+        "<li>A. 报文格式</li>",
+        "<li>B. 算法名称</li>",
+        "<li>C. 密钥</li>",
+        "<li>D. 网络拓扑</li>"
+      ],
+      "answerHtml": "<p class=\"ans-key\">答案：C。系统应允许算法被公开分析，安全性依赖正确设计、实现与密钥保护等条件。仅隐藏算法不能替代可靠的密码设计。</p>",
+      "answer": "C",
+      "grading": "auto",
+      "noteChapter": 7
+    },
+    {
+      "id": "cn-7-004",
+      "sourceChapter": 7,
+      "sourceSection": "7.2",
+      "sourceHeading": "原创补充 · 对称密钥密码体制",
+      "sourceLabel": "补充题 4",
+      "sourceType": "原创补充",
+      "sourcePath": "data/supplement-ch7.json",
+      "sourceOrdinal": 4,
+      "hash": "f9ad0e1743b4d2a43b6c506e31cc1eafd4f61aad629aecd5c794b20a7586c886",
+      "stemHtml": "<p>关于AES的参数，正确的是哪项？</p>",
+      "optionsHtml": [
+        "<li>A. 分组长度随密钥长度变为128、192或256位</li>",
+        "<li>B. 仅支持56位密钥</li>",
+        "<li>C. 必须采用CBC模式</li>",
+        "<li>D. 分组长度128位，可用128、192或256位密钥</li>"
+      ],
+      "answerHtml": "<p class=\"ans-key\">答案：D。AES分组长度固定为128位，三种密钥长度为128、192、256位；工作模式是另一层选择，不能把CBC当成必需模式。</p>",
+      "answer": "D",
+      "grading": "auto",
+      "noteChapter": 7
+    },
+    {
+      "id": "cn-7-005",
+      "sourceChapter": 7,
+      "sourceSection": "7.2",
+      "sourceHeading": "原创补充 · 对称密钥密码体制",
+      "sourceLabel": "补充题 5",
+      "sourceType": "原创补充",
+      "sourcePath": "data/supplement-ch7.json",
+      "sourceOrdinal": 5,
+      "hash": "3bd7794d68c480d676e22ff469390b374c27348cda67ff676a98ae7189fd0847",
+      "stemHtml": "<p>某系统只对数据做普通加密，没有认证标签或其他完整性保护。可以无条件推出哪项？</p>",
+      "optionsHtml": [
+        "<li>A. 接收方一定能发现篡改</li>",
+        "<li>B. 不能仅由加密推出完整性保护</li>",
+        "<li>C. 能够阻止一切重放</li>",
+        "<li>D. 能够证明发送者不可抵赖</li>"
+      ],
+      "answerHtml": "<p class=\"ans-key\">答案：B。机密性与完整性是不同目标；普通加密并不自动提供认证，也不自动抵抗重放。应采用合适的认证或认证加密设计，并检查新鲜性。</p>",
+      "answer": "B",
+      "grading": "auto",
+      "noteChapter": 7
+    },
+    {
+      "id": "cn-7-006",
+      "sourceChapter": 7,
+      "sourceSection": "7.2",
+      "sourceHeading": "原创补充 · 公钥密码体制",
+      "sourceLabel": "补充题 6",
+      "sourceType": "原创补充",
+      "sourcePath": "data/supplement-ch7.json",
+      "sourceOrdinal": 6,
+      "hash": "59fcf42f3731d1a2eb019bbd1685f3183b42cd766bfcea9c94bf6c84e067d422",
+      "stemHtml": "<p>Alice要给Bob发送仅Bob可解密的消息，假定已可靠取得Bob的加密公钥，应使用哪把密钥进行公钥加密？</p>",
+      "optionsHtml": [
+        "<li>A. Alice的私钥</li>",
+        "<li>B. Alice的公钥</li>",
+        "<li>C. Bob的公钥</li>",
+        "<li>D. 公开的CA私钥</li>"
+      ],
+      "answerHtml": "<p class=\"ans-key\">答案：C。应使用接收者Bob的加密公钥，Bob用对应私钥解密。签名密钥与加密密钥的用途不能混淆，CA私钥也不应公开。</p>",
+      "answer": "C",
+      "grading": "auto",
+      "noteChapter": 7
+    },
+    {
+      "id": "cn-7-007",
+      "sourceChapter": 7,
+      "sourceSection": "7.2",
+      "sourceHeading": "原创补充 · 公钥密码体制",
+      "sourceLabel": "补充题 7",
+      "sourceType": "原创补充",
+      "sourcePath": "data/supplement-ch7.json",
+      "sourceOrdinal": 7,
+      "hash": "c7a5eaadef42562fa095ed464e9f85d456f8b1014b06399e34581babf944120c",
+      "stemHtml": "<p>混合加密中，常见的合理分工是哪项？</p>",
+      "optionsHtml": [
+        "<li>A. 用公钥机制建立或保护会话密钥，再用对称机制保护大量数据</li>",
+        "<li>B. 公开所有会话密钥以方便校验</li>",
+        "<li>C. 每个数据位都必须单独做RSA运算</li>",
+        "<li>D. 用普通CRC代替密钥建立</li>"
+      ],
+      "answerHtml": "<p class=\"ans-key\">答案：A。公钥机制便于建立密钥或保护短的密钥材料，对称机制适合批量数据。具体方案仍需身份认证及完整性保护。</p>",
+      "answer": "A",
+      "grading": "auto",
+      "noteChapter": 7
+    },
+    {
+      "id": "cn-7-008",
+      "sourceChapter": 7,
+      "sourceSection": "7.3",
+      "sourceHeading": "原创补充 · 数字签名",
+      "sourceLabel": "补充题 8",
+      "sourceType": "原创补充",
+      "sourcePath": "data/supplement-ch7.json",
+      "sourceOrdinal": 8,
+      "hash": "c75c0857bf9ca085a5ab573cdeb05036edc4684c2b6496148b154fabe0e28aaa",
+      "stemHtml": "<p>在签名密钥与身份绑定可信、算法及实现可靠的前提下，验证Alice数字签名应使用哪把密钥？</p>",
+      "optionsHtml": [
+        "<li>A. Bob的私钥</li>",
+        "<li>B. Alice的私钥</li>",
+        "<li>C. 双方共享口令</li>",
+        "<li>D. Alice的验签公钥</li>"
+      ],
+      "answerHtml": "<p class=\"ans-key\">答案：D。Alice用签名私钥签名，验证者用对应公钥验签；私钥不能交给接收者用于验签。公钥与身份的可信绑定同样必要。</p>",
+      "answer": "D",
+      "grading": "auto",
+      "noteChapter": 7
+    },
+    {
+      "id": "cn-7-009",
+      "sourceChapter": 7,
+      "sourceSection": "7.3",
+      "sourceHeading": "原创补充 · 数字签名",
+      "sourceLabel": "补充题 9",
+      "sourceType": "原创补充",
+      "sourcePath": "data/supplement-ch7.json",
+      "sourceOrdinal": 9,
+      "hash": "fc82213aebea04fa1811f38e17c33e53452b5c04f3a76bd76e8190aacbbe5f64",
+      "stemHtml": "<p>仅给明文附加数字签名，通常不会自动提供哪项性质？</p>",
+      "optionsHtml": [
+        "<li>A. 签名校验能力</li>",
+        "<li>B. 内容的机密性</li>",
+        "<li>C. 篡改检测依据</li>",
+        "<li>D. 来源认证依据</li>"
+      ],
+      "answerHtml": "<p class=\"ans-key\">答案：B。签名可提供来源认证和完整性依据，但明文仍然可读。需要保密时还要配合合适的加密机制。不可否认性还依赖密钥管理及证据环境。</p>",
+      "answer": "B",
+      "grading": "auto",
+      "noteChapter": 7
+    },
+    {
+      "id": "cn-7-010",
+      "sourceChapter": 7,
+      "sourceSection": "7.3",
+      "sourceHeading": "原创补充 · 数字签名",
+      "sourceLabel": "补充题 10",
+      "sourceType": "原创补充",
+      "sourcePath": "data/supplement-ch7.json",
+      "sourceOrdinal": 10,
+      "hash": "f65d7de1b524644b7aeddd3763d9d2993c1bf82eb5cca26b48f28da55c89eaba",
+      "stemHtml": "<p>攻击者能同时替换消息M和随附的普通散列H(M)。为什么只比较该散列不能认证发送者？</p>",
+      "optionsHtml": [
+        "<li>A. 散列函数必须保密</li>",
+        "<li>B. 散列输出总与输入一样长</li>",
+        "<li>C. 攻击者可对新消息重新计算普通散列</li>",
+        "<li>D. 因为公钥不能公开</li>"
+      ],
+      "answerHtml": "<p class=\"ans-key\">答案：C。普通散列没有只有合法方掌握的秘密，攻击者可替换消息并重算摘要。需要带密钥认证码或数字签名等机制；散列本身仍可用作这些机制的组成部分。</p>",
+      "answer": "C",
+      "grading": "auto",
+      "noteChapter": 7
+    },
+    {
+      "id": "cn-7-011",
+      "sourceChapter": 7,
+      "sourceSection": "7.4",
+      "sourceHeading": "原创补充 · 实体识别",
+      "sourceLabel": "补充题 11",
+      "sourceType": "原创补充",
+      "sourcePath": "data/supplement-ch7.json",
+      "sourceOrdinal": 11,
+      "hash": "f6c8e9a31c95a200b1de7498dcd913396ea3f5640f3e864def487fe8754135d5",
+      "stemHtml": "<p>验证方发出一次性随机挑战，收到有效响应后拒绝再次接受同一挑战。其主要用途是什么？</p>",
+      "optionsHtml": [
+        "<li>A. 降低旧认证响应被重放接受的风险</li>",
+        "<li>B. 让所有密钥公开</li>",
+        "<li>C. 保证链路永不丢包</li>",
+        "<li>D. 隐藏全部流量长度</li>"
+      ],
+      "answerHtml": "<p class=\"ans-key\">答案：A。挑战必须足够不可预测或唯一，并绑定被认证身份和会话；验证方还要核对并防止复用。仅把一个随机数放进报文但不验证其新鲜性是不够的。</p>",
+      "answer": "A",
+      "grading": "auto",
+      "noteChapter": 7
+    },
+    {
+      "id": "cn-7-012",
+      "sourceChapter": 7,
+      "sourceSection": "7.4",
+      "sourceHeading": "原创补充 · 实体识别",
+      "sourceLabel": "补充题 12",
+      "sourceType": "原创补充",
+      "sourcePath": "data/supplement-ch7.json",
+      "sourceOrdinal": 12,
+      "hash": "7c54098ee5f415582f522918270a7edb6161cc67bca11faa92e3284d7231e487",
+      "stemHtml": "<p>关于HMAC与数字签名，哪项正确？</p>",
+      "optionsHtml": [
+        "<li>A. HMAC验证者不需要任何密钥</li>",
+        "<li>B. HMAC公开后任何人都不能生成新的有效标签</li>",
+        "<li>C. HMAC必然同时加密数据</li>",
+        "<li>D. 共享HMAC密钥的双方均能生成标签，不能仅靠该标签向第三方证明是哪一方生成</li>"
+      ],
+      "answerHtml": "<p class=\"ans-key\">答案：D。HMAC使用共享秘密密钥进行消息认证；双方都能生成标签，因此不等同于只有私钥持有者能生成的数字签名，也不提供加密。</p>",
+      "answer": "D",
+      "grading": "auto",
+      "noteChapter": 7
+    },
+    {
+      "id": "cn-7-013",
+      "sourceChapter": 7,
+      "sourceSection": "7.5",
+      "sourceHeading": "原创补充 · 对称密钥的分发",
+      "sourceLabel": "补充题 13",
+      "sourceType": "原创补充",
+      "sourcePath": "data/supplement-ch7.json",
+      "sourceOrdinal": 13,
+      "hash": "9f4b72c752cfbc650e84f368b226f1e847f4f455294910c1b8b9e077d9644780",
+      "stemHtml": "<p>n个用户中每一对用户独立共享一把对称密钥，不使用KDC，所需不同密钥数是多少？</p>",
+      "optionsHtml": [
+        "<li>A. n</li>",
+        "<li>B. n(n−1)/2</li>",
+        "<li>C. n²</li>",
+        "<li>D. 2n</li>"
+      ],
+      "answerHtml": "<p class=\"ans-key\">答案：B。每个无序用户对对应一把密钥，共C(n,2)=n(n−1)/2。这里假设同一对的双向通信共享该密钥，不计更新轮次。</p>",
+      "answer": "B",
+      "grading": "auto",
+      "noteChapter": 7
+    },
+    {
+      "id": "cn-7-014",
+      "sourceChapter": 7,
+      "sourceSection": "7.5",
+      "sourceHeading": "原创补充 · 对称密钥的分发",
+      "sourceLabel": "补充题 14",
+      "sourceType": "原创补充",
+      "sourcePath": "data/supplement-ch7.json",
+      "sourceOrdinal": 14,
+      "hash": "ff2c16b039ed8035fc034632f228691b7085420414c3b557ceeefdc4d8fd8c3e",
+      "stemHtml": "<p>在理想化KDC模型中，n个用户各与KDC共享一把长期密钥，暂不计会话密钥和备份密钥，共需多少把不同长期密钥？</p>",
+      "optionsHtml": [
+        "<li>A. n(n−1)/2</li>",
+        "<li>B. 1</li>",
+        "<li>C. n</li>",
+        "<li>D. n²</li>"
+      ],
+      "answerHtml": "<p class=\"ans-key\">答案：C。每个用户与KDC建立一个长期秘密，计n把；临时会话密钥单独分配。该简化计数不表示KDC可以不做安全保护或高可用设计。</p>",
+      "answer": "C",
+      "grading": "auto",
+      "noteChapter": 7
+    },
+    {
+      "id": "cn-7-015",
+      "sourceChapter": 7,
+      "sourceSection": "7.5",
+      "sourceHeading": "原创补充 · 公钥的分发",
+      "sourceLabel": "补充题 15",
+      "sourceType": "原创补充",
+      "sourcePath": "data/supplement-ch7.json",
+      "sourceOrdinal": 15,
+      "hash": "abb5fdd9c3702f3563d9ba7a7ec70261e3c0353cdb4368554d8cc10d4804970d",
+      "stemHtml": "<p>X.509公钥证书的主要作用是哪项？</p>",
+      "optionsHtml": [
+        "<li>A. 通过签名将主体标识与公钥等信息绑定</li>",
+        "<li>B. 公开主体的私钥</li>",
+        "<li>C. 保证主体未来永不作恶</li>",
+        "<li>D. 替代所有数据加密</li>"
+      ],
+      "answerHtml": "<p class=\"ans-key\">答案：A。证书由签发者对主体、公钥等信息作签名；依赖方仍须按信任锚、有效期、用途等检查证书路径。拿到一张证书不等于已经完成全部验证。</p>",
+      "answer": "A",
+      "grading": "auto",
+      "noteChapter": 7
+    },
+    {
+      "id": "cn-7-016",
+      "sourceChapter": 7,
+      "sourceSection": "7.5",
+      "sourceHeading": "原创补充 · 公钥的分发",
+      "sourceLabel": "补充题 16",
+      "sourceType": "原创补充",
+      "sourcePath": "data/supplement-ch7.json",
+      "sourceOrdinal": 16,
+      "hash": "93162c67407600b21911946485703ac3ab55c4103aa66303997034eed4cd9edb",
+      "stemHtml": "<p>收到一个自称为Bob的公钥，只因它能用于成功加解密，就能确认它属于Bob吗？</p>",
+      "optionsHtml": [
+        "<li>A. 能，公钥运算成功就证明身份</li>",
+        "<li>B. 能，只要文件名写Bob</li>",
+        "<li>C. 能，只要密钥足够长</li>",
+        "<li>D. 不能，还需可信的身份与公钥绑定</li>"
+      ],
+      "answerHtml": "<p class=\"ans-key\">答案：D。运算成功只说明密钥有对应关系，不能排除中间人替换。需要验证证书或通过其他可信渠道核对公钥。</p>",
+      "answer": "D",
+      "grading": "auto",
+      "noteChapter": 7
+    },
+    {
+      "id": "cn-7-017",
+      "sourceChapter": 7,
+      "sourceSection": "7.6",
+      "sourceHeading": "原创补充 · IPSec 协议族",
+      "sourceLabel": "补充题 17",
+      "sourceType": "原创补充",
+      "sourcePath": "data/supplement-ch7.json",
+      "sourceOrdinal": 17,
+      "hash": "c4c763808f2d4bbaaf33a931276e78ac430bcf0b8b1c3098c855bd1adf513dfa",
+      "stemHtml": "<p>关于IPsec ESP的隧道模式，哪项符合基本封装结构？</p>",
+      "optionsHtml": [
+        "<li>A. 互联网路由器必须先解密内层目的地址才能转发</li>",
+        "<li>B. 封装原IP分组，并添加用于外部路由的新IP首部</li>",
+        "<li>C. 必须删除所有IP首部</li>",
+        "<li>D. 永远不可能与网关配合</li>"
+      ],
+      "answerHtml": "<p class=\"ans-key\">答案：B。隧道模式封装整个内层IP分组，外层IP首部用于隧道端点之间的路由；启用ESP加密时内层首部可受到保密保护，外层路由首部仍须可见。</p>",
+      "answer": "B",
+      "grading": "auto",
+      "noteChapter": 7
+    },
+    {
+      "id": "cn-7-018",
+      "sourceChapter": 7,
+      "sourceSection": "7.6",
+      "sourceHeading": "原创补充 · IPSec 协议族",
+      "sourceLabel": "补充题 18",
+      "sourceType": "原创补充",
+      "sourcePath": "data/supplement-ch7.json",
+      "sourceOrdinal": 18,
+      "hash": "2daf636bdfe1d4630002e958bdaba8bbdc5961d5a99b5dd7e55f6d028d3970e1",
+      "stemHtml": "<p>关于IPsec提供的安全服务，哪项正确？</p>",
+      "optionsHtml": [
+        "<li>A. AH和ESP都必然加密一切数据</li>",
+        "<li>B. 仅部署IPsec即可消除所有DoS</li>",
+        "<li>C. 服务取决于协议、算法与策略配置，不能把IPsec等同于必然加密</li>",
+        "<li>D. 运输模式从不保留原IP首部</li>"
+      ],
+      "answerHtml": "<p class=\"ans-key\">答案：C。AH不提供机密性；ESP的服务取决于选择的算法与配置。完整性、认证、反重放和机密性须按具体安全关联与策略讨论，不能笼统当作全部自动具备。</p>",
+      "answer": "C",
+      "grading": "auto",
+      "noteChapter": 7
+    },
+    {
+      "id": "cn-7-019",
+      "sourceChapter": 7,
+      "sourceSection": "7.1",
+      "sourceHeading": "原创补充 · 安全威胁",
+      "sourceLabel": "补充题 19",
+      "sourceType": "原创补充",
+      "sourcePath": "data/supplement-ch7.json",
+      "sourceOrdinal": 19,
+      "hash": "8a434c5236ca14691ef9cea7cda1382172e425d46faf862726244df857ac3641",
+      "stemHtml": "<p>分别给出窃听、篡改、拒绝服务的例子，并说明首先对应的安全目标。</p>",
+      "optionsHtml": [],
+      "answerHtml": "<p class=\"ans-key\">参考答案：窃听：旁观者读取未加密消息，首先影响机密性。篡改：在传输中替换转账金额或文件字节，首先影响完整性。拒绝服务：耗尽服务资源使合法请求无法完成，首先影响可用性。同一攻击可同时影响多个目标，这里按最直接影响分类。</p>",
+      "answer": null,
+      "grading": "self",
+      "noteChapter": 7
+    },
+    {
+      "id": "cn-7-020",
+      "sourceChapter": 7,
+      "sourceSection": "7.3",
+      "sourceHeading": "原创补充 · 数字签名",
+      "sourceLabel": "补充题 20",
+      "sourceType": "原创补充",
+      "sourcePath": "data/supplement-ch7.json",
+      "sourceOrdinal": 20,
+      "hash": "cffc1af00d44a30a6eeae313d270ab9317cfd5d4d971de4ec1565d2e0fb2d2ef",
+      "stemHtml": "<p>比较普通散列、HMAC与数字签名：谁能生成、谁能验证，是否自动提供机密性？</p>",
+      "optionsHtml": [],
+      "answerHtml": "<p class=\"ans-key\">参考答案：普通散列任何知道消息的人都可生成和比较，不能独立认证来源；HMAC由持共享秘密的双方生成和验证；数字签名由签名私钥持有者生成、由相应公钥验证。三者都不自动加密明文。签名身份可信度依赖公钥绑定，HMAC共享密钥不能独立支持向第三方归责。</p>",
+      "answer": null,
+      "grading": "self",
+      "noteChapter": 7
+    },
+    {
+      "id": "cn-7-021",
+      "sourceChapter": 7,
+      "sourceSection": "7.4",
+      "sourceHeading": "原创补充 · 实体识别",
+      "sourceLabel": "补充题 21",
+      "sourceType": "原创补充",
+      "sourcePath": "data/supplement-ch7.json",
+      "sourceOrdinal": 21,
+      "hash": "d4e678650d1bf4c3c0b5d8fb9e819839acb289fc2d74060d5b2836c095bd9c84",
+      "stemHtml": "<p>设计一个最小的挑战响应鉴别流程，说明如何避免把旧响应当成本次身份认证。</p>",
+      "optionsHtml": [],
+      "answerHtml": "<p class=\"ans-key\">参考答案：验证方B产生新的随机挑战r，A返回基于共享密钥K、带协议/角色标记及双方身份和会话信息的MAC。B核验标签、挑战属于本次未完成会话，并把挑战标记为已用/过期。随机挑战应足够不可预测，不能接受任意旧r；绑定身份、角色和会话有助于避免跨会话或反射混用。该流程仍需安全的密钥分发。</p>",
+      "answer": null,
+      "grading": "self",
+      "noteChapter": 7
+    },
+    {
+      "id": "cn-7-022",
+      "sourceChapter": 7,
+      "sourceSection": "7.5",
+      "sourceHeading": "原创补充 · 对称密钥的分发",
+      "sourceLabel": "补充题 22",
+      "sourceType": "原创补充",
+      "sourcePath": "data/supplement-ch7.json",
+      "sourceOrdinal": 22,
+      "hash": "2699d9df964767200e5a21bd30243fca24ff61f23896801609c3da6543aa1c15",
+      "stemHtml": "<p>20个用户分别采用“两两独立共享长期密钥”和“每人仅与KDC共享长期密钥”，分别需多少把？说明KDC引入的信任代价。</p>",
+      "optionsHtml": [],
+      "answerHtml": "<p class=\"ans-key\">参考答案：前者20×19/2=190把，后者20把，不计会话、更新和备份。KDC需保护各用户长期秘密并可靠分配会话密钥；一旦被攻破或不可用，会影响大量用户，需考虑身份认证、访问控制、审计和可用性。</p>",
+      "answer": null,
+      "grading": "self",
+      "noteChapter": 7
+    },
+    {
+      "id": "cn-7-023",
+      "sourceChapter": 7,
+      "sourceSection": "7.5",
+      "sourceHeading": "原创补充 · 公钥的分发",
+      "sourceLabel": "补充题 23",
+      "sourceType": "原创补充",
+      "sourcePath": "data/supplement-ch7.json",
+      "sourceOrdinal": 23,
+      "hash": "9a614f67898f9a2e6d4ed67a1aa68fb774f00ef50e7e45f7f1871df989b2863f",
+      "stemHtml": "<p>Alice收到Bob的证书后，为什么不能只看证书上写着Bob就信任其中公钥？列出应检查的事项。</p>",
+      "optionsHtml": [],
+      "answerHtml": "<p class=\"ans-key\">参考答案：攻击者也可制作任意自签名证书。应构建并验证到可信信任锚的证书路径、签名、有效期、基本约束、密钥用途等，并按应用规则核对目标身份。还应按部署策略处理撤销状态。证书签发者也不必是政府机构，信任来自具体信任模型而不是机构名称。</p>",
+      "answer": null,
+      "grading": "self",
+      "noteChapter": 7
+    },
+    {
+      "id": "cn-7-024",
+      "sourceChapter": 7,
+      "sourceSection": "7.6",
+      "sourceHeading": "原创补充 · IPSec 协议族",
+      "sourceLabel": "补充题 24",
+      "sourceType": "原创补充",
+      "sourcePath": "data/supplement-ch7.json",
+      "sourceOrdinal": 24,
+      "hash": "6dbe4106f00cf780c1ed9519d8388f3ccd1c2fe39ef2bdc4cd7c019eb8c01a1e",
+      "stemHtml": "<p>解释启用ESP加密的隧道模式中，“IP首部不加密”为什么必须区分内层与外层；与运输模式有何区别？</p>",
+      "optionsHtml": [],
+      "answerHtml": "<p class=\"ans-key\">参考答案：隧道模式添加外层IP首部供中间路由器转发，原IP分组作为内层载荷，内层IP首部可随载荷被ESP加密。运输模式通常保留原IP首部，对其后的上层载荷施加ESP保护。因此“IPsec所有IP首部都不加密”错误；是否提供保密性还取决于ESP配置，AH本身不加密。</p>",
+      "answer": null,
+      "grading": "self",
+      "noteChapter": 7
+    }
+  ],
+  "reviews": [
+    {
+      "questionId": "cn-7-001",
+      "sourceContentHash": "bd4c9e8846f79c6ec72197e3b2756e4d4158e4467d15be709c589865e4a1b2b5",
+      "status": "verified",
+      "scoring": "auto",
+      "noteHeading": "安全威胁",
+      "noteChapter": 7,
+      "conclusion": "本站原创补充题，依据本机笔记的主题范围与列出的标准设计；不是王道原题或官方真题。",
+      "reviewedAt": "2026-11-17",
+      "references": [
+        {
+          "id": "rfc4949",
+          "title": "RFC 4949",
+          "url": "https://www.rfc-editor.org/rfc/rfc4949.html"
+        }
+      ]
+    },
+    {
+      "questionId": "cn-7-002",
+      "sourceContentHash": "b111c8328ee9e6d9abc9a0bf189938714078a173b5c5fe3e8df1949791e7664d",
+      "status": "verified",
+      "scoring": "auto",
+      "noteHeading": "安全威胁",
+      "noteChapter": 7,
+      "conclusion": "本站原创补充题，依据本机笔记的主题范围与列出的标准设计；不是王道原题或官方真题。",
+      "reviewedAt": "2026-11-17",
+      "references": [
+        {
+          "id": "rfc4949",
+          "title": "RFC 4949",
+          "url": "https://www.rfc-editor.org/rfc/rfc4949.html"
+        }
+      ]
+    },
+    {
+      "questionId": "cn-7-003",
+      "sourceContentHash": "88404daf61c271f247d6d21257860cf68bfb763c9b593f94f06a9d4b25bfec8e",
+      "status": "verified",
+      "scoring": "auto",
+      "noteHeading": "密码学",
+      "noteChapter": 7,
+      "conclusion": "本站原创补充题，依据本机笔记的主题范围与列出的标准设计；不是王道原题或官方真题。",
+      "reviewedAt": "2026-11-17",
+      "references": [
+        {
+          "id": "rfc4949",
+          "title": "RFC 4949",
+          "url": "https://www.rfc-editor.org/rfc/rfc4949.html"
+        }
+      ]
+    },
+    {
+      "questionId": "cn-7-004",
+      "sourceContentHash": "f9ad0e1743b4d2a43b6c506e31cc1eafd4f61aad629aecd5c794b20a7586c886",
+      "status": "verified",
+      "scoring": "auto",
+      "noteHeading": "对称密钥密码体制",
+      "noteChapter": 7,
+      "conclusion": "本站原创补充题，依据本机笔记的主题范围与列出的标准设计；不是王道原题或官方真题。",
+      "reviewedAt": "2026-11-17",
+      "references": [
+        {
+          "id": "extra",
+          "title": "NIST FIPS 197：AES",
+          "url": "https://csrc.nist.gov/pubs/fips/197/final"
+        }
+      ]
+    },
+    {
+      "questionId": "cn-7-005",
+      "sourceContentHash": "3bd7794d68c480d676e22ff469390b374c27348cda67ff676a98ae7189fd0847",
+      "status": "verified",
+      "scoring": "auto",
+      "noteHeading": "对称密钥密码体制",
+      "noteChapter": 7,
+      "conclusion": "本站原创补充题，依据本机笔记的主题范围与列出的标准设计；不是王道原题或官方真题。",
+      "reviewedAt": "2026-11-17",
+      "references": [
+        {
+          "id": "rfc4949",
+          "title": "RFC 4949",
+          "url": "https://www.rfc-editor.org/rfc/rfc4949.html"
+        }
+      ]
+    },
+    {
+      "questionId": "cn-7-006",
+      "sourceContentHash": "59fcf42f3731d1a2eb019bbd1685f3183b42cd766bfcea9c94bf6c84e067d422",
+      "status": "verified",
+      "scoring": "auto",
+      "noteHeading": "公钥密码体制",
+      "noteChapter": 7,
+      "conclusion": "本站原创补充题，依据本机笔记的主题范围与列出的标准设计；不是王道原题或官方真题。",
+      "reviewedAt": "2026-11-17",
+      "references": [
+        {
+          "id": "rfc4949",
+          "title": "RFC 4949",
+          "url": "https://www.rfc-editor.org/rfc/rfc4949.html"
+        }
+      ]
+    },
+    {
+      "questionId": "cn-7-007",
+      "sourceContentHash": "c7a5eaadef42562fa095ed464e9f85d456f8b1014b06399e34581babf944120c",
+      "status": "verified",
+      "scoring": "auto",
+      "noteHeading": "公钥密码体制",
+      "noteChapter": 7,
+      "conclusion": "本站原创补充题，依据本机笔记的主题范围与列出的标准设计；不是王道原题或官方真题。",
+      "reviewedAt": "2026-11-17",
+      "references": [
+        {
+          "id": "rfc4949",
+          "title": "RFC 4949",
+          "url": "https://www.rfc-editor.org/rfc/rfc4949.html"
+        }
+      ]
+    },
+    {
+      "questionId": "cn-7-008",
+      "sourceContentHash": "c75c0857bf9ca085a5ab573cdeb05036edc4684c2b6496148b154fabe0e28aaa",
+      "status": "verified",
+      "scoring": "auto",
+      "noteHeading": "数字签名",
+      "noteChapter": 7,
+      "conclusion": "本站原创补充题，依据本机笔记的主题范围与列出的标准设计；不是王道原题或官方真题。",
+      "reviewedAt": "2026-11-17",
+      "references": [
+        {
+          "id": "rfc4949",
+          "title": "RFC 4949",
+          "url": "https://www.rfc-editor.org/rfc/rfc4949.html"
+        }
+      ]
+    },
+    {
+      "questionId": "cn-7-009",
+      "sourceContentHash": "fc82213aebea04fa1811f38e17c33e53452b5c04f3a76bd76e8190aacbbe5f64",
+      "status": "verified",
+      "scoring": "auto",
+      "noteHeading": "数字签名",
+      "noteChapter": 7,
+      "conclusion": "本站原创补充题，依据本机笔记的主题范围与列出的标准设计；不是王道原题或官方真题。",
+      "reviewedAt": "2026-11-17",
+      "references": [
+        {
+          "id": "rfc4949",
+          "title": "RFC 4949",
+          "url": "https://www.rfc-editor.org/rfc/rfc4949.html"
+        }
+      ]
+    },
+    {
+      "questionId": "cn-7-010",
+      "sourceContentHash": "f65d7de1b524644b7aeddd3763d9d2993c1bf82eb5cca26b48f28da55c89eaba",
+      "status": "verified",
+      "scoring": "auto",
+      "noteHeading": "数字签名",
+      "noteChapter": 7,
+      "conclusion": "本站原创补充题，依据本机笔记的主题范围与列出的标准设计；不是王道原题或官方真题。",
+      "reviewedAt": "2026-11-17",
+      "references": [
+        {
+          "id": "rfc2104",
+          "title": "RFC 2104",
+          "url": "https://www.rfc-editor.org/rfc/rfc2104.html"
+        }
+      ]
+    },
+    {
+      "questionId": "cn-7-011",
+      "sourceContentHash": "f6c8e9a31c95a200b1de7498dcd913396ea3f5640f3e864def487fe8754135d5",
+      "status": "verified",
+      "scoring": "auto",
+      "noteHeading": "实体识别",
+      "noteChapter": 7,
+      "conclusion": "本站原创补充题，依据本机笔记的主题范围与列出的标准设计；不是王道原题或官方真题。",
+      "reviewedAt": "2026-11-17",
+      "references": [
+        {
+          "id": "rfc4949",
+          "title": "RFC 4949",
+          "url": "https://www.rfc-editor.org/rfc/rfc4949.html"
+        }
+      ]
+    },
+    {
+      "questionId": "cn-7-012",
+      "sourceContentHash": "7c54098ee5f415582f522918270a7edb6161cc67bca11faa92e3284d7231e487",
+      "status": "verified",
+      "scoring": "auto",
+      "noteHeading": "实体识别",
+      "noteChapter": 7,
+      "conclusion": "本站原创补充题，依据本机笔记的主题范围与列出的标准设计；不是王道原题或官方真题。",
+      "reviewedAt": "2026-11-17",
+      "references": [
+        {
+          "id": "rfc2104",
+          "title": "RFC 2104",
+          "url": "https://www.rfc-editor.org/rfc/rfc2104.html"
+        }
+      ]
+    },
+    {
+      "questionId": "cn-7-013",
+      "sourceContentHash": "9f4b72c752cfbc650e84f368b226f1e847f4f455294910c1b8b9e077d9644780",
+      "status": "verified",
+      "scoring": "auto",
+      "noteHeading": "对称密钥的分发",
+      "noteChapter": 7,
+      "conclusion": "本站原创补充题，依据本机笔记的主题范围与列出的标准设计；不是王道原题或官方真题。",
+      "reviewedAt": "2026-11-17",
+      "references": []
+    },
+    {
+      "questionId": "cn-7-014",
+      "sourceContentHash": "ff2c16b039ed8035fc034632f228691b7085420414c3b557ceeefdc4d8fd8c3e",
+      "status": "verified",
+      "scoring": "auto",
+      "noteHeading": "对称密钥的分发",
+      "noteChapter": 7,
+      "conclusion": "本站原创补充题，依据本机笔记的主题范围与列出的标准设计；不是王道原题或官方真题。",
+      "reviewedAt": "2026-11-17",
+      "references": [
+        {
+          "id": "rfc4949",
+          "title": "RFC 4949",
+          "url": "https://www.rfc-editor.org/rfc/rfc4949.html"
+        }
+      ]
+    },
+    {
+      "questionId": "cn-7-015",
+      "sourceContentHash": "abb5fdd9c3702f3563d9ba7a7ec70261e3c0353cdb4368554d8cc10d4804970d",
+      "status": "verified",
+      "scoring": "auto",
+      "noteHeading": "公钥的分发",
+      "noteChapter": 7,
+      "conclusion": "本站原创补充题，依据本机笔记的主题范围与列出的标准设计；不是王道原题或官方真题。",
+      "reviewedAt": "2026-11-17",
+      "references": [
+        {
+          "id": "rfc5280",
+          "title": "RFC 5280",
+          "url": "https://www.rfc-editor.org/rfc/rfc5280.html"
+        }
+      ]
+    },
+    {
+      "questionId": "cn-7-016",
+      "sourceContentHash": "93162c67407600b21911946485703ac3ab55c4103aa66303997034eed4cd9edb",
+      "status": "verified",
+      "scoring": "auto",
+      "noteHeading": "公钥的分发",
+      "noteChapter": 7,
+      "conclusion": "本站原创补充题，依据本机笔记的主题范围与列出的标准设计；不是王道原题或官方真题。",
+      "reviewedAt": "2026-11-17",
+      "references": [
+        {
+          "id": "rfc5280",
+          "title": "RFC 5280",
+          "url": "https://www.rfc-editor.org/rfc/rfc5280.html"
+        }
+      ]
+    },
+    {
+      "questionId": "cn-7-017",
+      "sourceContentHash": "c4c763808f2d4bbaaf33a931276e78ac430bcf0b8b1c3098c855bd1adf513dfa",
+      "status": "verified",
+      "scoring": "auto",
+      "noteHeading": "IPSec 协议族",
+      "noteChapter": 7,
+      "conclusion": "本站原创补充题，依据本机笔记的主题范围与列出的标准设计；不是王道原题或官方真题。",
+      "reviewedAt": "2026-11-17",
+      "references": [
+        {
+          "id": "rfc4301",
+          "title": "RFC 4301",
+          "url": "https://www.rfc-editor.org/rfc/rfc4301.html"
+        }
+      ]
+    },
+    {
+      "questionId": "cn-7-018",
+      "sourceContentHash": "2daf636bdfe1d4630002e958bdaba8bbdc5961d5a99b5dd7e55f6d028d3970e1",
+      "status": "verified",
+      "scoring": "auto",
+      "noteHeading": "IPSec 协议族",
+      "noteChapter": 7,
+      "conclusion": "本站原创补充题，依据本机笔记的主题范围与列出的标准设计；不是王道原题或官方真题。",
+      "reviewedAt": "2026-11-17",
+      "references": [
+        {
+          "id": "rfc4301",
+          "title": "RFC 4301",
+          "url": "https://www.rfc-editor.org/rfc/rfc4301.html"
+        }
+      ]
+    },
+    {
+      "questionId": "cn-7-019",
+      "sourceContentHash": "8a434c5236ca14691ef9cea7cda1382172e425d46faf862726244df857ac3641",
+      "status": "verified",
+      "scoring": "self",
+      "noteHeading": "安全威胁",
+      "noteChapter": 7,
+      "conclusion": "本站原创补充题，依据本机笔记的主题范围与列出的标准设计；不是王道原题或官方真题。",
+      "reviewedAt": "2026-11-17",
+      "references": [
+        {
+          "id": "rfc4949",
+          "title": "RFC 4949",
+          "url": "https://www.rfc-editor.org/rfc/rfc4949.html"
+        }
+      ]
+    },
+    {
+      "questionId": "cn-7-020",
+      "sourceContentHash": "cffc1af00d44a30a6eeae313d270ab9317cfd5d4d971de4ec1565d2e0fb2d2ef",
+      "status": "verified",
+      "scoring": "self",
+      "noteHeading": "数字签名",
+      "noteChapter": 7,
+      "conclusion": "本站原创补充题，依据本机笔记的主题范围与列出的标准设计；不是王道原题或官方真题。",
+      "reviewedAt": "2026-11-17",
+      "references": [
+        {
+          "id": "rfc2104",
+          "title": "RFC 2104",
+          "url": "https://www.rfc-editor.org/rfc/rfc2104.html"
+        },
+        {
+          "id": "rfc4949",
+          "title": "RFC 4949",
+          "url": "https://www.rfc-editor.org/rfc/rfc4949.html"
+        }
+      ]
+    },
+    {
+      "questionId": "cn-7-021",
+      "sourceContentHash": "d4e678650d1bf4c3c0b5d8fb9e819839acb289fc2d74060d5b2836c095bd9c84",
+      "status": "verified",
+      "scoring": "self",
+      "noteHeading": "实体识别",
+      "noteChapter": 7,
+      "conclusion": "本站原创补充题，依据本机笔记的主题范围与列出的标准设计；不是王道原题或官方真题。",
+      "reviewedAt": "2026-11-17",
+      "references": [
+        {
+          "id": "rfc2104",
+          "title": "RFC 2104",
+          "url": "https://www.rfc-editor.org/rfc/rfc2104.html"
+        },
+        {
+          "id": "rfc4949",
+          "title": "RFC 4949",
+          "url": "https://www.rfc-editor.org/rfc/rfc4949.html"
+        }
+      ]
+    },
+    {
+      "questionId": "cn-7-022",
+      "sourceContentHash": "2699d9df964767200e5a21bd30243fca24ff61f23896801609c3da6543aa1c15",
+      "status": "verified",
+      "scoring": "self",
+      "noteHeading": "对称密钥的分发",
+      "noteChapter": 7,
+      "conclusion": "本站原创补充题，依据本机笔记的主题范围与列出的标准设计；不是王道原题或官方真题。",
+      "reviewedAt": "2026-11-17",
+      "references": [
+        {
+          "id": "rfc4949",
+          "title": "RFC 4949",
+          "url": "https://www.rfc-editor.org/rfc/rfc4949.html"
+        }
+      ]
+    },
+    {
+      "questionId": "cn-7-023",
+      "sourceContentHash": "9a614f67898f9a2e6d4ed67a1aa68fb774f00ef50e7e45f7f1871df989b2863f",
+      "status": "verified",
+      "scoring": "self",
+      "noteHeading": "公钥的分发",
+      "noteChapter": 7,
+      "conclusion": "本站原创补充题，依据本机笔记的主题范围与列出的标准设计；不是王道原题或官方真题。",
+      "reviewedAt": "2026-11-17",
+      "references": [
+        {
+          "id": "rfc5280",
+          "title": "RFC 5280",
+          "url": "https://www.rfc-editor.org/rfc/rfc5280.html"
+        }
+      ]
+    },
+    {
+      "questionId": "cn-7-024",
+      "sourceContentHash": "6dbe4106f00cf780c1ed9519d8388f3ccd1c2fe39ef2bdc4cd7c019eb8c01a1e",
+      "status": "verified",
+      "scoring": "self",
+      "noteHeading": "IPSec 协议族",
+      "noteChapter": 7,
+      "conclusion": "本站原创补充题，依据本机笔记的主题范围与列出的标准设计；不是王道原题或官方真题。",
+      "reviewedAt": "2026-11-17",
+      "references": [
+        {
+          "id": "rfc4301",
+          "title": "RFC 4301",
+          "url": "https://www.rfc-editor.org/rfc/rfc4301.html"
+        }
+      ]
+    }
+  ],
+  "mappings": [
+    {
+      "questionId": "cn-7-001",
+      "sourceContentHash": "bd4c9e8846f79c6ec72197e3b2756e4d4158e4467d15be709c589865e4a1b2b5",
+      "primaryTopic": "安全威胁"
+    },
+    {
+      "questionId": "cn-7-002",
+      "sourceContentHash": "b111c8328ee9e6d9abc9a0bf189938714078a173b5c5fe3e8df1949791e7664d",
+      "primaryTopic": "安全威胁"
+    },
+    {
+      "questionId": "cn-7-003",
+      "sourceContentHash": "88404daf61c271f247d6d21257860cf68bfb763c9b593f94f06a9d4b25bfec8e",
+      "primaryTopic": "密码学"
+    },
+    {
+      "questionId": "cn-7-004",
+      "sourceContentHash": "f9ad0e1743b4d2a43b6c506e31cc1eafd4f61aad629aecd5c794b20a7586c886",
+      "primaryTopic": "对称密钥密码体制"
+    },
+    {
+      "questionId": "cn-7-005",
+      "sourceContentHash": "3bd7794d68c480d676e22ff469390b374c27348cda67ff676a98ae7189fd0847",
+      "primaryTopic": "对称密钥密码体制"
+    },
+    {
+      "questionId": "cn-7-006",
+      "sourceContentHash": "59fcf42f3731d1a2eb019bbd1685f3183b42cd766bfcea9c94bf6c84e067d422",
+      "primaryTopic": "公钥密码体制"
+    },
+    {
+      "questionId": "cn-7-007",
+      "sourceContentHash": "c7a5eaadef42562fa095ed464e9f85d456f8b1014b06399e34581babf944120c",
+      "primaryTopic": "公钥密码体制"
+    },
+    {
+      "questionId": "cn-7-008",
+      "sourceContentHash": "c75c0857bf9ca085a5ab573cdeb05036edc4684c2b6496148b154fabe0e28aaa",
+      "primaryTopic": "数字签名"
+    },
+    {
+      "questionId": "cn-7-009",
+      "sourceContentHash": "fc82213aebea04fa1811f38e17c33e53452b5c04f3a76bd76e8190aacbbe5f64",
+      "primaryTopic": "数字签名"
+    },
+    {
+      "questionId": "cn-7-010",
+      "sourceContentHash": "f65d7de1b524644b7aeddd3763d9d2993c1bf82eb5cca26b48f28da55c89eaba",
+      "primaryTopic": "数字签名"
+    },
+    {
+      "questionId": "cn-7-011",
+      "sourceContentHash": "f6c8e9a31c95a200b1de7498dcd913396ea3f5640f3e864def487fe8754135d5",
+      "primaryTopic": "实体识别"
+    },
+    {
+      "questionId": "cn-7-012",
+      "sourceContentHash": "7c54098ee5f415582f522918270a7edb6161cc67bca11faa92e3284d7231e487",
+      "primaryTopic": "实体识别"
+    },
+    {
+      "questionId": "cn-7-013",
+      "sourceContentHash": "9f4b72c752cfbc650e84f368b226f1e847f4f455294910c1b8b9e077d9644780",
+      "primaryTopic": "对称密钥的分发"
+    },
+    {
+      "questionId": "cn-7-014",
+      "sourceContentHash": "ff2c16b039ed8035fc034632f228691b7085420414c3b557ceeefdc4d8fd8c3e",
+      "primaryTopic": "对称密钥的分发"
+    },
+    {
+      "questionId": "cn-7-015",
+      "sourceContentHash": "abb5fdd9c3702f3563d9ba7a7ec70261e3c0353cdb4368554d8cc10d4804970d",
+      "primaryTopic": "公钥的分发"
+    },
+    {
+      "questionId": "cn-7-016",
+      "sourceContentHash": "93162c67407600b21911946485703ac3ab55c4103aa66303997034eed4cd9edb",
+      "primaryTopic": "公钥的分发"
+    },
+    {
+      "questionId": "cn-7-017",
+      "sourceContentHash": "c4c763808f2d4bbaaf33a931276e78ac430bcf0b8b1c3098c855bd1adf513dfa",
+      "primaryTopic": "IPSec 协议族"
+    },
+    {
+      "questionId": "cn-7-018",
+      "sourceContentHash": "2daf636bdfe1d4630002e958bdaba8bbdc5961d5a99b5dd7e55f6d028d3970e1",
+      "primaryTopic": "IPSec 协议族"
+    },
+    {
+      "questionId": "cn-7-019",
+      "sourceContentHash": "8a434c5236ca14691ef9cea7cda1382172e425d46faf862726244df857ac3641",
+      "primaryTopic": "安全威胁"
+    },
+    {
+      "questionId": "cn-7-020",
+      "sourceContentHash": "cffc1af00d44a30a6eeae313d270ab9317cfd5d4d971de4ec1565d2e0fb2d2ef",
+      "primaryTopic": "数字签名"
+    },
+    {
+      "questionId": "cn-7-021",
+      "sourceContentHash": "d4e678650d1bf4c3c0b5d8fb9e819839acb289fc2d74060d5b2836c095bd9c84",
+      "primaryTopic": "实体识别"
+    },
+    {
+      "questionId": "cn-7-022",
+      "sourceContentHash": "2699d9df964767200e5a21bd30243fca24ff61f23896801609c3da6543aa1c15",
+      "primaryTopic": "对称密钥的分发"
+    },
+    {
+      "questionId": "cn-7-023",
+      "sourceContentHash": "9a614f67898f9a2e6d4ed67a1aa68fb774f00ef50e7e45f7f1871df989b2863f",
+      "primaryTopic": "公钥的分发"
+    },
+    {
+      "questionId": "cn-7-024",
+      "sourceContentHash": "6dbe4106f00cf780c1ed9519d8388f3ccd1c2fe39ef2bdc4cd7c019eb8c01a1e",
+      "primaryTopic": "IPSec 协议族"
+    }
+  ]
+}
