@@ -99,7 +99,7 @@
   function review(q) { const r = byReview.get(q.id); return r?.sourceContentHash === q.hash ? r : null; }
   function scoring(q) { return review(q)?.scoring || q.grading; }
   function status(q) {
-    if (review(q)?.status === 'disputed') return '待核对';
+    if (review(q)?.status === 'disputed') return '答案有争议';
     const r = last(q);
     if (!r || r.hash !== q.hash) return '未作答';
     return (r.answer === 'self-right' || r.answer === q.answer) ? '正确' : '错题';
@@ -121,7 +121,7 @@
     if (st === 'wrong' && status(q) !== '错题') return false;
     if (st === 'unanswered' && status(q) !== '未作答') return false;
     if (st === 'starred' && !state.stars[q.id]) return false;
-    if (st === 'disputed' && status(q) !== '待核对') return false;
+    if (st === 'disputed' && status(q) !== '答案有争议') return false;
     if (term && !(`${q.id} ${q.sourceLabel} ${q.sourceHeading} ${strip(q.stemHtml)} ${q.optionsHtml.map(strip).join(' ')}`).toLowerCase().includes(term)) return false;
     return true;
   }
@@ -131,9 +131,10 @@
     if (!current) current = visible[0]?.id || null;
     $('#list-count').textContent = `${visible.length} 题`;
     $('#question-list').innerHTML = visible.length ? visible.map(q => {
-      const st = status(q), cls = st === '正确' ? 'correct' : st === '错题' ? 'wrong' : '';
+      const st = status(q), cls = st === '正确' ? 'correct' : st === '错题' ? 'wrong' : st === '答案有争议' ? 'disputed' : '';
+      const symbol = st === '正确' ? '✓' : st === '错题' ? '✕' : st === '答案有争议' ? '!' : '—';
       const excerpt = strip(q.stemHtml).replace(/\s+/g,' ').slice(0,65);
-      return `<button type="button" class="q-row ${current === q.id ? 'active' : ''}" data-id="${q.id}" role="listitem"><span class="row-top"><span>${esc(q.sourceLabel)} ${state.stars[q.id] ? '★' : ''}</span><span class="row-status ${cls}">${st}</span></span><span class="excerpt">${esc(excerpt)}</span></button>`;
+      return `<button type="button" class="q-row ${current === q.id ? 'active' : ''}" data-id="${q.id}" role="listitem"><span class="row-top"><span>${esc(q.sourceLabel)} ${state.stars[q.id] ? '★' : ''}</span><span class="row-status ${cls}" role="img" aria-label="${esc(st)}" title="${esc(st)}"><span aria-hidden="true">${symbol}</span></span></span><span class="excerpt">${esc(excerpt)}</span></button>`;
     }).join('') : '<div class="empty">当前筛选没有题目。</div>';
     $('#question-list').querySelectorAll('button[data-id]').forEach(b => b.onclick = () => selectQuestion(b.dataset.id));
     const url = new URL(location.href);
@@ -169,12 +170,12 @@
       }).join('')}</div>`;
     } else if (q.optionsHtml.length) options = `<div class="options">${q.optionsHtml.map(o => `<div class="option">${o}</div>`).join('')}</div>`;
     const idx = visible.findIndex(x => x.id === q.id);
-    const reviewLabel = rv ? ({verified:rv.recheckId ? '复核确认' : '已逐题审核', qualified:'附前提', corrected:'已勘误', disputed:'答案待核对'}[rv.status]) : '未独立审核';
+    const reviewLabel = rv ? ({verified:rv.recheckId ? '复核确认' : '已逐题审核', qualified:'附前提', corrected:'已勘误', disputed:'答案有争议'}[rv.status]) : '未独立审核';
     const referenceLinks = rv?.references?.length ? `<div class="review-references">核查依据：${rv.references.map(ref => `<a href="${esc(ref.url)}" target="_blank" rel="noopener noreferrer">${esc(ref.title)} ↗</a>`).join('')}</div>` : '';
     const reviewPanel = rv ? `<div class="review-note"><strong>本项目审核：${reviewLabel}${rv.recheckId ? ` · ${esc(rv.reviewedAt)}` : ''}</strong>${rv.answerLabel ? `<h3>复核答案：${esc(rv.answerLabel)}</h3>` : ''}<p>${esc(rv.conclusion)}</p>${referenceLinks}</div>` : '<p class="unreviewed">本题尚未在本项目逐题审核；判分只按来源给出的答案。</p>';
     const answerTitle = q.sourceChapter === 7 ? '本站原创参考答案与解析' : '原来源答案与解析';
     const topicLabel = mp?.primaryTopic ? `笔记：${mp.primaryTopic}` : mp?.topicCandidates?.length ? `候选考点：${mp.topicCandidates.join('、')}` : '笔记中未找到明确小节';
-    card.innerHTML = `<div class="question-meta"><span class="pill">${esc(q.sourceLabel)}</span>${q.sourceChapter === 7 ? '<span class="pill">本站原创补充</span>' : ''}<span class="pill muted">${disputed ? '争议 · 不计分' : rv?.status === 'corrected' ? '勘误参考答案 · 自评' : mode === 'auto' ? '单选 · 参考答案判分' : '综合／特殊 · 自评'}</span><span class="pill muted">${reviewLabel}</span></div>
+    card.innerHTML = `<div class="question-meta"><span class="pill">${esc(q.sourceLabel)}</span>${q.sourceChapter === 7 ? '<span class="pill">本站原创补充</span>' : ''}<span class="pill muted">${disputed ? '争议 · 不计分' : rv?.status === 'corrected' ? '勘误参考答案 · 自评' : mode === 'auto' ? '单选 · 参考答案判分' : '综合／特殊 · 自评'}</span>${rv?.status === 'qualified' || rv?.status === 'corrected' ? `<span class="pill muted">${reviewLabel}</span>` : ''}</div>
       <h2>${esc(q.sourceHeading || '章末习题')}</h2><div class="source-note">题目 ID：${q.id} · 来源第 ${q.sourceChapter} 章 / ${esc(q.sourceSection)} · ${esc(topicLabel)}</div>
       <div class="stem">${q.stemHtml}</div>${options}
       ${mode === 'self' && !disputed ? `<label class="draft-label">我的思路或答案草稿<textarea id="draft" rows="5" placeholder="先写下解题过程，再查看参考解答">${esc(state.drafts[q.id] || '')}</textarea></label>` : ''}
@@ -208,13 +209,12 @@
     const done = inChapter.filter(q => ['正确','错题'].includes(status(q))).length;
     $('#stat-total').textContent = questions.length;
     const disputed = inChapter.filter(q => review(q)?.status === 'disputed').length;
-    $('#stat-progress').textContent = `本章已作答 ${done}/${inChapter.length-disputed}${disputed ? ` · ${disputed} 题待核对` : ''}`;
+    $('#stat-progress').textContent = `本章已作答 ${done}/${inChapter.length-disputed}${disputed ? ` · ${disputed} 题答案有争议（不计分）` : ''}`;
   }
   function render() {
     renderChapters();
     renderSections();
     $('#page-title').textContent = `第 ${chapter} 章 · ${CHAPTERS[chapter-1]}`;
-    $('#page-description').textContent = chapter === 7 ? '本章为本站原创补充题，含答案与解析；覆盖网络安全笔记主题，不是王道原题或官方真题。' : '按实际笔记章节练习。来源题目保留原题号；学习进度由你自行标记。';
     $('#btn-study').textContent = state.studied[chapter] ? '✓ 已标为已学' : '标为已学';
     const note = notes.find(n => n.chapter === chapter);
     const link = $('#note-link');
@@ -222,7 +222,7 @@
     else link.hidden = true;
     const inChapter = questions.filter(q => q.noteChapter === chapter);
     const counts = inChapter.reduce((acc,q) => { const s=review(q)?.status; if(s) acc[s]=(acc[s]||0)+1; return acc; },{});
-    $('#scope-info').textContent = note ? `笔记：${note.name} · ${inChapter.length ? `本章审核 ${inChapter.length} 题：${counts.verified||0} 题结论成立 / ${counts.qualified||0} 题附前提 / ${counts.corrected||0} 题已勘误 / ${counts.disputed||0} 题待核对` : '本章暂无来源习题'}` : '未找到对应笔记';
+    $('#scope-info').textContent = note ? `笔记：${note.name} · ${inChapter.length ? `本章审核 ${inChapter.length} 题：${counts.verified||0} 题结论成立 / ${counts.qualified||0} 题附前提 / ${counts.corrected||0} 题已勘误 / ${counts.disputed||0} 题答案有争议` : '本章暂无来源习题'}` : '未找到对应笔记';
     updateProgress(); renderList(); renderQuestion();
   }
   function exportData() {

@@ -5,18 +5,18 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="light">
   <title>CN 练习站</title>
-  <link rel="stylesheet" href="style.css?v=20261117-sync1">
+  <link rel="stylesheet" href="style.css?v=20261117-ui2">
   <link rel="stylesheet" href="../vendor/kaoyan-408-networks/assets/katex/katex.min.css">
   <script defer src="../vendor/kaoyan-408-networks/assets/katex/katex.min.js"></script>
   <script defer src="../vendor/kaoyan-408-networks/assets/katex/contrib/auto-render.min.js"></script>
-  <script defer src="state.js?v=20261117-sync1"></script>
-  <script defer src="sync.js?v=20261117-sync1"></script>
-  <script defer src="app.js?v=20261117-sync1"></script>
+  <script defer src="state.js?v=20261117-ui2"></script>
+  <script defer src="sync.js?v=20261117-ui2"></script>
+  <script defer src="app.js?v=20261117-ui2"></script>
 </head>
 <body>
   <header class="topbar">
     <a class="brand" href="./index.html"><span class="brand-mark">CN</span><span>计算机网络练习站<small>课程笔记 × 王道题库</small></span></a>
-    <div class="top-actions"><button id="btn-sync" type="button">设备同步</button><button id="btn-export" type="button">导出记录</button><label class="import">导入记录<input id="file-import" type="file" accept="application/json,.json"></label></div>
+    <div class="top-actions"><button id="btn-sync" type="button">设备同步</button></div>
   </header>
   <dialog id="sync-dialog" class="sync-dialog">
     <form id="sync-form">
@@ -29,6 +29,7 @@
       <p id="sync-status" role="status">此设备尚未连接</p>
       <div class="sync-actions"><button type="submit" class="primary">连接并同步</button><button id="sync-disconnect" type="button">断开此设备</button></div>
       <p class="sync-help">不勾选记住时，连接仅保留在当前标签页会话；断开不会删除本机或云端记录。同步数据不包含令牌。</p>
+      <details class="backup-tools"><summary>备份与恢复</summary><p class="sync-help">用于额外备份或恢复记录，正常跨设备使用自动同步即可。</p><button id="btn-export" type="button">下载记录备份</button><label class="import">从备份恢复<input id="file-import" type="file" accept="application/json,.json"></label></details>
     </form>
   </dialog>
   <div id="storage-warning" class="storage-warning" hidden></div>
@@ -40,11 +41,11 @@
     </aside>
     <main>
       <section class="hero">
-        <div><div class="eyebrow">计算机网络 / 408 题库</div><h1 id="page-title">计算机网络，按章练习</h1><p id="page-description">选择章节开始。来源章节和 Obsidian 笔记分别标记，答题记录只保存在此浏览器。</p></div>
+        <div><div class="eyebrow">计算机网络 / 408 题库</div><h1 id="page-title">计算机网络，按章练习</h1></div>
         <div class="hero-stat"><strong id="stat-total">—</strong><span>题目（含原创补充）</span><small id="stat-progress">读取中</small></div>
       </section>
       <section class="toolbar" aria-label="题目筛选">
-        <div class="filter-row"><label>范围<select id="filter-status"><option value="all">全部题目</option><option value="wrong">错题回顾</option><option value="unanswered">未作答</option><option value="starred">已收藏</option><option value="disputed">待核对</option></select></label><label>题型<select id="filter-type"><option value="all">全部题型</option><option value="auto">单选自动判分</option><option value="self">综合／特殊题自评</option></select></label><label>来源小节<select id="filter-section"><option value="all">全部小节</option></select></label><label class="search">搜索题干或题号<input id="search" type="search" placeholder="例如 TCP、综合题 2"></label></div>
+        <div class="filter-row"><label>范围<select id="filter-status"><option value="all">全部题目</option><option value="wrong">错题回顾</option><option value="unanswered">未作答</option><option value="starred">已收藏</option><option value="disputed">答案有争议</option></select></label><label>题型<select id="filter-type"><option value="all">全部题型</option><option value="auto">单选自动判分</option><option value="self">综合／特殊题自评</option></select></label><label>来源小节<select id="filter-section"><option value="all">全部小节</option></select></label><label class="search">搜索题干或题号<input id="search" type="search" placeholder="例如 TCP、综合题 2"></label></div>
         <div class="review-filter"><label>审核结论<select id="filter-review"><option value="all">全部审核结论</option><option value="verified">结论成立</option><option value="qualified">附前提／解析提示</option><option value="corrected">已勘误 · 参考答案自评</option><option value="disputed">有争议 · 不计分</option></select></label><a href="../docs/48道争议题重点复核.md" target="_blank" rel="noopener">查看48题复核记录 ↗</a></div>
         <div class="toolbar-bottom"><div id="scope-info" class="scope-info"></div><div class="toolbar-buttons"><button id="btn-study" type="button">标为已学</button><a id="note-link" href="#" target="_blank" rel="noopener">打开 Obsidian 笔记 ↗</a></div></div>
       </section>
